@@ -14,13 +14,19 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
 
-      - run: yarn install
+      - run: 
+          name: Install Dependancies
+          command: yarn install
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
         
-      - run: yarn build
+      - run: 
+          name: Build
+          command: yarn build
 
-      - run: yarn firebase-tools deploy --token "${FIREBASE_TOKEN}"
+      - run: 
+          name: Deploy
+          command: yarn firebase deploy --token "${FIREBASE_TOKEN}"
