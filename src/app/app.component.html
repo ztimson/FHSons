@@ -6,24 +6,28 @@
     <table class="table">
       <thead>
         <tr>
-            <td>Name</td>
-            <td>Quantity</td>
-            <td>Cost</td>
+          <td>Name</td>
+          <td>Quantity</td>
+          <td>Cost</td>
         </tr>
       </thead>
       <tbody>
-          <tr *ngFor="let c of formula.components">
-            <td>{{(c.component | async)?.name}}</td>
-            <td>{{c.quantity | scale: formula.total : newTotal | convertFromG: unit}}</td>
-            <td>{{(c.component | async)?.cost | currency}}</td>
+        <tr *ngFor="let c of formula.components">
+          <td>{{(c.component | async)?.name}}</td>
+          <td>{{c.quantity | scale: formula.total : _newTotal | convertFromG: unit}} {{unit}}</td>
+          <td>{{(c.component | async)?.cost | currency}}</td>
       </tbody>
     </table>
-    <input type="number" [(ngModel)]="newTotal">
-    <select [(ngModel)]="unit">
-        <option>g</option>
-        <option>oz</option>
-        <option>kg</option>
-        <option>lb</option>
-    </select>
+    <mat-form-field style="width: 75px">
+      <input matInput type="number" placeholder="Yield" [(ngModel)]="newTotal">
+    </mat-form-field>
+    <mat-form-field style="width: 40px">
+      <mat-select placeholder="Unit" [(ngModel)]="unit">
+        <mat-option value="g">g</mat-option>
+        <mat-option value="oz">oz</mat-option>
+        <mat-option value="kg">kg</mat-option>
+        <mat-option value="lb">lb</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 </div>
