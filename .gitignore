@@ -1,6 +1,7 @@
 .DS_STORE
 
 /dist/
+/public/
 bazel-*
 e2e_test.*
 node_modules
