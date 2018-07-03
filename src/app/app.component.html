@@ -1,33 +1,93 @@
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand roboto" [routerLink]="['/']">
+            fh
+            <span class="rainbow">&</span> sons
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/about']">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/store']">Store</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/formulaManager']">Formula Manager</a>
+                </li>
+            </ul>
+            <button mat-stroked-button class="ml-auto" color="primary" data-toggle="modal" data-target="#loginModal">Login</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Content -->
 <div>
-  <div *ngFor="let f of formulas | async">
-    <button (click)="displayFormula(f)">{{f.name}}</button>
-  </div>
-  <div *ngIf="formula">
-    <table class="table">
-      <thead>
-        <tr>
-          <td>Name</td>
-          <td>Quantity</td>
-          <td>Cost</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let c of formula.components">
-          <td>{{(c.component | async)?.name}}</td>
-          <td>{{c.quantity | scale: formula.total : _newTotal | convertFromG: unit}} {{unit}}</td>
-          <td>{{(c.component | async)?.cost | currency}}</td>
-      </tbody>
-    </table>
-    <mat-form-field style="width: 75px">
-      <input matInput type="number" placeholder="Yield" [(ngModel)]="newTotal">
-    </mat-form-field>
-    <mat-form-field style="width: 40px">
-      <mat-select placeholder="Unit" [(ngModel)]="unit">
-        <mat-option value="g">g</mat-option>
-        <mat-option value="oz">oz</mat-option>
-        <mat-option value="kg">kg</mat-option>
-        <mat-option value="lb">lb</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <div style="height: 56px"></div>
+    <router-outlet></router-outlet>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container-fluid bg-light">
+        <div class="container">
+            <div class="d-inline-block py-3">
+                <div class="d-inline-block mr-5">
+                    <h5>MAIN MENU</h5>
+                    <ul style="padding-left: 20px;">
+                        <li>
+                            <a [routerLink]="['/about']">About</a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/store']">Store</a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/formulaManager']">Formula Manager</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="d-inline-block mx-5">
+                    <h5>PRODUCTS</h5>
+                </div>
+                <div class="d-inline-block ml-5">
+                    <h5>REVIEWS</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid bg-white">
+        <div class="container text-center">
+            <p class="mb-0 p-2">© 2018 fh & sons. Created By
+                <a href="http://zakscode.com">Zak Timson</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="incorrectAlert" class="alert alert-danger collapse" role="alert">Username or password is incorrect.</div>
+                <input id="username" class="form-control mb-3" placeholder="Username">
+                <input id="password" class="form-control" type="password" placeholder="Password">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="loginBtn" type="button" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
 </div>

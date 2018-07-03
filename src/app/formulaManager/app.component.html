@@ -1,0 +1,52 @@
+<mat-drawer-container class="h-100">
+    <mat-drawer mode="push" [opened]="true" style="width: 400px">
+        <mat-list>
+            <ng-container *ngFor="let f of formulas | async; let i = index">
+                <mat-divider *ngIf="i > 0"></mat-divider>
+                <mat-list-item (click)="displayFormula(f)">{{f.name}}</mat-list-item>
+            </ng-container>
+        </mat-list>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div *ngIf="formula">
+            <table class="w-100 table">
+                <thead>
+                    <tr>
+                        <td style="width: 10%">Name</td>
+                        <td style="width: 10%">Quantity</td>
+                        <td style="width: 10%">Cost</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let c of formula.components">
+                        <td style="width: 80%">{{c.component?.name}}</td>
+                        <td style="width: 10%">{{c.quantity | scale: formula.total : _newTotal | convertFromG: unit}} {{unit}}</td>
+                        <td style="width: 10%">{{c.quantity | scale: formula.total : _newTotal / 1000 * c.component.cost | currency}}</td>
+                </tbody>
+            </table>
+            <table class="w-100 mt-5">
+                <tr>
+                    <td style="width: 80%"></td>
+                    <td style="width: 10%">
+                        <mat-form-field style="width: 75px">
+                            <input matInput type="number" placeholder="Yield" [(ngModel)]="newTotal">
+                        </mat-form-field>
+                        <mat-form-field style="width: 40px">
+                            <mat-select placeholder="Unit" [(ngModel)]="unit">
+                                <mat-option value="g">g</mat-option>
+                                <mat-option value="oz">oz</mat-option>
+                                <mat-option value="kg">kg</mat-option>
+                                <mat-option value="lb">lb</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td style="width: 10%">
+                        <mat-form-field>
+                            <input matInput placeholder="Cost" [value]="cost() | currency" [readonly]="true">
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

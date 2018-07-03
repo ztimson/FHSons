@@ -1,1 +1,23 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import url('https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.rainbow {
+  background: linear-gradient(to top, black, black, yellow, magenta, blue, blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.roboto {
+  font-family: 'Roboto Condensed', sans-serif;
+}

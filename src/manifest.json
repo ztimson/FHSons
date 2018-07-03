@@ -1,0 +1,16 @@
+{
+  "name": "fh & sons",
+  "short_name": "fh & sons",
+  "theme_color": "#f8f9fa",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "assets/img/logo.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ]
+}
