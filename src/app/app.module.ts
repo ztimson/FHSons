@@ -11,10 +11,11 @@ import {ConvertFromGPipe, ConvertToGPipe} from './formulaManager/units.pipe';
 import {ScalePipe} from './formulaManager/scale.pipe';
 import {AngularMaterialModule} from './material.module';
 import {HomeComponent} from './home/home.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {FormulaManagerComponent} from './formulaManager/formulaManager.component';
 
 @NgModule({
-  declarations: [AppComponent, ConvertFromGPipe, ConvertToGPipe, HomeComponent, ScalePipe],
+  declarations: [AppComponent, ConvertFromGPipe, ConvertToGPipe, FormulaManagerComponent, HomeComponent, ScalePipe],
   imports: [
     AngularMaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -23,8 +24,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([{path: '**', component: HomeComponent}]),
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    RouterModule.forRoot([
+      {path: 'formulaManager', component: FormulaManagerComponent},
+      {path: '**', component: HomeComponent}
+    ]),
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [],
   bootstrap: [AppComponent]

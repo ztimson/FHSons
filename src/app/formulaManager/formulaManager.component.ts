@@ -1,14 +1,12 @@
 import {Component, ElementRef, ViewChildren} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {share} from 'rxjs/operators';
 import {ConvertFromGPipe, ConvertToGPipe} from './units.pipe';
 
 @Component({
   selector: 'formula-manager',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './formulaManager.component.html'
 })
-export class AppComponent {
+export class FormulaManagerComponent {
   @ViewChildren('cost') componentCosts: ElementRef[];
 
   formulas;
