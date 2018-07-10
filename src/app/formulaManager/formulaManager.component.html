@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="jumbotron mt-3">
+    <div *ngIf="!electron.isElectronApp" class="jumbotron mt-3">
         <h1 class="display-4">Standalone</h1>
         <p class="lead">Download Formula Manager 2.0</p>
         <hr class="my-4">

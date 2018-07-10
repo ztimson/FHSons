@@ -1,6 +1,7 @@
 import {Component, ElementRef, ViewChildren, HostListener} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {ConvertFromGPipe, ConvertToGPipe} from './units.pipe';
+import {ElectronService} from 'ngx-electron';
 
 @Component({
   selector: 'formula-manager',
@@ -23,7 +24,7 @@ export class FormulaManagerComponent {
     this._newTotal = new ConvertToGPipe().transform(total, this.unit);
   }
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, public electron: ElectronService) {
     this.db.firestore.enablePersistence();
     this.formulas = this.db.collection('formulas').valueChanges();
   }

@@ -13,6 +13,7 @@ import {AngularMaterialModule} from './material.module';
 import {HomeComponent} from './home/home.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {FormulaManagerComponent} from './formulaManager/formulaManager.component';
+import {NgxElectronModule} from 'ngx-electron';
 
 @NgModule({
   declarations: [AppComponent, ConvertFromGPipe, ConvertToGPipe, FormulaManagerComponent, HomeComponent, ScalePipe],
@@ -23,6 +24,7 @@ import {FormulaManagerComponent} from './formulaManager/formulaManager.component
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
+    NgxElectronModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       {path: 'formulaManager', component: FormulaManagerComponent},
