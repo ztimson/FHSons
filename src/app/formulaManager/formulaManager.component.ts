@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChildren} from '@angular/core';
+import {Component, ElementRef, ViewChildren, HostListener} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {ConvertFromGPipe, ConvertToGPipe} from './units.pipe';
 
@@ -11,6 +11,7 @@ export class FormulaManagerComponent {
 
   formulas;
   formula;
+  installPrompt;
   components;
   unit = 'g';
 
@@ -53,5 +54,15 @@ export class FormulaManagerComponent {
         return acc;
       }, 0)
     );
+  }
+
+  prompt() {
+    if (this.installPrompt) this.installPrompt.prompt();
+  }
+
+  @HostListener('beforeinstallprompt', ['$event'])
+  setPrompt(e) {
+    this.installPrompt = e;
+    this.installPrompt.preventDefault();
   }
 }
