@@ -49,12 +49,13 @@ export class FormulaManagerComponent {
   }
 
   cost() {
-    console.log(
-      this.componentCosts.reduce((acc, row) => {
-        //acc + Number(new RegExp(/\$(\d+\.\d+)/).exec(row.nativeElement.innerHtml)[1])
-        return acc;
-      }, 0)
+    if (!this.formula || this.formula.components.filter(row => typeof row.component.get == 'function').length > 0)
+      return 0;
+    let cost = 0;
+    this.formula.components.forEach(
+      row => (cost += (((row.quantity / this.formula.total) * this._newTotal) / 1000) * row.component.cost)
     );
+    return cost;
   }
 
   prompt() {
