@@ -38,9 +38,9 @@
     <div class="container-fluid bg-light">
         <div class="container">
             <div class="d-inline-block py-3">
-                <div class="d-inline-block mr-5">
+                <div class="align-top d-inline-block mr-5">
                     <h5>MAIN MENU</h5>
-                    <ul style="padding-left: 20px;">
+                    <ul style="list-style-type: none; padding-left: 0;">
                         <li>
                             <a [routerLink]="['/about']">About</a>
                         </li>
@@ -52,11 +52,21 @@
                         </li>
                     </ul>
                 </div>
-                <div class="d-inline-block mx-5">
+                <div class="align-top d-inline-block mr-5">
                     <h5>PRODUCTS</h5>
+                    <ul style="list-style-type: none; padding-left: 0; columns: 3;">
+                        <li *ngFor="let c of categories | async">
+                            <a [routerLink]="['/store', c.name]">{{c.name}}</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="d-inline-block ml-5">
-                    <h5>REVIEWS</h5>
+                <div class="align-top d-inline-block">
+                    <h5>CONTACT</h5>
+                    <p>
+                        Toll Free:1-888-422-7737
+                        <br> Local: 416-744-2723
+                        <br> Fax: 416-744-4078
+                    </p>
                 </div>
             </div>
         </div>
