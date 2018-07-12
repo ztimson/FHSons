@@ -29,7 +29,9 @@ export class FormulaManagerComponent {
   }
 
   displayFormula(formula) {
-    formula.components.forEach((row, i, arr) => row.component.get().then(row => (arr[i].component = row.data())));
+    formula.components
+      .filter(row => typeof row.component.get == 'function')
+      .forEach((row, i, arr) => row.component.get().then(row => (arr[i].component = row.data())));
     formula.total = formula.components.reduce((acc, row) => (acc += row.quantity), 0);
     this.newTotal = formula.total;
     this.formula = formula;
@@ -49,7 +51,6 @@ export class FormulaManagerComponent {
   cost() {
     console.log(
       this.componentCosts.reduce((acc, row) => {
-        console.log(row.nativeElement.html);
         //acc + Number(new RegExp(/\$(\d+\.\d+)/).exec(row.nativeElement.innerHtml)[1])
         return acc;
       }, 0)
