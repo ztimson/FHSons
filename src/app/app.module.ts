@@ -14,22 +14,35 @@ import {HomeComponent} from './home/home.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {FormulaManagerComponent} from './formulaManager/formulaManager.component';
 import {NgxElectronModule} from 'ngx-electron';
-import { AboutComponent } from './about/about.component';
+import {AboutComponent} from './about/about.component';
+import {CategoriesComponent} from './store/categories.component';
+import {AngularFireStorageModule} from 'angularfire2/storage';
 
 @NgModule({
-  declarations: [AppComponent, ConvertFromGPipe, ConvertToGPipe, FormulaManagerComponent, HomeComponent, ScalePipe, AboutComponent],
+  declarations: [
+    AppComponent,
+    CategoriesComponent,
+    ConvertFromGPipe,
+    ConvertToGPipe,
+    FormulaManagerComponent,
+    HomeComponent,
+    ScalePipe,
+    AboutComponent
+  ],
   imports: [
     AngularMaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     NgxElectronModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: 'formulaManager', component: FormulaManagerComponent},
       {path: 'about', component: AboutComponent},
+      {path: 'formulaManager', component: FormulaManagerComponent},
+      {path: 'store', component: CategoriesComponent},
       {path: '**', component: HomeComponent}
     ]),
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
