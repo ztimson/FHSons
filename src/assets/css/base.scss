@@ -12,6 +12,19 @@ body {
   padding: 0;
 }
 
+a,
+a:hover,
+u,
+u:hover,
+.no-underline,
+.no-underline:hover {
+  text-decoration: none;
+}
+
+.dark-hover:hover {
+  background-color: #f0f0f0;
+}
+
 .rainbow {
   background: linear-gradient(to top, black, black, yellow, magenta, blue, blue);
   -webkit-background-clip: text;

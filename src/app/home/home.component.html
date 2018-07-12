@@ -4,30 +4,39 @@
     <div class="container py-5">
         <div class="row py-5">
             <div class="col-12 col-md-4 text-center">
-                <a style="max-width: 20rem" [routerLink]="['/about']">
-                    <mat-icon style="font-size: 75px;">help_outline</mat-icon>
-                    <h3 class="text-dark">About Us</h3>
-                    <p>Learn more about us and our 30+ years experience!</p>
+                <a class="no-underline" style="max-width: 20rem" [routerLink]="['/about']">
+                    <mat-card class="dark-hover" style="min-height: 320px;">
+                        <mat-icon class="my-5" style="transform: scale(4); color: #87a9cd;">help_outline</mat-icon>
+                        <h3 class="text-dark mb-4">About Us</h3>
+                        <mat-divider></mat-divider>
+                        <p class="text-black-50 mt-5">Learn more about us and our 30+ years experience!</p>
+                    </mat-card>
                 </a>
             </div>
             <div class="col-12 col-md-4 text-center">
-                <a style="max-width: 20rem" [routerLink]="['/store']">
-                    <mat-icon style="font-size: 75px;">local_grocery_store</mat-icon>
-                    <h3 class="text-dark">Store</h3>
-                    <p>Buy equipment, ink and anything else you might need!</p>
+                <a class="no-underline" style="max-width: 20rem" [routerLink]="['/store']">
+                    <mat-card class="dark-hover" style="min-height: 320px;">
+                        <mat-icon class="my-5" style="transform: scale(4); color: #87a9cd;">local_grocery_store</mat-icon>
+                        <h3 class="text-dark mb-4">Store</h3>
+                        <mat-divider></mat-divider>
+                        <p class="text-black-50 mt-5">Buy equipment, ink and anything else you might need!</p>
+                    </mat-card>
                 </a>
             </div>
             <div class="col-12 col-md-4 text-center">
-                <a style="max-width: 20rem" [routerLink]="['/formulaManager']">
-                    <mat-icon style="font-size: 75px;">opacity</mat-icon>
-                    <h3 class="text-dark">Formula Manager</h3>
-                    <p>Check out our browser formula manager!</p>
+                <a class="no-underline" style="max-width: 20rem" [routerLink]="['/formulaManager']">
+                    <mat-card class="dark-hover" style="min-height: 320px;">
+                        <mat-icon class="my-5" style="transform: scale(4); color: #87a9cd;">opacity</mat-icon>
+                        <h3 class="text-dark mb-4">Formula Manager</h3>
+                        <mat-divider></mat-divider>
+                        <p class="text-black-50 mt-5">Check out our browser formula manager!</p>
+                    </mat-card>
                 </a>
             </div>
         </div>
     </div>
 </div>
-<div class="container-fluid">
+<div class="container-fluid pb-5">
     <div class="row">
         <div class="col p-0" style="position: relative">
             <div class="d-inline-block" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
