@@ -1,20 +1,6 @@
 <div class="container-fluid">
-    <div *ngIf="!electron.isElectronApp" class="jumbotron mt-3 text-white" style="background-color: #124578;">
-        <h1 class="display-4">Standalone</h1>
-        <p class="lead text-white-50">Download Formula Manager 2.0</p>
-        <hr class="my-4">
-        <p>Tired of using your browser? Try downloading Formula Manager 2.0!</p>
-        <a class="btn btn-primary btn-lg mb-3 mr-3" href="#" download>
-            <i class="fab fa-windows"></i> Windows</a>
-        <a class="btn btn-primary btn-lg mb-3 mr-3" href="#" download>
-            <i class="fab fa-apple"></i> MacOS</a>
-        <a class="btn btn-primary btn-lg mb-3 mr-3" href="#" download>
-            <i class="fab fa-linux"></i> Linux</a>
-        <button *ngIf="installPrompt" class="btn btn-primary btn-lg mb-3" (click)="prompt()">
-            <i class="fas fa-mobile-alt"></i> Mobile</button>
-    </div>
     <div class="row">
-        <div class="col-2">
+        <div class="col-2 h-100">
             <mat-list>
                 <ng-container *ngFor="let f of formulas | async; let i = index">
                     <mat-divider *ngIf="i > 0"></mat-divider>
@@ -23,6 +9,20 @@
             </mat-list>
         </div>
         <div class="col-10">
+            <div *ngIf="!electron.isElectronApp" class="jumbotron mt-3 text-white" style="background-color: #53709f;">
+                <h1 class="display-4">Standalone</h1>
+                <p class="lead text-white-50">Download Formula Manager 2.0</p>
+                <hr class="my-4">
+                <p>Tired of using your browser? Try downloading Formula Manager 2.0!</p>
+                <a class="btn btn-primary btn-lg mb-3 mr-3" href="#" download>
+                    <i class="fab fa-windows"></i> Windows</a>
+                <a class="btn btn-primary btn-lg mb-3 mr-3" href="#" download>
+                    <i class="fab fa-apple"></i> MacOS</a>
+                <a class="btn btn-primary btn-lg mb-3 mr-3" href="#" download>
+                    <i class="fab fa-linux"></i> Linux</a>
+                <button *ngIf="installPrompt" class="btn btn-primary btn-lg mb-3" (click)="prompt()">
+                    <i class="fas fa-mobile-alt"></i> Mobile</button>
+            </div>
             <div *ngIf="formula">
                 <table class="w-100 table">
                     <thead>
