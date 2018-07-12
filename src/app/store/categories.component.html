@@ -1,11 +1,13 @@
 <div class="container">
     <div class="row py-5">
-        <mat-card *ngFor="let c of categories | async">
-            <img mat-card-image [src]="c.image | async" [alt]="c.name">
-            <mat-divider class="custom-line"></mat-divider>
-            <mat-card-content>
-                <h3>{{c.name}}</h3>
-            </mat-card-content>
-        </mat-card>
+        <ng-container *ngFor="let c of categories | async">
+            <mat-card *ngIf="c.ready">
+                <img mat-card-image [src]="c.image | async" [alt]="c.name">
+                <mat-divider class="custom-line"></mat-divider>
+                <mat-card-content>
+                    <h3>{{c.name}}</h3>
+                </mat-card-content>
+            </mat-card>
+        </ng-container>
     </div>
 </div>

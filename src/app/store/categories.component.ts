@@ -18,6 +18,7 @@ export class CategoriesComponent {
         map(rows =>
           rows.map((row: any) => {
             row.image = this.storage.ref(`${row.name.toLowerCase()}.jpg`).getDownloadURL();
+            row.image.subscribe(() => (row.ready = true));
             return row;
           })
         )
