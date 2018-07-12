@@ -1,22 +1,23 @@
-const {app, BrowserWindow, Menu} = require('electron');
+const {app, BrowserWindow, Menu, nativeImage} = require('electron');
 const path = require('path');
 const url = require('url');
 
 let win;
 
 function createWindow() {
-  win = new BrowserWindow({width: 1000, height: 800, icon: path.join(__dirname, 'assets/img/logo.png')});
+  let image = nativeImage.createFromPath('assets/img/logo.png');
+
+  win = new BrowserWindow({
+    width: 1000,
+    height: 800,
+    icon: image,
+    title: 'Formula Manager 2.0'
+  });
 
   Menu.setApplicationMenu(null);
 
   // load the dist folder from Angular
-  win.loadURL(
-    url.format({
-      pathname: path.join(__dirname, 'public/index.html'),
-      protocol: 'file:',
-      slashes: true
-    })
-  );
+  win.loadURL('https://fhsons.zakscode.com/formulaManager');
 
   // Open the DevTools optionally:
   win.webContents.openDevTools();
