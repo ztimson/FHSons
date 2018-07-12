@@ -25,7 +25,6 @@ export class FormulaManagerComponent {
   }
 
   constructor(private db: AngularFirestore, public electron: ElectronService) {
-    this.db.firestore.enablePersistence();
     this.formulas = this.db.collection('formulas').valueChanges();
   }
 
