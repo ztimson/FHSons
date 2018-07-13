@@ -59,6 +59,10 @@ u:hover,
   background-color: #3c3c3c;
   border-color: #5a5e63;
 }
+.btn-primary:hover, .btn-primary:active {
+  background-color: #53709f !important;
+  border-color: #3e557a !important;
+}
 mat-list-item:hover {
   background-color: #ececec;
   cursor: pointer;
