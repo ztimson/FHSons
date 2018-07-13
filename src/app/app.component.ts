@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, NavigationEnd} from '@angular/router';
 import {ElectronService} from 'ngx-electron';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Record routing for analytics
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+      (<any>window).ga('set', 'page', event.urlAfterRedirects);
+      (<any>window).ga('send', 'pageview');
+    });
+
+    // Send electron users right to formula manager
     if (this.electron.isElectronApp) {
       this.router.navigate(['/formulaManager']);
     }
