@@ -33,7 +33,7 @@ export class FormulaManagerComponent {
       .filter(row => typeof row.component.get == 'function')
       .forEach((row, i, arr) => row.component.get().then(row => (arr[i].component = row.data())));
     formula.total = formula.components.reduce((acc, row) => (acc += row.quantity), 0);
-    this.newTotal = formula.total;
+    this.newTotal = new ConvertFromGPipe().transform(formula.total, this.unit);
     this.formula = formula;
   }
 
