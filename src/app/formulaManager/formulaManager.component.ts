@@ -2,6 +2,7 @@ import {Component, ElementRef, ViewChildren, HostListener} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {ConvertFromGPipe, ConvertToGPipe} from './units.pipe';
 import {ElectronService} from 'ngx-electron';
+import {LocalStorage} from 'webstorage-decorators';
 
 @Component({
   selector: 'formula-manager',
@@ -14,7 +15,8 @@ export class FormulaManagerComponent {
   formula;
   installPrompt;
   components;
-  unit = 'g';
+  @LocalStorage({defaultValue: 'g'})
+  unit;
 
   _newTotal: number = 0;
   get newTotal() {
