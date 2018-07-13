@@ -5,7 +5,7 @@
                 <input #search matInput placeholder="Search">
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
-            <mat-list>
+            <mat-list style="max-height: 250px; overflow: auto;">
                 <ng-container *ngFor="let f of formulas | async; let i = index">
                     <mat-divider *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1 && i > 0"></mat-divider>
                     <mat-list-item *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1" (click)="displayFormula(f)">{{f.name}}</mat-list-item>
