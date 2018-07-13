@@ -54,3 +54,15 @@ u:hover,
   position: relative !important;
   margin-top: .75rem !important;
 }
+.btn-primary {
+  color: #fff;
+  background-color: #3c3c3c;
+  border-color: #5a5e63;
+}
+mat-list-item:hover {
+  background-color: #ececec;
+  cursor: pointer;
+}
+mat-form-field#totalCost .mat-form-field-label-wrapper {
+  text-align: right;
+}

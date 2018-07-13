@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
-        <div class="col-2 h-100">
-            <mat-form-field class="w-100">
+        <div class="col-12 col-lg-3 h-100 mb-4">
+            <mat-form-field class="w-100 pt-4">
                 <input #search matInput placeholder="Search">
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
@@ -12,8 +12,13 @@
                 </ng-container>
             </mat-list>
         </div>
-        <div class="col-10">
-            <div *ngIf="!electron.isElectronApp" class="jumbotron mt-3 text-white" style="background-color: #53709f;">
+        <div class="col-12 d-block d-lg-none w-100 mb-4" style="height: 4px; background:black;"></div>
+        <div class="col-12 col-lg-9">
+            <div *ngIf="!electron.isElectronApp" class="jumbotron p-3 mt-3 text-white d-none d-lg-block" style="
+            background-color: #000;
+            background-image: url('../../assets/img/formula.jpg');
+            background-size: cover;
+            ">
                 <h1 class="display-4">Standalone</h1>
                 <p class="lead text-white-50">Download Formula Manager 2.0</p>
                 <hr class="my-4">
@@ -31,9 +36,9 @@
                 <table class="w-100 table">
                     <thead>
                         <tr>
-                            <td style="width: 80%">Name</td>
-                            <td style="width: 10%">Quantity</td>
-                            <td style="width: 10%">Cost</td>
+                            <th style="width: 80%">Name</th>
+                            <th style="width: 10%">Quantity</th>
+                            <th style="width: 10%">Cost</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,10 +48,11 @@
                             <td style="width: 10%">{{c.quantity | scale: formula.total : _newTotal / 1000 * c.component.cost | currency}}</td>
                     </tbody>
                 </table>
-                <table class="w-100 mt-5">
+                <div class="col-12 d-none d-lg-block" style="height: 4px; background:black; width: 100%;"></div>
+                <table class="w-100 my-4">
                     <tr>
-                        <td style="width: 80%"></td>
-                        <td style="width: 10%">
+                        <td style="width: 70%"></td>
+                        <td style="width: 20%">
                             <mat-form-field style="width: 75px">
                                 <input matInput type="number" placeholder="Yield" [(ngModel)]="newTotal">
                             </mat-form-field>
@@ -60,8 +66,8 @@
                             </mat-form-field>
                         </td>
                         <td style="width: 10%">
-                            <mat-form-field>
-                                <input matInput placeholder="Total Cost" [value]="cost() | currency" [readonly]="true">
+                            <mat-form-field id="totalCost">
+                                <input matInput placeholder="Total Cost" [value]="cost() | currency" [readonly]="true" style="font-size: x-large; text-align: right;">
                             </mat-form-field>
                         </td>
                     </tr>
