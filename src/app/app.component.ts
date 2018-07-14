@@ -18,8 +18,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // Record routing for analytics
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-      (<any>window).ga('set', 'page', event.urlAfterRedirects);
-      (<any>window).ga('send', 'pageview');
+      let ga = (<any>window).ga;
+      if (ga) {
+        ga('set', 'page', event.urlAfterRedirects);
+        ga('send', 'pageview');
+      }
     });
 
     // Send electron users right to formula manager
