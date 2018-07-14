@@ -15,6 +15,14 @@
       "resources": {
         "files": ["/assets/**"]
       }
+    },
+    {
+      "name": "firebase",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": ["https://firebasestorage.googleapis.com/v0/b/fhsons-7e90b.appspot.com/o/**"]
+      }
     }
   ]
 }
