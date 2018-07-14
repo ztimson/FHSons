@@ -22,12 +22,19 @@
       "updateMode": "prefetch",
       "resources": {
         "urls": [
-          "https://firebasestorage.googleapis.com/v0/b/fhsons-7e90b.appspot.com/o/**?alt=media",
+          "https://firebasestorage.googleapis.com/v0/b/fhsons-7e90b.appspot.com/o/**?alt=media*",
           "https://use.fontawesome.com/releases/v5.1.0/css/all.css",
           "https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css",
           "https://fonts.googleapis.com/**"
         ]
       }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "firestore",
+      "urls": ["https://firestore.googleapis.com/**"],
+      "strategy": "performance"
     }
   ]
 }
