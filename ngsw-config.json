@@ -13,15 +13,13 @@
       "installMode": "lazy",
       "updateMode": "prefetch",
       "resources": {
-        "files": ["/assets/**"]
-      }
-    },
-    {
-      "name": "firebase",
-      "installMode": "prefetch",
-      "updateMode": "prefetch",
-      "resources": {
-        "urls": ["https://firebasestorage.googleapis.com/v0/b/fhsons-7e90b.appspot.com/o/**"]
+        "files": ["/assets/**"],
+        "urls": [
+          "https://firebasestorage.googleapis.com/v0/b/fhsons-7e90b.appspot.com/o/**",
+          "https://use.fontawesome.com/releases/v5.1.0/css/all.css",
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css",
+          "https://fonts.googleapis.com/**"
+        ]
       }
     }
   ]
