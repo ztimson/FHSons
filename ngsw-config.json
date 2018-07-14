@@ -22,7 +22,6 @@
       "updateMode": "prefetch",
       "resources": {
         "urls": [
-          "https://firebasestorage.googleapis.com/v0/b/fhsons-7e90b.appspot.com/o/**?alt=media*",
           "https://use.fontawesome.com/releases/v5.1.0/css/all.css",
           "https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css",
           "https://fonts.googleapis.com/**"
@@ -35,8 +34,8 @@
       "name": "firestore",
       "urls": ["https://firestore.googleapis.com/**"],
       "cacheConfig": {
-        "timeout": "1000",
-        "strategy": "freshness"
+        "maxAge": "1d",
+        "strategy": "performance"
       }
     }
   ]
