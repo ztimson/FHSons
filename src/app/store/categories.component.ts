@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '../../../node_modules/@angular/router';
 import {BreadcrumbService} from './breadcrumb.service';
 import {MatDialog} from '../../../node_modules/@angular/material';
 import {NewCategoryComponent} from './newCategory/newCategory.component';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'store',
@@ -20,6 +21,7 @@ export class CategoriesComponent {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    public app: AppComponent,
     public breadcrumb: BreadcrumbService
   ) {}
 

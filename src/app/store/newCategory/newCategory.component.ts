@@ -15,8 +15,8 @@ export class NewCategoryComponent {
 
   constructor(
     private dialogRef: MatDialogRef<NewCategoryComponent>,
-    @Inject(MAT_DIALOG_DATA) private data,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    @Inject(MAT_DIALOG_DATA) public data
   ) {}
 
   imageChanged() {

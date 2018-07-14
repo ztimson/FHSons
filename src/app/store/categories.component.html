@@ -1,7 +1,15 @@
 <div class="container-fluid" style="background-color: #53709f;">
     <div class="container">
         <div class="row py-5">
-            <button mat-raised-button color="primary" (click)="create()">Create</button>
+            <div class="ml-auto mr-3 mb-3">
+                <button *ngIf="app.user" mat-raised-button (click)="create()">
+                    <mat-icon>playlist_add</mat-icon> Category
+                </button>
+                <button *ngIf="app.user" mat-raised-button class="ml-3">
+                    <mat-icon>note_add</mat-icon> Item
+                </button>
+            </div>
+
             <nav class="w-100 mx-3" aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item curs-pointer" [routerLink]="['/store']" (click)="breadcrumb.clear()">Store</li>

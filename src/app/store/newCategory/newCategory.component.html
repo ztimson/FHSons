@@ -1,5 +1,7 @@
 <mat-dialog-content>
-    <h3 mat-dialog-title>Create/Update Category</h3>
+    <h3 mat-dialog-title>
+        <span *ngIf="data">Update</span>
+        <span *ngIf="!data">Create</span> Category</h3>
     <form id="createForm">
         <mat-form-field class="w-100">
             <input matInput placeholder="Name" name="name" [(ngModel)]="name">
@@ -17,5 +19,8 @@
         <span *ngIf="!image">Add Image</span>
         <mat-icon *ngIf="image">check</mat-icon>
     </button>
-    <button mat-raised-button type="submit" form="createForm" color="primary" (click)="submit()">Create/Update</button>
+    <button mat-raised-button type="submit" form="createForm" color="primary" (click)="submit()">
+        <span *ngIf="data">Update</span>
+        <span *ngIf="!data">Create</span>
+    </button>
 </mat-dialog-actions>
