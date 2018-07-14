@@ -35,7 +35,7 @@
       "name": "firestore",
       "urls": ["https://firestore.googleapis.com/**"],
       "cacheConfig": {
-        "timeout": "1000ms",
+        "timeout": "1000",
         "strategy": "freshness"
       }
     }
