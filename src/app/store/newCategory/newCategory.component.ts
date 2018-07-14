@@ -29,7 +29,7 @@ export class NewCategoryComponent {
     if (!this.data) {
       this.db
         .collection('categories')
-        .add({name: this.name, parent: this.parent, image: this.image})
+        .add({name: this.name, image: this.image, parent: this.parent == 'root' ? null : this.parent})
         .then(data => this.dialogRef.close());
     }
   }
