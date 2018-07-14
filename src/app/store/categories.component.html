@@ -1,13 +1,15 @@
-<div class="container">
-    <div class="row py-5">
-        <ng-container *ngFor="let c of categories | async">
-            <mat-card *ngIf="c.ready">
-                <img mat-card-image [src]="c.image | async" [alt]="c.name">
-                <mat-divider class="custom-line"></mat-divider>
-                <mat-card-content>
-                    <h3>{{c.name}}</h3>
-                </mat-card-content>
-            </mat-card>
-        </ng-container>
+<div class="container-fluid" style="background-color: #53709f;">
+    <div class="container">
+        <div class="row py-5">
+            <ng-container *ngFor="let c of categories | async">
+                <mat-card *ngIf="c.ready" class="m-3">
+                    <img mat-card-image [src]="c.image | async" [alt]="c.name" style="width: 200px; height: 200px;">
+                    <mat-divider class="custom-line"></mat-divider>
+                    <mat-card-content>
+                        <h5>{{c.name}}</h5>
+                    </mat-card-content>
+                </mat-card>
+            </ng-container>
+        </div>
     </div>
 </div>
