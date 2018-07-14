@@ -15,7 +15,6 @@ export class CategoriesComponent {
 
   constructor(
     private db: AngularFirestore,
-    private storage: AngularFireStorage,
     private router: Router,
     private route: ActivatedRoute,
     public breadcrumb: BreadcrumbService
@@ -32,13 +31,7 @@ export class CategoriesComponent {
         .valueChanges()
         .pipe(
           map(rows =>
-            rows
-              .filter((row: any) => (!this.category && !row.parent) || (this.category && row.parent == this.category))
-              .map((row: any) => {
-                row.image = this.storage.ref(`${row.name.toLowerCase()}.jpg`).getDownloadURL();
-                row.image.subscribe(() => (row.ready = true));
-                return row;
-              })
+            rows.filter((row: any) => (!this.category && !row.parent) || (this.category && row.parent == this.category))
           )
         );
     });
