@@ -1,0 +1,14 @@
+<mat-dialog-content>
+    <h3 mat-dialog-title>Login</h3>
+    <form id="loginForm">
+        <mat-form-field class="w-100">
+            <input matInput placeholder="Email" name="email" [(ngModel)]="email">
+        </mat-form-field>
+        <mat-form-field class="w-100">
+            <input matInput placeholder="Password" name="password" type="password" [(ngModel)]="password">
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button type="submit" form="loginForm" color="primary" (click)="login()">Login</button>
+</mat-dialog-actions>

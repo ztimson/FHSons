@@ -22,7 +22,13 @@
                     <a class="nav-link text-dark" [routerLink]="['/formulaManager']">Formula Manager</a>
                 </li>
             </ul>
-            <button mat-stroked-button class="ml-auto" color="primary" data-toggle="modal" data-target="#loginModal">Login</button>
+            <div class="ml-auto">
+                <button *ngIf="!user" mat-stroked-button color="primary" (click)="login()">Login</button>
+                <div *ngIf="user">
+                    <span class="text-muted mr-3">{{user.email}}</span>
+                    <button mat-stroked-button color="accent" (click)="afAuth.auth.signOut()">Logout</button>
+                </div>
+            </div>
         </div>
     </div>
 </nav>
@@ -79,26 +85,3 @@
         </div>
     </div>
 </footer>
-
-<!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="incorrectAlert" class="alert alert-danger collapse" role="alert">Username or password is incorrect.</div>
-                <input id="username" class="form-control mb-3" placeholder="Username">
-                <input id="password" class="form-control" type="password" placeholder="Password">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="loginBtn" type="button" class="btn btn-primary">Login</button>
-            </div>
-        </div>
-    </div>
-</div>

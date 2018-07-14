@@ -3,6 +3,9 @@ import {Router, NavigationEnd} from '@angular/router';
 import {ElectronService} from 'ngx-electron';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {filter} from 'rxjs/operators';
+import {MatDialog} from '../../node_modules/@angular/material';
+import {LoginComponent} from './login/login.component';
+import {AngularFireAuth} from '../../node_modules/angularfire2/auth';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +13,15 @@ import {filter} from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   categories;
+  user;
 
-  constructor(private router: Router, private db: AngularFirestore, public electron: ElectronService) {
+  constructor(
+    private router: Router,
+    private db: AngularFirestore,
+    private dialog: MatDialog,
+    public afAuth: AngularFireAuth,
+    public electron: ElectronService
+  ) {
     this.categories = this.db.collection('categories').valueChanges();
   }
 
@@ -29,5 +39,13 @@ export class AppComponent implements OnInit {
     if (this.electron.isElectronApp) {
       this.router.navigate(['/formulaManager']);
     }
+
+    this.afAuth.user.subscribe(user => {
+      this.user = user;
+    });
+  }
+
+  login() {
+    this.dialog.open(LoginComponent);
   }
 }

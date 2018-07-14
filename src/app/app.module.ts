@@ -18,6 +18,8 @@ import {AboutComponent} from './about/about.component';
 import {CategoriesComponent} from './store/categories.component';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {BreadcrumbService} from './store/breadcrumb.service';
+import {LoginComponent} from './login/login.component';
+import {AngularFireAuthModule} from 'angularfire2/auth';
 
 @NgModule({
   declarations: [
@@ -27,11 +29,13 @@ import {BreadcrumbService} from './store/breadcrumb.service';
     ConvertToGPipe,
     FormulaManagerComponent,
     HomeComponent,
+    LoginComponent,
     ScalePipe,
     AboutComponent
   ],
   imports: [
     AngularMaterialModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireStorageModule,
@@ -50,6 +54,7 @@ import {BreadcrumbService} from './store/breadcrumb.service';
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [BreadcrumbService],
+  entryComponents: [LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
