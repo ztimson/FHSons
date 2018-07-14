@@ -18,7 +18,7 @@ export class CategoriesComponent {
     private storage: AngularFireStorage,
     private router: Router,
     private route: ActivatedRoute,
-    private breadcrumb: BreadcrumbService
+    public breadcrumb: BreadcrumbService
   ) {}
 
   ngOnInit() {
