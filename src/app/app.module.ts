@@ -42,6 +42,7 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
     RouterModule.forRoot([
       {path: 'about', component: AboutComponent},
       {path: 'formulaManager', component: FormulaManagerComponent},
+      {path: 'store/:category', component: CategoriesComponent},
       {path: 'store', component: CategoriesComponent},
       {path: '**', component: HomeComponent}
     ]),
