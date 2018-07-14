@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {MatDialog} from '../../../node_modules/@angular/material';
+import {MatDialogRef} from '../../../node_modules/@angular/material';
 
 @Component({
   selector: 'login',
@@ -10,11 +10,11 @@ export class LoginComponent {
   email: string;
   password: string;
 
-  constructor(private dialog: MatDialog, private afAuth: AngularFireAuth) {}
+  constructor(private dialogRef: MatDialogRef<LoginComponent>, private afAuth: AngularFireAuth) {}
 
   login() {
     this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(user => {
-      if (user) this.dialog.closeAll();
+      if (user) this.dialogRef.close();
     });
   }
 }

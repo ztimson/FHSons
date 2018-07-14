@@ -1,0 +1,21 @@
+<mat-dialog-content>
+    <h3 mat-dialog-title>Create/Update Category</h3>
+    <form id="createForm">
+        <mat-form-field class="w-100">
+            <input matInput placeholder="Name" name="name" [(ngModel)]="name">
+        </mat-form-field>
+        <mat-form-field class="w-100">
+            <mat-select placeholder="Parent" [(value)]="parent">
+                <mat-option value="root">root</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <input #fileInput type="file" (change)="imageChanged()" hidden>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button (click)="fileInput.click()">
+        <span *ngIf="!image">Add Image</span>
+        <mat-icon *ngIf="image">check</mat-icon>
+    </button>
+    <button mat-raised-button type="submit" form="createForm" color="primary" (click)="submit()">Create/Update</button>
+</mat-dialog-actions>

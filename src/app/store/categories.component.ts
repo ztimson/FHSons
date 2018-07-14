@@ -4,6 +4,8 @@ import {AngularFireStorage} from 'angularfire2/storage';
 import {map} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '../../../node_modules/@angular/router';
 import {BreadcrumbService} from './breadcrumb.service';
+import {MatDialog} from '../../../node_modules/@angular/material';
+import {NewCategoryComponent} from './newCategory/newCategory.component';
 
 @Component({
   selector: 'store',
@@ -17,6 +19,7 @@ export class CategoriesComponent {
     private db: AngularFirestore,
     private router: Router,
     private route: ActivatedRoute,
+    private dialog: MatDialog,
     public breadcrumb: BreadcrumbService
   ) {}
 
@@ -40,5 +43,9 @@ export class CategoriesComponent {
   navigate(category: string) {
     this.breadcrumb.add(category);
     this.router.navigate(['/store', category]);
+  }
+
+  create() {
+    this.dialog.open(NewCategoryComponent);
   }
 }
