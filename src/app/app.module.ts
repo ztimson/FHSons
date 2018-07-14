@@ -17,6 +17,7 @@ import {NgxElectronModule} from 'ngx-electron';
 import {AboutComponent} from './about/about.component';
 import {CategoriesComponent} from './store/categories.component';
 import {AngularFireStorageModule} from 'angularfire2/storage';
+import {BreadcrumbService} from './store/breadcrumb.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
     ]),
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
-  providers: [],
+  providers: [BreadcrumbService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -21,6 +21,10 @@ u:hover,
   text-decoration: none;
 }
 
+.curs-pointer {
+  cursor: pointer;
+}
+
 .dark-hover:hover {
   background-color: #f0f0f0;
 }
@@ -52,14 +56,15 @@ u:hover,
 .custom-line {
   padding-bottom: 1.5rem !important;
   position: relative !important;
-  margin-top: .75rem !important;
+  margin-top: 0.75rem !important;
 }
 .btn-primary {
   color: #fff;
   background-color: #3c3c3c;
   border-color: #5a5e63;
 }
-.btn-primary:hover, .btn-primary:active {
+.btn-primary:hover,
+.btn-primary:active {
   background-color: #53709f !important;
   border-color: #3e557a !important;
 }
