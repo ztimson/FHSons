@@ -2,13 +2,13 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
-  selector: 'delete-category',
-  templateUrl: 'deleteCategory.component.html'
+  selector: 'delete',
+  templateUrl: 'delete.component.html'
 })
-export class DeleteCategoryComponent {
+export class DeleteComponent {
   confirm = '';
 
-  constructor(private dialogRef: MatDialogRef<DeleteCategoryComponent>, @Inject(MAT_DIALOG_DATA) public data) {}
+  constructor(private dialogRef: MatDialogRef<DeleteComponent>, @Inject(MAT_DIALOG_DATA) public data) {}
 
   delete() {
     this.data.ref.delete().then(() => this.dialogRef.close());

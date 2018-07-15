@@ -20,8 +20,8 @@ import {AngularFireStorageModule} from 'angularfire2/storage';
 import {LoginComponent} from './login/login.component';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {NewCategoryComponent} from './store/newCategory/newCategory.component';
-import {DeleteCategoryComponent} from './store/deleteCategory/deleteCategory.component';
 import {NewProductComponent} from './store/newProduct/newProduct.component';
+import {DeleteComponent} from './store/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import {NewProductComponent} from './store/newProduct/newProduct.component';
     CategoriesComponent,
     ConvertFromGPipe,
     ConvertToGPipe,
-    DeleteCategoryComponent,
+    DeleteComponent,
     FormulaManagerComponent,
     HomeComponent,
     LoginComponent,
@@ -59,7 +59,7 @@ import {NewProductComponent} from './store/newProduct/newProduct.component';
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [],
-  entryComponents: [DeleteCategoryComponent, LoginComponent, NewCategoryComponent, NewProductComponent],
+  entryComponents: [DeleteComponent, LoginComponent, NewCategoryComponent, NewProductComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

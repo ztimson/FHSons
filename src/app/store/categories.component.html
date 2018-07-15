@@ -5,7 +5,7 @@
                 <button mat-raised-button (click)="createCategory()">
                     <mat-icon>playlist_add</mat-icon> Category
                 </button>
-                <button mat-raised-button class="ml-3" (click)="createItem()">
+                <button mat-raised-button class="ml-3" (click)="createProduct()">
                     <mat-icon>note_add</mat-icon> Product
                 </button>
             </div>
@@ -31,6 +31,26 @@
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-raised-button class="ml-3" (click)="delete(c)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </ng-container>
+
+            <ng-container *ngFor="let p of products | async">
+                <mat-card class="m-3 curs-pointer">
+                    <div [routerLink]="['/products', p.name]">
+                        <img *ngIf="p.image" mat-card-image [src]="p.image" [alt]="p.name" style="width: 200px; height: 200px;">
+                        <mat-divider *ngIf="p.image" class="custom-line"></mat-divider>
+                        <mat-card-content class="text-center">
+                            <h5>{{p.name}}</h5>
+                        </mat-card-content>
+                    </div>
+                    <mat-card-actions *ngIf="app.user">
+                        <button mat-raised-button (click)="createProduct(p)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-raised-button class="ml-3" (click)="delete(p)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </mat-card-actions>

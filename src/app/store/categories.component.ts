@@ -7,8 +7,8 @@ import {MatDialog} from '@angular/material';
 import {NewCategoryComponent} from './newCategory/newCategory.component';
 import {AppComponent} from '../app.component';
 import {DomSanitizer} from '@angular/platform-browser';
-import {DeleteCategoryComponent} from './deleteCategory/deleteCategory.component';
 import {NewProductComponent} from './newProduct/newProduct.component';
+import {DeleteComponent} from './delete/delete.component';
 
 @Component({
   selector: 'store',
@@ -17,6 +17,7 @@ import {NewProductComponent} from './newProduct/newProduct.component';
 export class CategoriesComponent {
   category: string;
   categories;
+  products;
 
   constructor(
     private db: AngularFirestore,
@@ -47,6 +48,23 @@ export class CategoriesComponent {
               })
           )
         );
+
+      this.products = this.db
+        .collection('products', ref => ref.orderBy('name'))
+        .snapshotChanges()
+        .pipe(
+          map(rows =>
+            rows
+              .map((row: any) =>
+                Object.assign({id: row.payload.doc.id, ref: row.payload.doc.ref}, row.payload.doc.data())
+              )
+              .filter((row: any) => row.category == this.category)
+              .map((row: any) => {
+                row.image = this.domSanitizer.bypassSecurityTrustUrl(row.image);
+                return row;
+              })
+          )
+        );
     });
   }
 
@@ -54,11 +72,11 @@ export class CategoriesComponent {
     this.dialog.open(NewCategoryComponent, {data: {category: category, currentCategory: this.category}});
   }
 
-  createItem(item) {
-    this.dialog.open(NewProductComponent, {data: {item: item, currentCategory: this.category}});
+  createProduct(product) {
+    this.dialog.open(NewProductComponent, {data: {product: product, currentCategory: this.category}});
   }
 
   delete(obj) {
-    this.dialog.open(DeleteCategoryComponent, {data: obj});
+    this.dialog.open(DeleteComponent, {data: obj});
   }
 }

@@ -23,6 +23,13 @@ export class NewProductComponent {
   ) {
     this.categories = this.db.collection('categories', ref => ref.orderBy('name')).valueChanges();
     if (data.currentCategory) this.category = data.currentCategory;
+
+    if (data.product) {
+      this.category = data.product.category;
+      this.name = data.product.name;
+      this.description = data.product.description;
+      this.price = data.product.price;
+    }
   }
 
   imageChanged() {
@@ -40,13 +47,13 @@ export class NewProductComponent {
     };
     if (this.image) newProduct['image'] = this.image;
 
-    if (!this.data.category) {
+    if (!this.data.product) {
       this.db
         .collection('products')
         .add(newProduct)
         .then(data => this.dialogRef.close());
     } else {
-      this.data.item.ref.update(newProduct).then(data => this.dialogRef.close());
+      this.data.product.ref.update(newProduct).then(data => this.dialogRef.close());
     }
   }
 }
