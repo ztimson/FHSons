@@ -9,6 +9,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '../../../../node_modules/@angular/m
 export class NewCategoryComponent {
   @ViewChild('fileInput') fileInput;
 
+  categories;
   parent: string = 'root';
   name: string;
   image: string;
@@ -17,7 +18,15 @@ export class NewCategoryComponent {
     private dialogRef: MatDialogRef<NewCategoryComponent>,
     private db: AngularFirestore,
     @Inject(MAT_DIALOG_DATA) public data
-  ) {}
+  ) {
+    this.categories = this.db.collection('categories').valueChanges();
+    if (data.currentCategory) this.parent = data.currentCategory;
+
+    if (data.category) {
+      this.name = data.category.name;
+      this.parent = data.category.parent == null ? 'root' : data.category.parent;
+    }
+  }
 
   imageChanged() {
     let reader = new FileReader();
@@ -26,11 +35,16 @@ export class NewCategoryComponent {
   }
 
   submit() {
-    if (!this.data) {
+    let newCategory = {name: this.name, parent: this.parent == 'root' ? null : this.parent};
+    if (this.image) newCategory['image'] = this.image;
+
+    if (!this.data.category) {
       this.db
         .collection('categories')
-        .add({name: this.name, image: this.image, parent: this.parent == 'root' ? null : this.parent})
+        .add(newCategory)
         .then(data => this.dialogRef.close());
+    } else {
+      this.data.category.ref.update(newCategory).then(data => this.dialogRef.close());
     }
   }
 }

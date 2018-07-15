@@ -32,17 +32,20 @@ export class CategoriesComponent {
       this.category = params['category'];
 
       if (!this.category) this.breadcrumb.clear();
+      if (this.category && this.breadcrumb.breadcrumb.length == 0) this.breadcrumb.add(this.category);
 
       this.categories = this.db
         .collection('categories', ref => ref.orderBy('name'))
-        .valueChanges()
+        .snapshotChanges()
         .pipe(
           map(rows =>
             rows
+              .map((row: any) =>
+                Object.assign({id: row.payload.doc.id, ref: row.payload.doc.ref}, row.payload.doc.data())
+              )
               .filter((row: any) => (!this.category && !row.parent) || (this.category && row.parent == this.category))
               .map((row: any) => {
                 row.image = this.domSanitizer.bypassSecurityTrustUrl(row.image);
-                console.log(row);
                 return row;
               })
           )
@@ -55,7 +58,7 @@ export class CategoriesComponent {
     this.router.navigate(['/store', category]);
   }
 
-  create() {
-    this.dialog.open(NewCategoryComponent);
+  create(category) {
+    this.dialog.open(NewCategoryComponent, {data: {category: category, currentCategory: this.category}});
   }
 }
