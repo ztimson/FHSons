@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
-import {MatDialogRef} from '../../../node_modules/@angular/material';
+import {MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'login',

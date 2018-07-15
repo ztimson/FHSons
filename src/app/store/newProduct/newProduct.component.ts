@@ -3,29 +3,26 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
-  selector: 'new-category',
-  templateUrl: 'newCategory.component.html'
+  selector: 'new-item',
+  templateUrl: 'newProduct.component.html'
 })
-export class NewCategoryComponent {
+export class NewProductComponent {
   @ViewChild('fileInput') fileInput;
 
   categories;
-  parent: string = 'root';
+  category;
   name: string;
+  description: string;
+  price: number = 0.0;
   image: string;
 
   constructor(
-    private dialogRef: MatDialogRef<NewCategoryComponent>,
+    private dialogRef: MatDialogRef<NewProductComponent>,
     private db: AngularFirestore,
     @Inject(MAT_DIALOG_DATA) public data
   ) {
     this.categories = this.db.collection('categories', ref => ref.orderBy('name')).valueChanges();
-    if (data.currentCategory) this.parent = data.currentCategory;
-
-    if (data.category) {
-      this.name = data.category.name;
-      this.parent = data.category.parent == null ? 'root' : data.category.parent;
-    }
+    if (data.currentCategory) this.category = data.currentCategory;
   }
 
   imageChanged() {
@@ -35,16 +32,21 @@ export class NewCategoryComponent {
   }
 
   submit() {
-    let newCategory = {name: this.name, parent: this.parent == 'root' ? null : this.parent};
-    if (this.image) newCategory['image'] = this.image;
+    let newProduct = {
+      name: this.name,
+      category: this.category,
+      description: this.description,
+      price: Number(this.price)
+    };
+    if (this.image) newProduct['image'] = this.image;
 
     if (!this.data.category) {
       this.db
-        .collection('categories')
-        .add(newCategory)
+        .collection('products')
+        .add(newProduct)
         .then(data => this.dialogRef.close());
     } else {
-      this.data.category.ref.update(newCategory).then(data => this.dialogRef.close());
+      this.data.item.ref.update(newProduct).then(data => this.dialogRef.close());
     }
   }
 }

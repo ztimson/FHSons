@@ -2,12 +2,13 @@ import {Component} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireStorage} from 'angularfire2/storage';
 import {map} from 'rxjs/operators';
-import {ActivatedRoute, Router} from '../../../node_modules/@angular/router';
-import {MatDialog} from '../../../node_modules/@angular/material';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MatDialog} from '@angular/material';
 import {NewCategoryComponent} from './newCategory/newCategory.component';
 import {AppComponent} from '../app.component';
-import {DomSanitizer} from '../../../node_modules/@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 import {DeleteCategoryComponent} from './deleteCategory/deleteCategory.component';
+import {NewProductComponent} from './newProduct/newProduct.component';
 
 @Component({
   selector: 'store',
@@ -49,11 +50,15 @@ export class CategoriesComponent {
     });
   }
 
-  create(category) {
+  createCategory(category) {
     this.dialog.open(NewCategoryComponent, {data: {category: category, currentCategory: this.category}});
   }
 
-  delete(category) {
-    this.dialog.open(DeleteCategoryComponent, {data: category});
+  createItem(item) {
+    this.dialog.open(NewProductComponent, {data: {item: item, currentCategory: this.category}});
+  }
+
+  delete(obj) {
+    this.dialog.open(DeleteCategoryComponent, {data: obj});
   }
 }

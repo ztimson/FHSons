@@ -1,16 +1,22 @@
 <mat-dialog-content>
     <h3 mat-dialog-title>
-        <span *ngIf="data.category">Update</span>
-        <span *ngIf="!data.category">Create</span> Category</h3>
+        <span *ngIf="data.product">Update</span>
+        <span *ngIf="!data.product">Create</span> Product</h3>
     <form id="createForm">
         <mat-form-field class="w-100">
             <input matInput placeholder="Name" name="name" [(ngModel)]="name">
         </mat-form-field>
         <mat-form-field class="w-100">
-            <mat-select placeholder="Parent" [(value)]="parent">
-                <mat-option value="root">root</mat-option>
+            <mat-select placeholder="Category" name="category" [(value)]="category">
                 <mat-option *ngFor="let c of categories | async" [value]="c.name">{{c.name}}</mat-option>
             </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+            <textarea matInput rows="5" placeholder="Description" name="description" [(ngModel)]="description"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Price" type="number" name="price" [(ngModel)]="price">
+            <span matPrefix>$&nbsp;</span>
         </mat-form-field>
         <input #fileInput type="file" (change)="imageChanged()" hidden>
     </form>
@@ -21,7 +27,7 @@
         <mat-icon *ngIf="image">check</mat-icon>
     </button>
     <button mat-raised-button type="submit" form="createForm" color="primary" (click)="submit()">
-        <span *ngIf="data.category">Update</span>
-        <span *ngIf="!data.category">Create</span>
+        <span *ngIf="data.product">Update</span>
+        <span *ngIf="!data.product">Create</span>
     </button>
 </mat-dialog-actions>

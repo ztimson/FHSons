@@ -2,11 +2,11 @@
     <div class="container">
         <div class="row py-5">
             <div *ngIf="app.user" class="ml-auto mr-3 mb-3">
-                <button mat-raised-button (click)="create()">
+                <button mat-raised-button (click)="createCategory()">
                     <mat-icon>playlist_add</mat-icon> Category
                 </button>
-                <button mat-raised-button class="ml-3">
-                    <mat-icon>note_add</mat-icon> Item
+                <button mat-raised-button class="ml-3" (click)="createItem()">
+                    <mat-icon>note_add</mat-icon> Product
                 </button>
             </div>
 
@@ -27,7 +27,7 @@
                         </mat-card-content>
                     </div>
                     <mat-card-actions *ngIf="app.user">
-                        <button mat-raised-button (click)="create(c)">
+                        <button mat-raised-button (click)="createCategory(c)">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-raised-button class="ml-3" (click)="delete(c)">

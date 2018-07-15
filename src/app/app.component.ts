@@ -3,9 +3,9 @@ import {Router, NavigationEnd} from '@angular/router';
 import {ElectronService} from 'ngx-electron';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {filter} from 'rxjs/operators';
-import {MatDialog} from '../../node_modules/@angular/material';
+import {MatDialog} from '@angular/material';
 import {LoginComponent} from './login/login.component';
-import {AngularFireAuth} from '../../node_modules/angularfire2/auth';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
   selector: 'app-root',
