@@ -7,6 +7,7 @@ import {BreadcrumbService} from './breadcrumb.service';
 import {MatDialog} from '../../../node_modules/@angular/material';
 import {NewCategoryComponent} from './newCategory/newCategory.component';
 import {AppComponent} from '../app.component';
+import {DomSanitizer} from '../../../node_modules/@angular/platform-browser';
 
 @Component({
   selector: 'store',
@@ -21,6 +22,7 @@ export class CategoriesComponent {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    private domSanitizer: DomSanitizer,
     public app: AppComponent,
     public breadcrumb: BreadcrumbService
   ) {}
@@ -36,7 +38,13 @@ export class CategoriesComponent {
         .valueChanges()
         .pipe(
           map(rows =>
-            rows.filter((row: any) => (!this.category && !row.parent) || (this.category && row.parent == this.category))
+            rows
+              .filter((row: any) => (!this.category && !row.parent) || (this.category && row.parent == this.category))
+              .map((row: any) => {
+                row.image = this.domSanitizer.bypassSecurityTrustUrl(row.image);
+                console.log(row);
+                return row;
+              })
           )
         );
     });

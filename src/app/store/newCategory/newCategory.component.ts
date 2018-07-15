@@ -22,7 +22,7 @@ export class NewCategoryComponent {
   imageChanged() {
     let reader = new FileReader();
     reader.addEventListener('load', (event: any) => (this.image = event.target.result));
-    reader.readAsText(this.fileInput.nativeElement.files[0]);
+    reader.readAsDataURL(this.fileInput.nativeElement.files[0]);
   }
 
   submit() {
