@@ -18,7 +18,7 @@
             </nav>
 
             <ng-container *ngFor="let c of categories | async">
-                <mat-card class="m-3">
+                <mat-card class="m-3 curs-pointer">
                     <div [routerLink]="['/store', c.name]">
                         <img *ngIf="c.image" mat-card-image [src]="c.image" [alt]="c.name" style="width: 200px; height: 200px;">
                         <mat-divider *ngIf="c.image" class="custom-line"></mat-divider>
