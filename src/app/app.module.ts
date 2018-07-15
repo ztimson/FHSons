@@ -21,6 +21,7 @@ import {BreadcrumbService} from './store/breadcrumb.service';
 import {LoginComponent} from './login/login.component';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {NewCategoryComponent} from './store/newCategory/newCategory.component';
+import {DeleteCategoryComponent} from './store/deleteCategory/deleteCategory.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {NewCategoryComponent} from './store/newCategory/newCategory.component';
     CategoriesComponent,
     ConvertFromGPipe,
     ConvertToGPipe,
+    DeleteCategoryComponent,
     FormulaManagerComponent,
     HomeComponent,
     LoginComponent,
@@ -56,7 +58,7 @@ import {NewCategoryComponent} from './store/newCategory/newCategory.component';
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [BreadcrumbService],
-  entryComponents: [LoginComponent, NewCategoryComponent],
+  entryComponents: [DeleteCategoryComponent, LoginComponent, NewCategoryComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

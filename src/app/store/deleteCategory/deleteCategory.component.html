@@ -1,0 +1,13 @@
+<mat-dialog-content>
+    <h3 mat-dialog-title>Delete {{data.name}}</h3>
+    <p>You are about to delete a category, any items attached to it will be lost.
+        <br>Edit the items and change their category to prevent this, once ready,
+        <br>please re-enter
+        <span style="background-color: #ffff00">{{data.name}}</span> bellow to awknoledge your action.</p>
+    <mat-form-field>
+        <input matInput placeholder="Confirm" [(ngModel)]="confirm">
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="delete()" [disabled]="confirm.toLowerCase() != data.name.toLowerCase()">Delete</button>
+</mat-dialog-actions>

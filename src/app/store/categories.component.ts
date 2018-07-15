@@ -8,6 +8,7 @@ import {MatDialog} from '../../../node_modules/@angular/material';
 import {NewCategoryComponent} from './newCategory/newCategory.component';
 import {AppComponent} from '../app.component';
 import {DomSanitizer} from '../../../node_modules/@angular/platform-browser';
+import {DeleteCategoryComponent} from './deleteCategory/deleteCategory.component';
 
 @Component({
   selector: 'store',
@@ -60,5 +61,9 @@ export class CategoriesComponent {
 
   create(category) {
     this.dialog.open(NewCategoryComponent, {data: {category: category, currentCategory: this.category}});
+  }
+
+  delete(category) {
+    this.dialog.open(DeleteCategoryComponent, {data: category});
   }
 }
