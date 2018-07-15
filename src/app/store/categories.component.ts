@@ -34,7 +34,7 @@ export class CategoriesComponent {
       if (!this.category) this.breadcrumb.clear();
 
       this.categories = this.db
-        .collection('categories')
+        .collection('categories', ref => ref.orderBy('name'))
         .valueChanges()
         .pipe(
           map(rows =>
