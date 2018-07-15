@@ -17,7 +17,6 @@ import {NgxElectronModule} from 'ngx-electron';
 import {AboutComponent} from './about/about.component';
 import {CategoriesComponent} from './store/categories.component';
 import {AngularFireStorageModule} from 'angularfire2/storage';
-import {BreadcrumbService} from './store/breadcrumb.service';
 import {LoginComponent} from './login/login.component';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {NewCategoryComponent} from './store/newCategory/newCategory.component';
@@ -57,7 +56,7 @@ import {DeleteCategoryComponent} from './store/deleteCategory/deleteCategory.com
     ]),
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
-  providers: [BreadcrumbService],
+  providers: [],
   entryComponents: [DeleteCategoryComponent, LoginComponent, NewCategoryComponent],
   bootstrap: [AppComponent]
 })

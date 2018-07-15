@@ -12,16 +12,17 @@
 
             <nav class="w-100 mx-3" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item curs-pointer" [routerLink]="['/store']" (click)="breadcrumb.clear()">Store</li>
-                    <li *ngFor="let crumb of breadcrumb.breadcrumb; let i = index" class="breadcrumb-item curs-pointer" (click)="breadcrumb.navigate(i)">{{crumb}}</li>
+                    <li class="breadcrumb-item curs-pointer" [ngClass]="{active: !category}" [routerLink]="['/store']">Store</li>
+                    <li class="breadcrumb-item curs-pointer active">{{category}}</li>
                 </ol>
             </nav>
+
             <ng-container *ngFor="let c of categories | async">
                 <mat-card class="m-3">
-                    <div (click)="navigate(c.name)">
+                    <div [routerLink]="['/store', c.name]">
                         <img *ngIf="c.image" mat-card-image [src]="c.image" [alt]="c.name" style="width: 200px; height: 200px;">
                         <mat-divider *ngIf="c.image" class="custom-line"></mat-divider>
-                        <mat-card-content>
+                        <mat-card-content class="text-center">
                             <h5>{{c.name}}</h5>
                         </mat-card-content>
                     </div>
