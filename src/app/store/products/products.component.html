@@ -2,11 +2,12 @@
     <div class="container">
         <div class="row">
             <div class="col-12 py-4">
-                <img [src]="product.image" class="float-left img-fluid mb-4 mr-4">
+                <img [src]="product.image" class="float-left img-fluid mb-4">
                 <h2 class="roboto">{{product.name}}</h2>
                 <h5 *ngIf="product.price" class="text-muted">{{product.price | currency}}</h5>
                 <h5 *ngIf="!product.price" class="text-muted">Contact For Price</h5>
-                <hr class="ml-4" /> {{product.description}}
+                <hr class="ml-4" />
+                <p [innerHtml]="product.description"></p>
             </div>
         </div>
     </div>

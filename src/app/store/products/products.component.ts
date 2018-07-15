@@ -20,6 +20,9 @@ export class ProductsComponent {
         .subscribe(data => {
           this.product = data[0];
           this.product.image = this.domSanitizer.bypassSecurityTrustUrl(this.product.image);
+          this.product.description = this.domSanitizer.bypassSecurityTrustHtml(
+            this.product.description.replace(/(\r\n|\r|\n)/g, '<br>')
+          );
         });
     });
   }

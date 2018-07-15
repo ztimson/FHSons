@@ -47,6 +47,8 @@ export class NewProductComponent {
     };
     if (this.image) newProduct['image'] = this.image;
 
+    console.log(newProduct.description);
+
     if (!this.data.product) {
       this.db
         .collection('products')
