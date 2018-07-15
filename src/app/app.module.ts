@@ -15,13 +15,14 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {FormulaManagerComponent} from './formulaManager/formulaManager.component';
 import {NgxElectronModule} from 'ngx-electron';
 import {AboutComponent} from './about/about.component';
-import {CategoriesComponent} from './store/categories.component';
+import {CategoriesComponent} from './store/categories/categories.component';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {LoginComponent} from './login/login.component';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {NewCategoryComponent} from './store/newCategory/newCategory.component';
 import {NewProductComponent} from './store/newProduct/newProduct.component';
 import {DeleteComponent} from './store/delete/delete.component';
+import {ProductsComponent} from './store/products/products.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {DeleteComponent} from './store/delete/delete.component';
     LoginComponent,
     NewCategoryComponent,
     NewProductComponent,
+    ProductsComponent,
     ScalePipe,
     AboutComponent
   ],
@@ -52,6 +54,7 @@ import {DeleteComponent} from './store/delete/delete.component';
     RouterModule.forRoot([
       {path: 'about', component: AboutComponent},
       {path: 'formulaManager', component: FormulaManagerComponent},
+      {path: 'products/:product', component: ProductsComponent},
       {path: 'store/:category', component: CategoriesComponent},
       {path: 'store', component: CategoriesComponent},
       {path: '**', component: HomeComponent}

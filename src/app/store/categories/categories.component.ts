@@ -1,14 +1,13 @@
 import {Component} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {AngularFireStorage} from 'angularfire2/storage';
 import {map} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
-import {NewCategoryComponent} from './newCategory/newCategory.component';
-import {AppComponent} from '../app.component';
+import {NewCategoryComponent} from '../newCategory/newCategory.component';
+import {AppComponent} from '../../app.component';
 import {DomSanitizer} from '@angular/platform-browser';
-import {NewProductComponent} from './newProduct/newProduct.component';
-import {DeleteComponent} from './delete/delete.component';
+import {NewProductComponent} from '../newProduct/newProduct.component';
+import {DeleteComponent} from '../delete/delete.component';
 
 @Component({
   selector: 'store',
