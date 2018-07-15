@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {AngularFireModule} from 'angularfire2';
-import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFirestoreModule, AngularFirestore} from 'angularfire2/firestore';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
@@ -59,4 +59,8 @@ import {NewCategoryComponent} from './store/newCategory/newCategory.component';
   entryComponents: [LoginComponent, NewCategoryComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private db: AngularFirestore) {
+    this.db.firestore.enablePersistence();
+  }
+}
