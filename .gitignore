@@ -1,5 +1,6 @@
 .DS_STORE
 
+functions/lib
 /dist/
 /public/
 bazel-*

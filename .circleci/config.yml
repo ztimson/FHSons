@@ -17,45 +17,39 @@ jobs:
 
             - run: 
                 name: Install Dependancies
-                command: yarn
+                command: | 
+                    yarn
+                    cd functions && yarn
 
             - save_cache:
                 key: v1-dependencies-{{ checksum "package.json" }}
-                paths: node_modules
+                paths:
+                    - node_modules
+                    - functions/node_modules
 
             - run: 
                 name: Build
                 command: yarn build
 
-            - run:
-                name: Deploy
-                command: yarn firebase deploy --token "${FIREBASE_TOKEN} --only hosting"
+            - persist_to_workspace:
+                root: ./
+                paths:
+                    - public
+                    - functions/node_modules
 
     deploy_functions:
         docker:
             - image: circleci/node:10.4-browsers
 
-        working_directory: ~/repo/functions
+        working_directory: ~/repo
 
         steps:
-            - checkout
-        
-            - restore_cache:
-                keys:
-                    - v1-dependencies-{{ checksum "package.json" }}
-                    - v1-dependencies-
-            
-            - run: 
-                name: Install Dependancies
-                command: yarn
+            -attach_workspace:
+                at: ./
 
-            - save_cache:
-                key: v1-dependencies-{{ checksum "package.json" }}
-                paths: node_modules
-            
             - run:
                 name: Deploy
-                command: cd .. && yarn firebase deploy --token "${FIREBASE_TOKEN}" --only functions
+                command: yarn firebase deploy --token "${FIREBASE_TOKEN}"
 
 workflows:
     version: 2
@@ -63,4 +57,6 @@ workflows:
     build_and_deply:
         jobs:
             - build
-            - deploy_functions
+            - deploy
+                requires:
+                    - build
