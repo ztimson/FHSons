@@ -35,6 +35,7 @@ jobs:
                 root: ./
                 paths:
                     - public
+                    - node_modules
                     - functions/node_modules
             
             - store_artifacts:
