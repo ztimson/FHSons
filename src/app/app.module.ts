@@ -21,7 +21,7 @@ import {LoginComponent} from './login/login.component';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {NewCategoryComponent} from './store/newCategory/newCategory.component';
 import {NewProductComponent} from './store/newProduct/newProduct.component';
-import {DeleteComponent} from './store/delete/delete.component';
+import {DeleteComponent} from './delete/delete.component';
 import {ProductsComponent} from './store/products/products.component';
 
 @NgModule({

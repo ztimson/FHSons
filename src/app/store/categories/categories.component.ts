@@ -7,7 +7,7 @@ import {NewCategoryComponent} from '../newCategory/newCategory.component';
 import {AppComponent} from '../../app.component';
 import {DomSanitizer} from '@angular/platform-browser';
 import {NewProductComponent} from '../newProduct/newProduct.component';
-import {DeleteComponent} from '../delete/delete.component';
+import {DeleteComponent} from '../../delete/delete.component';
 
 @Component({
   selector: 'store',
