@@ -25,10 +25,11 @@
                 </ul>
                 <div class="ml-auto">
                     <button *ngIf="!user" mat-stroked-button color="primary" (click)="login()">Login</button>
-                    <div *ngIf="user">
+                    <div *ngIf="user" class="d-inline">
                         <span class="text-muted mr-3">{{user.email}}</span>
                         <button mat-stroked-button color="accent" (click)="afAuth.auth.signOut()">Logout</button>
                     </div>
+                    <mat-icon *ngIf="cart.length" class="ml-3" style="transform: translateY(6px)" [matBadge]="cartItemCount()" matBadgeColor="warn">shopping_cart</mat-icon>
                 </div>
             </div>
         </div>
@@ -74,7 +75,8 @@
                     <h5>CONTACT</h5>
                     <p>
                         <i class="fas fa-phone mr-2"></i> 416-744-2723
-                        <br /><i class="fas fa-fax mr-2"></i> 416-744-4078
+                        <br />
+                        <i class="fas fa-fax mr-2"></i> 416-744-4078
                         <br />Toll Free: 1-888-422-7737
                     </p>
                 </div>
@@ -84,7 +86,8 @@
     <div class="container-fluid footer-sub">
         <div class="container text-center">
             <p class="mb-0 p-2">© 2018 FH &amp; SONS
-                <br />Designed and developed by: <a href="http://zakscode.com">Zak Timson</a>
+                <br />Designed and developed by:
+                <a href="http://zakscode.com">Zak Timson</a>
             </p>
         </div>
     </div>

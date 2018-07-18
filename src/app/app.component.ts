@@ -6,12 +6,16 @@ import {filter} from 'rxjs/operators';
 import {MatDialog} from '@angular/material';
 import {LoginComponent} from './login/login.component';
 import {AngularFireAuth} from 'angularfire2/auth';
+import {LocalStorage} from 'webstorage-decorators';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
+  @LocalStorage({defaultValue: []})
+  cart: {id: string; item: string; price: number; quantity: number}[];
+
   categories;
   user;
 
@@ -23,6 +27,18 @@ export class AppComponent implements OnInit {
     public electron: ElectronService
   ) {
     this.categories = this.db.collection('categories').valueChanges();
+  }
+
+  addToCart(id: string, item: string, price: number, quantity: number) {
+    this.cart = [{id: id, item: item, price: Number(price), quantity: Number(quantity)}].concat(this.cart);
+  }
+
+  cartItemCount() {
+    return this.cart.map(row => row.quantity).reduce((acc, row) => acc + row, 0);
+  }
+
+  login() {
+    this.dialog.open(LoginComponent);
   }
 
   ngOnInit() {
@@ -43,9 +59,5 @@ export class AppComponent implements OnInit {
     this.afAuth.user.subscribe(user => {
       this.user = user;
     });
-  }
-
-  login() {
-    this.dialog.open(LoginComponent);
   }
 }
