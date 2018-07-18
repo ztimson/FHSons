@@ -41,8 +41,6 @@ jobs:
             - store_artifacts:
                 path: public
 
-            - run: pwd
-
     deploy:
         docker:
             - image: circleci/node:10.4-browsers
@@ -54,10 +52,6 @@ jobs:
 
             - attach_workspace:
                 at: ./
-
-            - run: ls
-
-            - run: pwd
 
             - run:
                 name: Deploy
