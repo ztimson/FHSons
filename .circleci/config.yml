@@ -55,7 +55,7 @@ jobs:
             
             - run:
                 name: Deploy
-                command: yarn firebase deploy --token "${FIREBASE_TOKEN}" --only functions
+                command: cd .. && yarn firebase deploy --token "${FIREBASE_TOKEN}" --only functions
 
 workflows:
     version: 2
