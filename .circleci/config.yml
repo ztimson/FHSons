@@ -50,6 +50,8 @@ jobs:
             - attach_workspace:
                 at: ./
 
+            - run: ls
+
             - run:
                 name: Deploy
                 command: yarn firebase deploy --token "${FIREBASE_TOKEN}"
