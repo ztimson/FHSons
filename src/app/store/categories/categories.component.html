@@ -1,4 +1,5 @@
-<div class="container-fluid" style="background-color: #53709f;">
+<!-- <div class="container-fluid" style="background-color: #53709f;"> -->
+<div class="container-fluid">
     <div class="container">
         <div class="row py-5">
             <div *ngIf="app.user" class="ml-auto mr-3 mb-3">
@@ -18,11 +19,11 @@
             </nav>
 
             <ng-container *ngFor="let c of categories | async">
-                <mat-card class="m-3 curs-pointer">
+                <mat-card class="m-2 mx-auto curs-pointer">
                     <div [routerLink]="['/store', c.name]">
-                        <img *ngIf="c.image" mat-card-image [src]="c.image" [alt]="c.name" style="width: 200px; height: 200px;">
+                        <img *ngIf="c.image" mat-card-image [src]="c.image" [alt]="c.name" style="width: 200px; height: 200px;" class="mx-auto">
                         <mat-divider *ngIf="c.image" class="custom-line"></mat-divider>
-                        <mat-card-content class="text-center">
+                        <mat-card-content class="text-center" style="max-width:200px">
                             <h5>{{c.name}}</h5>
                         </mat-card-content>
                     </div>
@@ -37,12 +38,24 @@
                 </mat-card>
             </ng-container>
 
+            <ng-container *ngIf="(categories | async)?.length == 0 && (products | async)?.length <= 0">
+                <div class="row w-100">
+                    <div class="col-12 p-5">
+                        <mat-card class="mx-auto">
+                                <mat-card-content>
+                                    There are currently no products in the {{category}} category. Please check back again later as we are currently updating our website.
+                                </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </ng-container>
+
             <ng-container *ngFor="let p of products | async">
-                <mat-card class="m-3 curs-pointer">
+                <mat-card class="m-2 curs-pointer mx-auto">
                     <div [routerLink]="['/products', p.name]">
-                        <img *ngIf="p.image" mat-card-image [src]="p.image" [alt]="p.name" style="width: 200px; height: 200px;">
+                        <img *ngIf="p.image" mat-card-image [src]="p.image" [alt]="p.name" style="width: 200px; height: 200px;" class="mx-auto">
                         <mat-divider *ngIf="p.image" class="custom-line"></mat-divider>
-                        <mat-card-content class="text-center">
+                        <mat-card-content class="text-center" style="max-width:200px">
                             <h5>{{p.name}}</h5>
                         </mat-card-content>
                     </div>
