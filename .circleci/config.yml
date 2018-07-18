@@ -36,6 +36,9 @@ jobs:
                 paths:
                     - public
                     - functions/node_modules
+            
+            - store_artifacts:
+                path: public
 
     deploy:
         docker:
