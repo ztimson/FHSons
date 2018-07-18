@@ -1,4 +1,5 @@
 version: 2
+
 jobs:
     build:
         docker:
@@ -9,55 +10,56 @@ jobs:
         steps:
             - checkout
 
-        - restore_cache:
-            keys:
-                - v1-dependencies-{{ checksum "package.json" }}
-                - v1-dependencies-
+            - restore_cache:
+                keys:
+                    - v1-dependencies-{{ checksum "package.json" }}
+                    - v1-dependencies-
 
-        - run: 
-            name: Install Dependancies
-            command: yarn
+            - run: 
+                name: Install Dependancies
+                command: yarn
 
-        - save_cache:
-            key: v1-dependencies-{{ checksum "package.json" }}
-            paths: node_modules
+            - save_cache:
+                key: v1-dependencies-{{ checksum "package.json" }}
+                paths: node_modules
 
-        - run: 
-            name: Build
-            command: yarn build
+            - run: 
+                name: Build
+                command: yarn build
 
-        - run:
-            name: Deploy
-            command: yarn firebase deploy --token "${FIREBASE_TOKEN} --only hosting"
+            - run:
+                name: Deploy
+                command: yarn firebase deploy --token "${FIREBASE_TOKEN} --only hosting"
 
-    deploy:
+    deploy_functions:
         docker:
             - image: circleci/node:10.4-browsers
 
         working_directory: ~/repo/functions
 
-        stesp:
+        steps:
             - checkout
         
-        - restore_cache:
-            keys:
-                - v1-dependencies-{{ checksum "package.json" }}
-                - v1-dependencies-
-        
-        - run: 
-            name: Install Dependancies
-            command: yarn
+            - restore_cache:
+                keys:
+                    - v1-dependencies-{{ checksum "package.json" }}
+                    - v1-dependencies-
+            
+            - run: 
+                name: Install Dependancies
+                command: yarn
 
-        - save_cache:
-            key: v1-dependencies-{{ checksum "package.json" }}
-            paths: node_modules
-        
-        - run:
-            name: Deploy
-            command: yarn firebase deploy --token "${FIREBASE_TOKEN}" --only functions
+            - save_cache:
+                key: v1-dependencies-{{ checksum "package.json" }}
+                paths: node_modules
+            
+            - run:
+                name: Deploy
+                command: yarn firebase deploy --token "${FIREBASE_TOKEN}" --only functions
 
 workflows:
     version: 2
+
     build_and_deply:
         jobs:
             - build
