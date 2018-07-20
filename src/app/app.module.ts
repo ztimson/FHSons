@@ -23,11 +23,13 @@ import {NewCategoryComponent} from './store/newCategory/newCategory.component';
 import {NewProductComponent} from './store/newProduct/newProduct.component';
 import {DeleteComponent} from './delete/delete.component';
 import {ProductsComponent} from './store/products/products.component';
+import {CartComponent} from './store/cart/cart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CategoriesComponent,
+    CartComponent,
     ConvertFromGPipe,
     ConvertToGPipe,
     DeleteComponent,
@@ -53,6 +55,7 @@ import {ProductsComponent} from './store/products/products.component';
     ReactiveFormsModule,
     RouterModule.forRoot([
       {path: 'about', component: AboutComponent},
+      {path: 'cart', component: CartComponent},
       {path: 'formulaManager', component: FormulaManagerComponent},
       {path: 'products/:product', component: ProductsComponent},
       {path: 'store/:category', component: CategoriesComponent},
