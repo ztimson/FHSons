@@ -1,7 +1,6 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import * as paypal from 'paypal-rest-sdk';
-import {resolve} from 'path';
 
 paypal.configure({
   mode: 'sandbox',
@@ -36,6 +35,7 @@ export const checkout = functions.https.onRequest(async (request, response) => {
 
   // Fill in information from DB
   let promises = [];
+  console.log(request.body);
   let cart = request.body.cart.filter(row => row.quantity > 0);
   cart.forEach(async row =>
     promises.push(
@@ -47,6 +47,7 @@ export const checkout = functions.https.onRequest(async (request, response) => {
   );
 
   let products = await Promise.all(promises);
+  console.log(products);
   req.transactions[0].item_list.items = products.map((row, i) => {
     return {name: row.name, sku: row.name, price: row.price, currency: 'CAD', quantity: cart[i].quantity};
   });
