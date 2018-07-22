@@ -1,7 +1,7 @@
 <!-- <div class="container-fluid" style="background-color: #53709f;"> -->
 <div class="container-fluid">
     <div class="container">
-        <div class="row py-5">
+        <div class="row py-3">
             <div *ngIf="app.user" class="ml-auto mr-3 mb-3">
                 <button mat-raised-button (click)="createCategory()">
                     <mat-icon>playlist_add</mat-icon> Category
@@ -42,9 +42,10 @@
                 <div class="row w-100">
                     <div class="col-12 p-5">
                         <mat-card class="mx-auto">
-                                <mat-card-content>
-                                    There are currently no products in the {{category}} category. Please check back again later as we are currently updating our website.
-                                </mat-card-content>
+                            <mat-card-content>
+                                There are currently no products in the {{category}} category. Please check back again later as we are currently updating
+                                our website.
+                            </mat-card-content>
                         </mat-card>
                     </div>
                 </div>
