@@ -1,0 +1,28 @@
+<button mat-raised-button class="float-right mb-3">
+    <mat-icon>add</mat-icon> Component</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>Cost Per Kg</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of components | async">
+            <td>{{c.name}}</td>
+            <td>{{c.description}}</td>
+            <td>{{c.created | date}}</td>
+            <td class="text-center">{{c.cost | currency}}</td>
+            <td>
+                <mat-icon class="curs-pointer">edit</mat-icon>
+            </td>
+            <td>
+                <mat-icon class="curs-pointer" (click)="delete(c)">delete</mat-icon>
+            </td>
+        </tr>
+    </tbody>
+</table>

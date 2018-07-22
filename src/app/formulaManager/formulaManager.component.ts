@@ -54,7 +54,7 @@ export class FormulaManagerComponent {
   }
 
   openComponents() {
-    this.dialog.open(ViewComponents);
+    this.dialog.open(ViewComponents, {height: '500px'});
   }
 
   cost() {
