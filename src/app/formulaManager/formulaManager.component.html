@@ -1,4 +1,16 @@
 <div class="container">
+    <div *ngIf="user" class="row">
+        <div class="col-12 mt-3">
+            <div class="float-right">
+                <button mat-raised-button class="mr-3" (click)="openComponents()">
+                    <mat-icon>list</mat-icon> Components
+                </button>
+                <button mat-raised-button>
+                    <mat-icon>add</mat-icon> Formula
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-12 col-lg-3 h-100 mb-4">
             <mat-form-field class="w-100 pt-4">

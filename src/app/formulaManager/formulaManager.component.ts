@@ -3,6 +3,9 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {ConvertFromGPipe, ConvertToGPipe} from './units.pipe';
 import {ElectronService} from 'ngx-electron';
 import {LocalStorage} from 'webstorage-decorators';
+import {MatDialog} from '../../../node_modules/@angular/material';
+import {ViewComponents} from './viewComponents/viewComponents.component';
+import {AngularFireAuth} from '../../../node_modules/angularfire2/auth';
 
 @Component({
   selector: 'formula-manager',
@@ -17,6 +20,7 @@ export class FormulaManagerComponent {
   components;
   @LocalStorage({defaultValue: 'g'})
   unit;
+  user;
 
   _newTotal: number = 0;
   get newTotal() {
@@ -26,17 +30,16 @@ export class FormulaManagerComponent {
     this._newTotal = new ConvertToGPipe().transform(total, this.unit);
   }
 
-  constructor(private db: AngularFirestore, public electron: ElectronService) {
+  constructor(
+    private db: AngularFirestore,
+    public electron: ElectronService,
+    private dialog: MatDialog,
+    private afAuth: AngularFireAuth
+  ) {
     this.formulas = this.db.collection('formulas', ref => ref.orderBy('name')).valueChanges();
-  }
-
-  displayFormula(formula) {
-    formula.components
-      .filter(row => typeof row.component.get == 'function')
-      .forEach((row, i, arr) => row.component.get().then(row => (arr[i].component = row.data())));
-    formula.total = formula.components.reduce((acc, row) => (acc += row.quantity), 0);
-    this.newTotal = new ConvertFromGPipe().transform(formula.total, this.unit);
-    this.formula = formula;
+    this.afAuth.user.subscribe(user => {
+      this.user = user;
+    });
   }
 
   create(row: string) {
@@ -50,6 +53,10 @@ export class FormulaManagerComponent {
     });
   }
 
+  openComponents() {
+    this.dialog.open(ViewComponents);
+  }
+
   cost() {
     if (!this.formula || this.formula.components.filter(row => typeof row.component.get == 'function').length > 0)
       return 0;
@@ -58,6 +65,15 @@ export class FormulaManagerComponent {
       row => (cost += (((row.quantity / this.formula.total) * this._newTotal) / 1000) * row.component.cost)
     );
     return cost;
+  }
+
+  displayFormula(formula) {
+    formula.components
+      .filter(row => typeof row.component.get == 'function')
+      .forEach((row, i, arr) => row.component.get().then(row => (arr[i].component = row.data())));
+    formula.total = formula.components.reduce((acc, row) => (acc += row.quantity), 0);
+    this.newTotal = new ConvertFromGPipe().transform(formula.total, this.unit);
+    this.formula = formula;
   }
 
   prompt() {
