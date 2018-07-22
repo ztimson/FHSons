@@ -3,6 +3,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {map} from 'rxjs/operators';
 import {MatDialog} from '@angular/material';
 import {DeleteComponent} from '../../delete/delete.component';
+import {NewComponentComponent} from '../newComponent/newComponent.component';
 
 @Component({
   selector: '',
@@ -24,6 +25,10 @@ export class ViewComponents {
           })
         )
       );
+  }
+
+  createComponent() {
+    this.dialog.open(NewComponentComponent);
   }
 
   delete(component) {

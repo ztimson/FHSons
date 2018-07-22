@@ -25,6 +25,7 @@ import {DeleteComponent} from './delete/delete.component';
 import {ProductsComponent} from './store/products/products.component';
 import {CartComponent} from './store/cart/cart.component';
 import {ViewComponents} from './formulaManager/viewComponents/viewComponents.component';
+import {NewComponentComponent} from './formulaManager/newComponent/newComponent.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {ViewComponents} from './formulaManager/viewComponents/viewComponents.com
     HomeComponent,
     LoginComponent,
     NewCategoryComponent,
+    NewComponentComponent,
     NewProductComponent,
     ProductsComponent,
     ScalePipe,
@@ -67,7 +69,14 @@ import {ViewComponents} from './formulaManager/viewComponents/viewComponents.com
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [],
-  entryComponents: [DeleteComponent, LoginComponent, NewCategoryComponent, NewProductComponent, ViewComponents],
+  entryComponents: [
+    DeleteComponent,
+    LoginComponent,
+    NewCategoryComponent,
+    NewComponentComponent,
+    NewProductComponent,
+    ViewComponents
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

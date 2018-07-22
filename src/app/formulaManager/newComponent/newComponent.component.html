@@ -1,0 +1,23 @@
+<mat-dialog-content>
+    <h3 mat-dialog-title>
+        <span *ngIf="data">Update</span>
+        <span *ngIf="!data">Create</span> Category</h3>
+    <form id="createForm">
+        <mat-form-field class="w-100">
+            <input matInput placeholder="Name" name="name" [(ngModel)]="name">
+        </mat-form-field>
+        <mat-form-field class="w-100">
+            <input matInput placeholder="Description" name="description" [(ngModel)]="description">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Cost Per Kg" type="number" name="cost" [(ngModel)]="cost">
+            <span matPrefix>$&nbsp;</span>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button type="submit" form="createForm" color="primary" (click)="submit()">
+        <span *ngIf="data">Update</span>
+        <span *ngIf="!data">Create</span>
+    </button>
+</mat-dialog-actions>
