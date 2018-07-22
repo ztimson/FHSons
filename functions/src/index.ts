@@ -4,6 +4,8 @@ import * as paypal from 'paypal-rest-sdk';
 
 const cors = require('cors')({origin: true});
 
+admin.initializeApp();
+
 paypal.configure({
   mode: 'sandbox',
   client_id: 'AaU8tQfmz1_MFDTKuf84yYERXvdDt2ZFJVrxhNW_49DazF4A_F0VBuKyV5_nntyEdZqUa5Oq9ZBj65GV',
@@ -31,7 +33,6 @@ export const checkout = functions.https.onRequest((request, response) => {
 
     // Fill in information from DB
     let promises = [];
-    console.log(request.body);
     let cart = request.body.cart.filter(row => row.quantity > 0);
     cart.forEach(async row =>
       promises.push(
