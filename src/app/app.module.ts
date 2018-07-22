@@ -26,6 +26,7 @@ import {ProductsComponent} from './store/products/products.component';
 import {CartComponent} from './store/cart/cart.component';
 import {ViewComponents} from './formulaManager/viewComponents/viewComponents.component';
 import {NewComponentComponent} from './formulaManager/newComponent/newComponent.component';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {NewComponentComponent} from './formulaManager/newComponent/newComponent.
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
+    HttpModule,
     NgxElectronModule,
     ReactiveFormsModule,
     RouterModule.forRoot([

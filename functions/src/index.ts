@@ -33,7 +33,6 @@ export const checkout = functions.https.onRequest((request, response) => {
 
     // Fill in information from DB
     let promises = [];
-    console.log(request.body);
     let cart = request.body.cart.filter(row => row.quantity > 0);
     cart.forEach(async row =>
       promises.push(
@@ -47,19 +46,15 @@ export const checkout = functions.https.onRequest((request, response) => {
     let products = await Promise.all(promises);
     req.transactions[0].item_list.items = products.map((row, i) => {
       const data = row.data();
-      console.log(data);
       return {name: data.name, sku: data.name, price: data.price, currency: 'CAD', quantity: cart[i].quantity};
     });
     req.transactions[0].amount.total = req.transactions[0].item_list.items.reduce((acc, row, i) => {
       return acc + row.price * row.quantity;
     }, 0);
 
-    console.log(req);
-
     // Send request to PayPal
     let create = new Promise((res, rej) => {
       paypal.payment.create(req, (error, payment) => {
-        console.log(error, payment);
         if (error) rej(error);
 
         let link = payment.links.filter(row => row.rel == 'approval_url').map(row => row.href)[0];
@@ -73,7 +68,7 @@ export const checkout = functions.https.onRequest((request, response) => {
     });
 
     try {
-      response.send(await create);
+      response.json({url: await create});
     } catch (err) {
       console.error(err);
       response.status(500);

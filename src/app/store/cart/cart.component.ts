@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {LocalStorage} from 'webstorage-decorators';
 import {access} from 'fs';
+import {Http} from '../../../../node_modules/@angular/http';
+import {Router} from '../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'cart',
@@ -16,7 +18,17 @@ export class CartComponent {
   province: string;
   postal: string;
 
-  constructor() {}
+  constructor(private http: Http, private router: Router) {}
+
+  async checkout() {
+    let cart = this.cart.map(row => {
+      return {id: row.id, quantity: row.quantity};
+    });
+    let link = await this.http
+      .post('https://us-central1-fhsons-7e90b.cloudfunctions.net/checkout', {cart: cart})
+      .toPromise();
+    window.location.href = link.url;
+  }
 
   remove(i: number) {
     let c = this.cart;
