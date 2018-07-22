@@ -39,7 +39,7 @@ export const checkout = functions.https.onRequest((request, response) => {
       promises.push(
         admin
           .firestore()
-          .doc(`product/${row.id}`)
+          .doc(`products/${row.id}`)
           .get()
       )
     );
