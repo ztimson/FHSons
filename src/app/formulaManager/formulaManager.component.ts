@@ -3,9 +3,9 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import {ConvertFromGPipe, ConvertToGPipe} from './units.pipe';
 import {ElectronService} from 'ngx-electron';
 import {LocalStorage} from 'webstorage-decorators';
-import {MatDialog} from '../../../node_modules/@angular/material';
+import {MatDialog} from '@angular/material';
 import {ViewComponents} from './viewComponents/viewComponents.component';
-import {AngularFireAuth} from '../../../node_modules/angularfire2/auth';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
   selector: 'formula-manager',

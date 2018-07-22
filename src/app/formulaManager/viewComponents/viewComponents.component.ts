@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {AngularFirestore} from '../../../../node_modules/angularfire2/firestore';
+import {AngularFirestore} from 'angularfire2/firestore';
 import {map} from 'rxjs/operators';
-import {MatDialog} from '../../../../node_modules/@angular/material';
+import {MatDialog} from '@angular/material';
 import {DeleteComponent} from '../../delete/delete.component';
 
 @Component({

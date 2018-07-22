@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {ActivatedRoute} from '@angular/router';
-import {DomSanitizer} from 'node_modules/@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
 import {AppComponent} from '../../app.component';
 import {map} from 'rxjs/operators';
 
