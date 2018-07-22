@@ -33,6 +33,7 @@ export const checkout = functions.https.onRequest((request, response) => {
 
     // Fill in information from DB
     let promises = [];
+    console.log(request.body);
     let cart = request.body.cart.filter(row => row.quantity > 0);
     cart.forEach(async row =>
       promises.push(
@@ -46,6 +47,7 @@ export const checkout = functions.https.onRequest((request, response) => {
     let products = await Promise.all(promises);
     req.transactions[0].item_list.items = products.map((row, i) => {
       const data = row.data();
+      console.log(data);
       return {name: data.name, sku: data.name, price: data.price, currency: 'CAD', quantity: cart[i].quantity};
     });
     req.transactions[0].amount.total = req.transactions[0].item_list.items.reduce((acc, row, i) => {
