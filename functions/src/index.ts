@@ -44,15 +44,20 @@ export const checkout = functions.https.onRequest((request, response) => {
     );
 
     let products = await Promise.all(promises);
-    console.log(products);
     req.transactions[0].item_list.items = products.map((row, i) => {
-      return {name: row.name, sku: row.name, price: row.price, currency: 'CAD', quantity: cart[i].quantity};
+      const data = row.data();
+      return {name: data.name, sku: data.name, price: data.price, currency: 'CAD', quantity: cart[i].quantity};
     });
-    req.transactions[0].amount.total = products.reduce((acc, row, i) => acc + row.price * cart[i].quantity, 0);
+    req.transactions[0].amount.total = req.transactions[0].item_list.items.reduce((acc, row, i) => {
+      return acc + row.price * row.quantity;
+    }, 0);
+
+    console.log(req);
 
     // Send request to PayPal
     let create = new Promise((res, rej) => {
       paypal.payment.create(req, (error, payment) => {
+        console.log(error, payment);
         if (error) rej(error);
 
         let link = payment.links.filter(row => row.rel == 'approval_url').map(row => row.href)[0];
