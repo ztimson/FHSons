@@ -29,7 +29,11 @@
                         <span class="text-muted mr-3">{{user.email}}</span>
                         <button mat-stroked-button color="accent" (click)="afAuth.auth.signOut()">Logout</button>
                     </div>
-                    <mat-icon *ngIf="cart.length" class="ml-3" style="transform: translateY(6px)" [matBadge]="cartItemCount()" matBadgeColor="warn" [routerLink]="['/cart']">shopping_cart</mat-icon>
+                    <button *ngIf="cart.length" mat-icon-button class="ml-3" [routerLink]="['/cart']">
+                        <mat-icon style="transform: translateY(6px)" [matBadge]="cartItemCount()" matBadgeColor="warn">
+                            shopping_cart
+                        </mat-icon>
+                    </button>
                 </div>
             </div>
         </div>
