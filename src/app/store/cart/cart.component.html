@@ -33,7 +33,7 @@
           <td class="pl-3">{{total() | currency}}</td>
         </tr>
       </table>
-      <button mat-raised-button class="float-right mt-3" color="primary" (click)="checkout()">Checkout</button>
+      <button mat-raised-button class="float-right mt-3" color="primary" (click)="checkout()" [disabled]="total() <= 0">Checkout</button>
     </div>
   </mat-card>
 </div>

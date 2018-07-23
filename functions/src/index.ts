@@ -19,8 +19,8 @@ export const checkout = functions.https.onRequest((request, response) => {
       intent: 'sale',
       payer: {payment_method: 'paypal'},
       redirect_urls: {
-        return_url: 'https://fhsons.zakscode.com/success',
-        cancel_url: 'https://fhsons.zakscode.com/cart'
+        return_url: 'https://fhsons.zakscode.com/cart/success',
+        cancel_url: 'https://fhsons.zakscode.com/cart/cancelled'
       },
       transactions: [
         {
@@ -51,6 +51,8 @@ export const checkout = functions.https.onRequest((request, response) => {
     req.transactions[0].amount.total = req.transactions[0].item_list.items.reduce((acc, row, i) => {
       return acc + row.price * row.quantity;
     }, 0);
+
+    console.info(req);
 
     // Send request to PayPal
     let create = new Promise((res, rej) => {
