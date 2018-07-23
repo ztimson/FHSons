@@ -47,9 +47,6 @@ export const checkout = functions.https.onRequest((request, response) => {
       const data = row.data();
       return {name: data.name, sku: data.name, price: data.price, currency: data.currency, quantity: cart[i].quantity};
     });
-    req.transactions[0].amount.total = req.transactions[0].item_list.items.reduce((acc, row, i) => {
-      return acc + row.price * row.quantity;
-    }, 0);
 
     console.info(req);
 
