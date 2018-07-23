@@ -28,7 +28,11 @@ export class ViewComponents {
   }
 
   createComponent(component?) {
-    this.dialog.open(NewComponentComponent, {data: component});
+    if(component) {
+      this.dialog.open(NewComponentComponent, { data: component })
+    } else {
+      this.dialog.open(NewComponentComponent);
+    }
   }
 
   delete(component) {
