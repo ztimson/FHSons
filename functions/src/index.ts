@@ -25,7 +25,6 @@ export const checkout = functions.https.onRequest((request, response) => {
       transactions: [
         {
           item_list: {items: []},
-          amount: {total: 0, currency: 'CAD'},
           description: 'Purchase of equipment and suplies from FH & Sons'
         }
       ]
@@ -46,7 +45,7 @@ export const checkout = functions.https.onRequest((request, response) => {
     let products = await Promise.all(promises);
     req.transactions[0].item_list.items = products.map((row, i) => {
       const data = row.data();
-      return {name: data.name, sku: data.name, price: data.price, currency: 'CAD', quantity: cart[i].quantity};
+      return {name: data.name, sku: data.name, price: data.price, currency: data.currency, quantity: cart[i].quantity};
     });
     req.transactions[0].amount.total = req.transactions[0].item_list.items.reduce((acc, row, i) => {
       return acc + row.price * row.quantity;

@@ -11,8 +11,9 @@ export class NewProductComponent {
 
   categories;
   category;
-  name: string;
+  currency = 'CAD';
   description: string;
+  name: string;
   price: number = 0.0;
   image: string;
 
@@ -26,8 +27,9 @@ export class NewProductComponent {
 
     if (data.product) {
       this.category = data.product.category;
-      this.name = data.product.name;
+      this.currency = data.product.currency;
       this.description = data.product.description;
+      this.name = data.product.name;
       this.price = data.product.price;
     }
   }
@@ -40,14 +42,13 @@ export class NewProductComponent {
 
   submit() {
     let newProduct = {
-      name: this.name,
       category: this.category,
+      currency: this.currency,
       description: this.description,
+      name: this.name,
       price: Number(this.price)
     };
     if (this.image) newProduct['image'] = this.image;
-
-    console.log(newProduct.description);
 
     if (!this.data.product) {
       this.db

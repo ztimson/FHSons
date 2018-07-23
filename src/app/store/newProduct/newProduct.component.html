@@ -15,9 +15,14 @@
             <textarea matInput rows="5" placeholder="Description" name="description" [(ngModel)]="description"></textarea>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Price" type="number" name="price" [(ngModel)]="price">
             <span matPrefix>$&nbsp;</span>
+            <input matInput placeholder="Price" type="number" name="price" [(ngModel)]="price">
+            <mat-hint *ngIf="!price" align="start">0 will display "Contact For Price"</mat-hint>
         </mat-form-field>
+        <mat-radio-group [(ngModel)]="currency" name="currency">
+            <mat-radio-button value="CAD" class="pl-3">CAD</mat-radio-button>
+            <mat-radio-button value="USD" class="pl-3">USD</mat-radio-button>
+        </mat-radio-group>
         <input #fileInput type="file" (change)="imageChanged()" hidden>
     </form>
 </mat-dialog-content>

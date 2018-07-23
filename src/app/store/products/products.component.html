@@ -12,7 +12,7 @@
                     </button>
                 </div>
                 <h2 class="roboto">{{product.name}}</h2>
-                <h5 *ngIf="product.price" class="text-muted">{{product.price | currency}}</h5>
+                <h5 *ngIf="product.price" class="text-muted">{{product.currency}} {{product.price | currency}}</h5>
                 <h5 *ngIf="!product.price" class="text-muted">Contact For Price</h5>
                 <hr class="ml-4" />
                 <p [innerHtml]="product.description"></p>
