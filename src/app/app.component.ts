@@ -14,7 +14,7 @@ import {LocalStorage} from 'webstorage-decorators';
 })
 export class AppComponent implements OnInit {
   @LocalStorage({defaultValue: []})
-  cart: {id: string; item: string; price: number; quantity: number}[];
+  cart: {id: string; item: string; price: number; currency: 'CAD' | 'USD'; quantity: number}[];
 
   categories;
   user;
@@ -29,8 +29,10 @@ export class AppComponent implements OnInit {
     this.categories = this.db.collection('categories').valueChanges();
   }
 
-  addToCart(id: string, item: string, price: number, quantity: number) {
-    this.cart = [{id: id, item: item, price: Number(price), quantity: Number(quantity)}].concat(this.cart);
+  addToCart(id: string, item: string, price: number, currency: 'CAD' | 'USD', quantity: number) {
+    this.cart = [{id: id, item: item, price: Number(price), currency: currency, quantity: Number(quantity)}].concat(
+      this.cart
+    );
   }
 
   cartItemCount() {

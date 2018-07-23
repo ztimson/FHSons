@@ -10,7 +10,7 @@ import {Router} from '../../../../node_modules/@angular/router';
 })
 export class CartComponent {
   @LocalStorage({defaultValue: []})
-  cart: {id: string; item: string; price: number; quantity: number}[];
+  cart: {id: string; item: string; price: number; curency: 'CAD' | 'USD'; quantity: number}[];
 
   address1: string;
   address2: string;
@@ -20,17 +20,32 @@ export class CartComponent {
 
   constructor(private http: Http, private router: Router) {}
 
-  async checkout() {
-    let cart = this.cart.map(row => {
-      return {id: row.id, quantity: row.quantity};
-    });
-    let link = await this.http
-      .post('https://us-central1-fhsons-7e90b.cloudfunctions.net/checkout', {cart: cart})
-      .toPromise();
-    window.location.href = link.url;
+  ngOnInit() {
+    if (this.cart.length > 0) {
+      window['paypal'].Button.render(
+        {
+          env: 'sandbox',
+          client: {
+            sandbox: 'AejQ8-4hWWWhg1gYKbcuimT8Nf6-wutpEfYBHDDXiEXdujwJzHt6szwtmXBe2d3zW9d3khb3TgQBZUUJ',
+            live: 'AUhKVWkqvpzRBg0n_IFPMNi9QAl4JCXuWzc04BERDpBdG5ixFH1SimU85I9YSaksqKNCFjp_fOd4OAdd'
+          },
+          style: {size: 'medium', color: 'blue', shape: 'pill'},
+          payment: function(data, actions) {
+            return actions.payment.create({transactions: [{amount: {total: 0.01, currency: 'CAD'}}]});
+          },
+          onAuthorize: function(data, actions) {
+            return actions.payment.execute().then(function() {
+              window.alert('Thank you for your purchase!');
+            });
+          }
+        },
+        '#paypal-button'
+      );
+    }
   }
 
   remove(i: number) {
+    console.log('fire');
     let c = this.cart;
     c.splice(i, 1);
     this.cart = c;

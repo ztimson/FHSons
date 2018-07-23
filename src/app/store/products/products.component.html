@@ -7,7 +7,7 @@
                     <mat-form-field class="mr-1" style="width: 40px">
                         <input #quantity matInput type="number" value="1" min="1">
                     </mat-form-field>
-                    <button mat-raised-button color="primary" [disabled]="quantity.value < 1" (click)="app.addToCart(product.id, product.name, product.price, quantity.value)">
+                    <button mat-raised-button color="primary" [disabled]="quantity.value < 1" (click)="app.addToCart(product.id, product.name, product.price, product.currency, quantity.value)">
                         <mat-icon>add_shopping_cart</mat-icon> Buy
                     </button>
                 </div>

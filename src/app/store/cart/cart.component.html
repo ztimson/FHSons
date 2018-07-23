@@ -14,26 +14,18 @@
         <tr *ngFor="let item of cart; let i = index">
           <td>{{i + 1}}</td>
           <td>
-            <a [routerLink]="['/products', item.item]">{{item.item}}</a>
+            <a [routerL ink]="['/products', item.item]">{{item.item}}</a>
           </td>
           <td>{{item.quantity}}</td>
-          <td>{{item.price | currency}}</td>
-          <td>
-            <mat-icon class="curs-pointer" (click)="remove(i)">delete</mat-icon>
+          <td>{{item.currency}} {{item.price | currency}}</td>
+          <td (click)="remove(i)" style="width: 50px">
+            <button mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
-    <div class="float-right">
-      <table>
-        <tr>
-          <td>
-            <strong>Sub Total:</strong>
-          </td>
-          <td class="pl-3">{{total() | currency}}</td>
-        </tr>
-      </table>
-      <button mat-raised-button class="float-right mt-3" color="primary" (click)="checkout()" [disabled]="total() <= 0">Checkout</button>
-    </div>
+    <div id="paypal-button" class="float-right mt-3"></div>
   </mat-card>
 </div>
