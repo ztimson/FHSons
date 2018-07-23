@@ -14,7 +14,7 @@
         <tr *ngFor="let item of cart; let i = index">
           <td>{{i + 1}}</td>
           <td>
-            <a [routerL ink]="['/products', item.item]">{{item.item}}</a>
+            <a [routerLink]="['/products', item.item]">{{item.item}}</a>
           </td>
           <td>{{item.quantity}}</td>
           <td>{{item.currency}} {{item.price | currency}}</td>
