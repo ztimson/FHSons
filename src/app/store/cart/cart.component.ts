@@ -1,27 +1,21 @@
 import {Component} from '@angular/core';
-import {LocalStorage} from 'webstorage-decorators';
-import {access} from 'fs';
-import {Http} from '../../../../node_modules/@angular/http';
-import {Router} from '../../../../node_modules/@angular/router';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'cart',
   templateUrl: 'cart.component.html'
 })
 export class CartComponent {
-  @LocalStorage({defaultValue: []})
-  cart: {id: string; item: string; price: number; curency: 'CAD' | 'USD'; quantity: number}[];
-
   address1: string;
   address2: string;
   city: string;
   province: string;
   postal: string;
 
-  constructor(private http: Http, private router: Router) {}
+  constructor(public app: AppComponent) {}
 
   ngOnInit() {
-    if (this.cart.length > 0) {
+    if (this.app.cartCount()) {
       window['paypal'].Button.render(
         {
           env: 'sandbox',
@@ -42,16 +36,5 @@ export class CartComponent {
         '#paypal-button'
       );
     }
-  }
-
-  remove(i: number) {
-    console.log('fire');
-    let c = this.cart;
-    c.splice(i, 1);
-    this.cart = c;
-  }
-
-  total() {
-    return this.cart.reduce((acc, row) => acc + row.price * row.quantity, 0);
   }
 }

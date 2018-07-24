@@ -15,7 +15,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {FormulaManagerComponent} from './formulaManager/formulaManager.component';
 import {NgxElectronModule} from 'ngx-electron';
 import {AboutComponent} from './about/about.component';
-import {CategoriesComponent} from './store/categories/categories.component';
+import {CategoriesComponent} from './store/categories.component';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {LoginComponent} from './login/login.component';
 import {AngularFireAuthModule} from 'angularfire2/auth';
@@ -27,6 +27,8 @@ import {CartComponent} from './store/cart/cart.component';
 import {ViewComponents} from './formulaManager/viewComponents/viewComponents.component';
 import {NewComponentComponent} from './formulaManager/newComponent/newComponent.component';
 import {HttpModule} from '@angular/http';
+import {NewFormulaComponent} from './formulaManager/newFormula/newFormula.component';
+import {AppStore} from './app.store';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import {HttpModule} from '@angular/http';
     LoginComponent,
     NewCategoryComponent,
     NewComponentComponent,
+    NewFormulaComponent,
     NewProductComponent,
     ProductsComponent,
     ScalePipe,
@@ -70,12 +73,13 @@ import {HttpModule} from '@angular/http';
     ]),
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
-  providers: [],
+  providers: [AppStore],
   entryComponents: [
     DeleteComponent,
     LoginComponent,
     NewCategoryComponent,
     NewComponentComponent,
+    NewFormulaComponent,
     NewProductComponent,
     ViewComponents
   ],

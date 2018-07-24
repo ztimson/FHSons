@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="container">
         <div class="row py-3">
-            <div *ngIf="app.user" class="ml-auto mr-3 mb-3">
+            <div *ngIf="store.user" class="ml-auto mr-3 mb-3">
                 <button mat-raised-button (click)="createCategory()">
                     <mat-icon>playlist_add</mat-icon> Category
                 </button>
@@ -18,27 +18,7 @@
                 </ol>
             </nav>
 
-            <ng-container *ngFor="let c of categories | async">
-                <mat-card class="m-2 mx-auto curs-pointer">
-                    <div [routerLink]="['/store', c.name]">
-                        <img *ngIf="c.image" mat-card-image [src]="c.image" [alt]="c.name" style="width: 200px; height: 200px;" class="mx-auto">
-                        <mat-divider *ngIf="c.image" class="custom-line"></mat-divider>
-                        <mat-card-content class="text-center" style="max-width:200px">
-                            <h5>{{c.name}}</h5>
-                        </mat-card-content>
-                    </div>
-                    <mat-card-actions *ngIf="app.user">
-                        <button mat-raised-button (click)="createCategory(c)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-raised-button class="ml-3" (click)="delete(c)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </mat-card-actions>
-                </mat-card>
-            </ng-container>
-
-            <ng-container *ngIf="(categories | async)?.length == 0 && (products | async)?.length <= 0">
+            <ng-container *ngIf="!((categories | async)?.length || (products | async)?.length)">
                 <div class="row w-100">
                     <div class="col-12 p-5">
                         <mat-card class="mx-auto">
@@ -51,6 +31,26 @@
                 </div>
             </ng-container>
 
+            <ng-container *ngFor="let c of categories | async">
+                <mat-card class="m-2 mx-auto curs-pointer">
+                    <div [routerLink]="['/store', c.name]">
+                        <img *ngIf="c.image" mat-card-image [src]="c.image" [alt]="c.name" style="width: 200px; height: 200px;" class="mx-auto">
+                        <mat-divider *ngIf="c.image" class="custom-line"></mat-divider>
+                        <mat-card-content class="text-center" style="max-width:200px">
+                            <h5>{{c.name}}</h5>
+                        </mat-card-content>
+                    </div>
+                    <mat-card-actions *ngIf="store.user">
+                        <button mat-raised-button (click)="createCategory(c)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-raised-button class="ml-3" (click)="delete(c)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </ng-container>
+
             <ng-container *ngFor="let p of products | async">
                 <mat-card class="m-2 curs-pointer mx-auto">
                     <div [routerLink]="['/products', p.name]">
@@ -60,7 +60,7 @@
                             <h5>{{p.name}}</h5>
                         </mat-card-content>
                     </div>
-                    <mat-card-actions *ngIf="app.user">
+                    <mat-card-actions *ngIf="store.user">
                         <button mat-raised-button (click)="createProduct(p)">
                             <mat-icon>edit</mat-icon>
                         </button>

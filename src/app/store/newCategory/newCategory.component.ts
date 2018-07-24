@@ -1,6 +1,7 @@
 import {Component, ViewChild, Inject} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {AppStore} from '../../app.store';
 
 @Component({
   selector: 'new-category',
@@ -9,7 +10,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 export class NewCategoryComponent {
   @ViewChild('fileInput') fileInput;
 
-  categories;
   parent: string = 'root';
   name: string;
   image: string;
@@ -17,9 +17,9 @@ export class NewCategoryComponent {
   constructor(
     private dialogRef: MatDialogRef<NewCategoryComponent>,
     private db: AngularFirestore,
-    @Inject(MAT_DIALOG_DATA) public data
+    @Inject(MAT_DIALOG_DATA) public data,
+    public store: AppStore
   ) {
-    this.categories = this.db.collection('categories', ref => ref.orderBy('name')).valueChanges();
     if (data.currentCategory) this.parent = data.currentCategory;
 
     if (data.category) {

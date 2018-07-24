@@ -1,6 +1,7 @@
 import {Component, ViewChild, Inject} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {AppStore} from '../../app.store';
 
 @Component({
   selector: 'new-item',
@@ -9,7 +10,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 export class NewProductComponent {
   @ViewChild('fileInput') fileInput;
 
-  categories;
   category;
   currency = 'CAD';
   description: string;
@@ -20,9 +20,9 @@ export class NewProductComponent {
   constructor(
     private dialogRef: MatDialogRef<NewProductComponent>,
     private db: AngularFirestore,
-    @Inject(MAT_DIALOG_DATA) public data
+    @Inject(MAT_DIALOG_DATA) public data,
+    public store: AppStore
   ) {
-    this.categories = this.db.collection('categories', ref => ref.orderBy('name')).valueChanges();
     if (data.currentCategory) this.category = data.currentCategory;
 
     if (data.product) {

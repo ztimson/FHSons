@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let c of components | async">
+        <tr *ngFor="let c of store.components | async">
             <td>{{c.name}}</td>
             <td>{{c.description}}</td>
             <td>{{c.created | date}}</td>

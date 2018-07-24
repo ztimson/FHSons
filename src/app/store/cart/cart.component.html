@@ -11,14 +11,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of cart; let i = index">
+        <tr *ngFor="let item of app.cart; let i = index">
           <td>{{i + 1}}</td>
           <td>
             <a [routerLink]="['/products', item.item]">{{item.item}}</a>
           </td>
           <td>{{item.quantity}}</td>
           <td>{{item.currency}} {{item.price | currency}}</td>
-          <td (click)="remove(i)" style="width: 50px">
+          <td (click)="app.cartRemove(i)" style="width: 50px">
             <button mat-icon-button>
               <mat-icon>delete</mat-icon>
             </button>
@@ -26,6 +26,6 @@
         </tr>
       </tbody>
     </table>
-    <div id="paypal-button" class="float-right mt-3"></div>
+    <div *ngIf="app.cartCount()" id="paypal-button" class="float-right mt-3"></div>
   </mat-card>
 </div>

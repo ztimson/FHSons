@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
 import {ElectronService} from 'ngx-electron';
-import {AngularFirestore} from 'angularfire2/firestore';
 import {filter} from 'rxjs/operators';
 import {MatDialog} from '@angular/material';
 import {LoginComponent} from './login/login.component';
-import {AngularFireAuth} from 'angularfire2/auth';
 import {LocalStorage} from 'webstorage-decorators';
+import {AppStore} from './app.store';
+import {AngularFireAuth} from '../../node_modules/angularfire2/auth';
 
 @Component({
   selector: 'app-root',
@@ -16,27 +16,27 @@ export class AppComponent implements OnInit {
   @LocalStorage({defaultValue: []})
   cart: {id: string; item: string; price: number; currency: 'CAD' | 'USD'; quantity: number}[];
 
-  categories;
-  user;
-
   constructor(
     private router: Router,
-    private db: AngularFirestore,
     private dialog: MatDialog,
-    public afAuth: AngularFireAuth,
-    public electron: ElectronService
-  ) {
-    this.categories = this.db.collection('categories').valueChanges();
-  }
+    public electron: ElectronService,
+    public store: AppStore,
+    public afAuth: AngularFireAuth
+  ) {}
 
-  addToCart(id: string, item: string, price: number, currency: 'CAD' | 'USD', quantity: number) {
+  cartAdd(id: string, item: string, price: number, currency: 'CAD' | 'USD', quantity: number) {
     this.cart = [{id: id, item: item, price: Number(price), currency: currency, quantity: Number(quantity)}].concat(
       this.cart
     );
   }
 
-  cartItemCount() {
+  cartCount() {
     return this.cart.map(row => row.quantity).reduce((acc, row) => acc + row, 0);
+  }
+
+  cartRemove(i) {
+    let temp = this.cart;
+    this.cart = temp.slice(i, 1);
   }
 
   login() {
@@ -57,9 +57,5 @@ export class AppComponent implements OnInit {
     if (this.electron.isElectronApp) {
       this.router.navigate(['/formulaManager']);
     }
-
-    this.afAuth.user.subscribe(user => {
-      this.user = user;
-    });
   }
 }

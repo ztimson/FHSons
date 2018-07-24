@@ -1,11 +1,11 @@
 <div class="container">
-    <div *ngIf="user" class="row">
+    <div *ngIf="store.user" class="row">
         <div class="col-12 mt-3">
             <div class="float-right">
                 <button mat-raised-button class="mr-3" (click)="openComponents()">
                     <mat-icon>list</mat-icon> Components
                 </button>
-                <button mat-raised-button>
+                <button mat-raised-button (click)="newFormula()">
                     <mat-icon>add</mat-icon> Formula
                 </button>
             </div>
@@ -18,7 +18,7 @@
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <mat-list style="max-height: 250px; overflow: auto;">
-                <ng-container *ngFor="let f of formulas | async; let i = index">
+                <ng-container *ngFor="let f of store.formulas | async; let i = index">
                     <mat-divider *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1 && i > 0"></mat-divider>
                     <mat-list-item *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1" (click)="displayFormula(f)">{{f.name}}</mat-list-item>
                 </ng-container>

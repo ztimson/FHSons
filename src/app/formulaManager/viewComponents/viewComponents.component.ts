@@ -4,32 +4,18 @@ import {map} from 'rxjs/operators';
 import {MatDialog} from '@angular/material';
 import {DeleteComponent} from '../../delete/delete.component';
 import {NewComponentComponent} from '../newComponent/newComponent.component';
+import {AppStore} from '../../app.store';
 
 @Component({
   selector: '',
   templateUrl: './viewComponents.component.html'
 })
 export class ViewComponents {
-  components;
-
-  constructor(private db: AngularFirestore, private dialog: MatDialog) {
-    this.components = this.db
-      .collection('components')
-      .snapshotChanges()
-      .pipe(
-        map(rows =>
-          rows.map((row: any) => {
-            row = Object.assign({id: row.payload.doc.id, ref: row.payload.doc.ref}, row.payload.doc.data());
-            row.created = row.created.toDate();
-            return row;
-          })
-        )
-      );
-  }
+  constructor(private dialog: MatDialog, public store: AppStore) {}
 
   createComponent(component?) {
-    if(component) {
-      this.dialog.open(NewComponentComponent, { data: component })
+    if (component) {
+      this.dialog.open(NewComponentComponent, {data: component});
     } else {
       this.dialog.open(NewComponentComponent);
     }
