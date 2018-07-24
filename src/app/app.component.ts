@@ -13,7 +13,7 @@ import {AngularFireAuth} from '../../node_modules/angularfire2/auth';
   templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
-  @LocalStorage({defaultValue: []})
+  @LocalStorage({defaultValue: [], encryptionKey: 'HmRoBFUEVWqW5uvy'})
   cart: {id: string; item: string; price: number; currency: 'CAD' | 'USD'; quantity: number}[];
 
   constructor(
