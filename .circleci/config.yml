@@ -33,6 +33,7 @@ jobs:
                 root: ./
                 paths:
                     - public
+                    - node_modules
             
             - store_artifacts:
                 path: public
