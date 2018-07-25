@@ -25,11 +25,11 @@ export class NewComponentComponent {
 
   submit() {
     let newComponent = {name: this.name, description: this.description, cost: Number(this.cost)};
-    if (!this.data) newComponent['created'] = new Date();
 
     if (!this.data) {
+      newComponent['created'] = new Date();
       this.db
-        .collection('components', ref => ref.orderBy('name'))
+        .collection('components')
         .add(newComponent)
         .then(data => this.dialogRef.close());
     } else {

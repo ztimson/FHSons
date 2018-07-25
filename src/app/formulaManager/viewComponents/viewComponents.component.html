@@ -18,10 +18,14 @@
             <td>{{c.created | date}}</td>
             <td class="text-center">{{c.cost | currency}}</td>
             <td>
-                <mat-icon class="curs-pointer" (click)="createComponent(c)">edit</mat-icon>
+                <button mat-icon-button (click)="createComponent(c)">
+                    <mat-icon class="curs-pointer">edit</mat-icon>
+                </button>
             </td>
             <td>
-                <mat-icon class="curs-pointer" (click)="delete(c)">delete</mat-icon>
+                <button mat-icon-button (click)="delete(c)">
+                    <mat-icon class="curs-pointer">delete</mat-icon>
+                </button>
             </td>
         </tr>
     </tbody>
