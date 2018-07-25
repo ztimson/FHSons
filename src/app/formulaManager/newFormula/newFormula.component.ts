@@ -26,6 +26,14 @@ export class NewFormulaComponent {
     @Inject(MAT_DIALOG_DATA) public data
   ) {
     this.store.components.subscribe(rows => (this.componentsList = rows));
+
+    if (this.data) {
+      this.name = this.data.name;
+      this.approved = this.data.approved;
+      this.components = this.data.components.map(row => {
+        return {component: row.component.id, name: row.component.name, quantity: row.quantity};
+      });
+    }
   }
 
   add() {

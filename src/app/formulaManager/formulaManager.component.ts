@@ -51,6 +51,10 @@ export class FormulaManagerComponent {
     return cost;
   }
 
+  edit(formula) {
+    this.dialog.open(NewFormulaComponent, {data: formula});
+  }
+
   delete(formula) {
     this.dialog.open(DeleteComponent, {data: formula});
   }
