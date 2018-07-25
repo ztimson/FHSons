@@ -3,6 +3,11 @@
         <div class="row">
             <div class="col-12 py-4">
                 <img [src]="product.image" class="float-left img-fluid mb-4 mr-4">
+                <h2 class="roboto">{{product.name}}</h2>
+                <h5 *ngIf="product.price" class="text-muted">{{product.currency}} {{product.price | currency}}</h5>
+                <h5 *ngIf="!product.price" class="text-muted">Contact For Price</h5>
+                <hr class="ml-4" />
+                <p [innerHtml]="product.description"></p>
                 <div class="float-right">
                     <mat-form-field class="mr-1" style="width: 40px">
                         <input #quantity matInput type="number" value="1" min="1">
@@ -11,11 +16,6 @@
                         <mat-icon>add_shopping_cart</mat-icon> Buy
                     </button>
                 </div>
-                <h2 class="roboto">{{product.name}}</h2>
-                <h5 *ngIf="product.price" class="text-muted">{{product.currency}} {{product.price | currency}}</h5>
-                <h5 *ngIf="!product.price" class="text-muted">Contact For Price</h5>
-                <hr class="ml-4" />
-                <p [innerHtml]="product.description"></p>
             </div>
         </div>
     </div>
