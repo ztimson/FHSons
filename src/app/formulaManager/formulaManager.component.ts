@@ -1,17 +1,22 @@
 import {Component, ElementRef, ViewChildren, HostListener} from '@angular/core';
-import {AngularFirestore} from 'angularfire2/firestore';
 import {ConvertFromGPipe, ConvertToGPipe} from './units.pipe';
 import {ElectronService} from 'ngx-electron';
 import {LocalStorage} from 'webstorage-decorators';
 import {MatDialog} from '@angular/material';
 import {ViewComponents} from './viewComponents/viewComponents.component';
-import {AngularFireAuth} from 'angularfire2/auth';
 import {NewFormulaComponent} from './newFormula/newFormula.component';
 import {AppStore} from '../app.store';
 
 @Component({
   selector: 'formula-manager',
-  templateUrl: './formulaManager.component.html'
+  templateUrl: './formulaManager.component.html',
+  styles: [
+    `
+      .active {
+        background-color: #f0f0f0;
+      }
+    `
+  ]
 })
 export class FormulaManagerComponent {
   formula;

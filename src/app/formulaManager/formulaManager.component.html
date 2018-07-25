@@ -1,6 +1,6 @@
 <div class="container">
-    <div *ngIf="store.user" class="row">
-        <div class="col-12 mt-3">
+    <div *ngIf="store.user" class="row mt-3">
+        <div class="col-12">
             <div class="float-right">
                 <button mat-raised-button class="mr-3" (click)="openComponents()">
                     <mat-icon>list</mat-icon> Components
@@ -11,26 +11,13 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 col-lg-3 h-100 mb-4">
-            <mat-form-field class="w-100 pt-4">
-                <input #search matInput placeholder="Search">
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-            <mat-list style="max-height: 250px; overflow: auto;">
-                <ng-container *ngFor="let f of store.formulas | async; let i = index">
-                    <mat-divider *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1 && i > 0"></mat-divider>
-                    <mat-list-item *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1" (click)="displayFormula(f)">{{f.name}}</mat-list-item>
-                </ng-container>
-            </mat-list>
-        </div>
-        <div class="col-12 d-block d-lg-none w-100 mb-4" style="height: 4px; background:black;"></div>
-        <div class="col-12 col-lg-9">
-            <div *ngIf="!electron.isElectronApp" class="jumbotron p-3 mt-3 text-white d-none d-lg-block" style="
-            background-color: #000;
-            background-image: url('../../assets/img/formula.jpg');
-            background-size: cover;
-            ">
+    <div *ngIf="!electron.isElectronApp" class="row mt-3">
+        <div class="col-12">
+            <div *ngIf="!electron.isElectronApp" class="jumbotron text-white d-none d-lg-block" style="
+                        background-color: #000;
+                        background-image: url('../../assets/img/formula.jpg');
+                        background-size: cover;
+                        ">
                 <h1 class="display-4">Standalone</h1>
                 <p class="lead text-white-50">Download Formula Manager 2.0</p>
                 <hr class="my-4">
@@ -44,47 +31,63 @@
                 <button *ngIf="installPrompt" class="btn btn-primary btn-lg mb-3" (click)="prompt()">
                     <i class="fas fa-mobile-alt"></i> Mobile</button>
             </div>
-            <div *ngIf="formula">
-                <table class="w-100 table">
-                    <thead>
-                        <tr>
-                            <th style="width: 80%">Name</th>
-                            <th style="width: 10%">Quantity</th>
-                            <th style="width: 10%">Cost</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let c of formula.components">
-                            <td style="width: 80%">{{c.component?.name}}</td>
-                            <td style="width: 10%">{{c.quantity | scale: formula.total : _newTotal | convertFromG: unit}} {{unit}}</td>
-                            <td style="width: 10%">{{c.quantity | scale: formula.total : _newTotal / 1000 * c.component.cost | currency}}</td>
-                    </tbody>
-                </table>
-                <div class="col-12 d-none d-lg-block" style="height: 4px; background:black; width: 100%;"></div>
-                <table class="w-100 my-4">
+        </div>
+    </div>
+    <div class="row mt-3 mb-5">
+        <div class="col-12 col-lg-3" style="height: 500px; overflow: auto">
+            <mat-form-field class="w-100">
+                <input #search matInput placeholder="Search">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+            <mat-list>
+                <ng-container *ngFor="let f of store.formulas | async; let i = index">
+                    <mat-divider *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1 && i > 0"></mat-divider>
+                    <mat-list-item *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1" (click)="displayFormula(f)" [ngClass]="{'active': f.id == formula?.id}">{{f.name}}</mat-list-item>
+                </ng-container>
+            </mat-list>
+        </div>
+        <div *ngIf="formula" class="col-12 col-lg-9">
+            <h3 class="mb-0">{{formula.name}}</h3>
+            <span class="text-muted">Created: {{formula.created | date}}</span>
+            <table class="w-100 mt-4 table">
+                <thead>
                     <tr>
-                        <td style="width: 70%"></td>
-                        <td style="width: 20%">
-                            <mat-form-field style="width: 75px">
-                                <input matInput type="number" placeholder="Yield" [(ngModel)]="newTotal">
-                            </mat-form-field>
-                            <mat-form-field style="width: 40px">
-                                <mat-select placeholder="Unit" [(ngModel)]="unit">
-                                    <mat-option value="g">g</mat-option>
-                                    <mat-option value="oz">oz</mat-option>
-                                    <mat-option value="kg">kg</mat-option>
-                                    <mat-option value="lb">lb</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </td>
-                        <td style="width: 10%">
-                            <mat-form-field id="totalCost">
-                                <input matInput placeholder="Total Cost" [value]="cost() | currency" [readonly]="true" style="font-size: x-large; text-align: right;">
-                            </mat-form-field>
-                        </td>
+                        <th style="width: 80%">Name</th>
+                        <th style="width: 10%">Quantity</th>
+                        <th style="width: 10%">Cost</th>
                     </tr>
-                </table>
-            </div>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let c of formula.components">
+                        <td style="width: 80%">{{c.component?.name}}</td>
+                        <td style="width: 10%">{{c.quantity | scale: formula.total : _newTotal | convertFromG: unit}} {{unit}}</td>
+                        <td style="width: 10%">{{c.quantity | scale: formula.total : _newTotal / 1000 * c.component.cost | currency}}</td>
+                </tbody>
+            </table>
+            <div class="col-12 d-none d-lg-block" style="height: 4px; background:black; width: 100%;"></div>
+            <table class="w-100 my-4">
+                <tr>
+                    <td style="width: 70%"></td>
+                    <td style="width: 20%">
+                        <mat-form-field style="width: 75px">
+                            <input matInput type="number" placeholder="Yield" [(ngModel)]="newTotal">
+                        </mat-form-field>
+                        <mat-form-field style="width: 40px">
+                            <mat-select placeholder="Unit" [(ngModel)]="unit">
+                                <mat-option value="g">g</mat-option>
+                                <mat-option value="oz">oz</mat-option>
+                                <mat-option value="kg">kg</mat-option>
+                                <mat-option value="lb">lb</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td style="width: 10%">
+                        <mat-form-field id="totalCost">
+                            <input matInput placeholder="Total Cost" [value]="cost() | currency" [readonly]="true" style="font-size: x-large; text-align: right;">
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
