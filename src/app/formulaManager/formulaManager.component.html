@@ -34,15 +34,18 @@
         </div>
     </div>
     <div class="row mt-3 mb-5">
-        <div class="col-12 col-lg-3" style="height: 500px; overflow: auto">
+        <div class="col-12 col-lg-3" style="height: 500px; overflow-y: scroll">
             <mat-form-field class="w-100">
                 <input #search matInput placeholder="Search">
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <mat-list>
-                <ng-container *ngFor="let f of store.formulas | async; let i = index">
+                <ng-container *ngFor="let f of formulas | async; let i = index">
                     <mat-divider *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1 && i > 0"></mat-divider>
-                    <mat-list-item *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1" (click)="displayFormula(f)" [ngClass]="{'active': f.id == formula?.id}">{{f.name}}</mat-list-item>
+                    <mat-list-item *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1" (click)="displayFormula(f)" [ngClass]="{'active': f.id == formula?.id}">
+                        <mat-icon *ngIf="!f.approved" class="mr-3 text-danger">remove_circle</mat-icon>
+                        {{f.name}}
+                    </mat-list-item>
                 </ng-container>
             </mat-list>
         </div>
@@ -109,6 +112,19 @@
                     </td>
                 </tr>
             </table>
+            <div *ngIf="store.user" class="w-100 mt-4">
+                <div class="float-right">
+                    <button *ngIf="!formula.approved" mat-raised-button class="mr-3" (click)="approve(formula)">
+                        <mat-icon>check</mat-icon>Approve
+                    </button>
+                    <button mat-raised-button class="mr-3" (click)="edit(formula)">
+                        <mat-icon>edit</mat-icon>Edit
+                    </button>
+                    <button mat-raised-button (click)="delete(formula)">
+                        <mat-icon>delete</mat-icon>Delete
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

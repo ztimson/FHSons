@@ -6,6 +6,8 @@ import {MatDialog} from '@angular/material';
 import {ViewComponents} from './viewComponents/viewComponents.component';
 import {NewFormulaComponent} from './newFormula/newFormula.component';
 import {AppStore} from '../app.store';
+import {map} from 'rxjs/operators';
+import {DeleteComponent} from '../delete/delete.component';
 
 @Component({
   selector: 'formula-manager',
@@ -20,6 +22,7 @@ import {AppStore} from '../app.store';
 })
 export class FormulaManagerComponent {
   formula;
+  formulas;
   @LocalStorage({defaultValue: 'g'})
   unit;
 
@@ -31,10 +34,13 @@ export class FormulaManagerComponent {
     this._newTotal = new ConvertToGPipe().transform(total, this.unit);
   }
 
-  constructor(public electron: ElectronService, private dialog: MatDialog, public store: AppStore) {}
+  constructor(public electron: ElectronService, private dialog: MatDialog, public store: AppStore) {
+    this.formulas = this.store.formulas.pipe(map(rows => rows.filter(row => this.store.user || row.approved)));
+  }
 
-  openComponents() {
-    this.dialog.open(ViewComponents, {height: '500px'});
+  approve(formula) {
+    formula.approved = true;
+    formula.ref.update({approved: true});
   }
 
   cost() {
@@ -45,6 +51,10 @@ export class FormulaManagerComponent {
     return cost;
   }
 
+  delete(formula) {
+    this.dialog.open(DeleteComponent, {data: formula});
+  }
+
   displayFormula(formula) {
     formula.total = formula.components.reduce((acc, row) => (acc += row.quantity), 0);
     this.newTotal = new ConvertFromGPipe().transform(formula.total, this.unit);
@@ -53,5 +63,9 @@ export class FormulaManagerComponent {
 
   newFormula() {
     this.dialog.open(NewFormulaComponent);
+  }
+
+  openComponents() {
+    this.dialog.open(ViewComponents, {height: '500px'});
   }
 }
