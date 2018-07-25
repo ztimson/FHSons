@@ -8,13 +8,22 @@ import {MatDialogRef} from '@angular/material';
 })
 export class LoginComponent {
   email: string;
+  error = false;
   password: string;
 
   constructor(private dialogRef: MatDialogRef<LoginComponent>, private afAuth: AngularFireAuth) {}
 
   login() {
-    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password).then(user => {
-      if (user) this.dialogRef.close();
-    });
+    this.error = false;
+    this.afAuth.auth
+      .signInWithEmailAndPassword(this.email, this.password)
+      .then(user => {
+        if (user) {
+          this.dialogRef.close();
+        } else {
+          this.error = true;
+        }
+      })
+      .catch(err => (this.error = true));
   }
 }
