@@ -55,12 +55,10 @@ export class AppStore {
           let temp = <any>Object.assign({id: row.payload.doc.id, ref: row.payload.doc.ref}, row.payload.doc.data());
           temp.created = temp.created.toDate();
 
-          let newComponents = [];
-          temp.components.forEach((row: any) => {
-            let c = <Component>data[1].filter(c => c.id == row.component.id)[0];
-            newComponents.push({component: c, quantity: row.quantity});
+          temp.components = temp.components.map(row => {
+            let component = data[1].filter(c => c.id == row.component.id)[0];
+            return {component: component, quantity: row.quantity};
           });
-          temp.components = newComponents;
 
           return <Formula>temp;
         })
