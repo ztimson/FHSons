@@ -21,10 +21,10 @@ export class CategoriesComponent {
   products: Observable<Product[]>;
 
   constructor(
-    private store: AppStore,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    public app: AppComponent
+    public app: AppComponent,
+    public store: AppStore
   ) {}
 
   ngOnInit() {
