@@ -70,7 +70,7 @@
                 <div class="d-none d-md-inline-block align-top mr-5 text-left">
                     <h5>PRODUCTS</h5>
                     <ul style="list-style-type: none; padding-left: 0; columns: 3;">
-                        <li *ngFor="let c of categories | async">
+                        <li *ngFor="let c of store.categories | async">
                             <a [routerLink]="['/store', c.name]">{{c.name}}</a>
                         </li>
                     </ul>
