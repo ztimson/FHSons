@@ -47,8 +47,18 @@
             </mat-list>
         </div>
         <div *ngIf="formula" class="col-12 col-lg-9">
-            <h3 class="mb-0">{{formula.name}}</h3>
-            <span class="text-muted">Created: {{formula.created | date}}</span>
+            <div>
+                <div class="float-left">
+                    <h3 class="mb-0">{{formula.name}}</h3>
+                    <span class="text-muted">Created: {{formula.created | date}}</span>
+                </div>
+                <div *ngIf="store.user" class="float-right">
+                    <h5>Approved:
+                        <mat-icon *ngIf="formula.approved" class="text-success" style="transform: translateY(20%)">check_circle</mat-icon>
+                        <mat-icon *ngIf="!formula.approved" class="text-danger" style="transform: translateY(20%)">remove_circle</mat-icon>
+                    </h5>
+                </div>
+            </div>
             <table class="w-100 mt-4 table">
                 <thead>
                     <tr>
