@@ -34,12 +34,12 @@
         </div>
     </div>
     <div class="row mt-3 mb-5">
-        <div class="col-12 col-lg-3" style="height: 500px; overflow-y: scroll">
+        <div class="col-12 col-lg-3">
             <mat-form-field class="w-100">
                 <input #search matInput placeholder="Search">
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
-            <mat-list>
+            <mat-list style="height: 500px; overflow-y: scroll">
                 <ng-container *ngFor="let f of formulas | async; let i = index">
                     <mat-divider *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1 && i > 0"></mat-divider>
                     <mat-list-item *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1" (click)="displayFormula(f)" [ngClass]="{'active': f.id == formula?.id}">
