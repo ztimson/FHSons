@@ -73,6 +73,7 @@ export class AppStore {
         map(rows =>
           rows.map((row: any) => {
             let temp = Object.assign({id: row.payload.doc.id, ref: row.payload.doc.ref}, row.payload.doc.data());
+            temp.originalImage = temp.image;
             temp.image = this.domSanitizer.bypassSecurityTrustUrl(temp.image);
             temp.originalDescription = temp.description;
             temp.description = this.domSanitizer.bypassSecurityTrustHtml(

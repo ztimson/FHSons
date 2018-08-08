@@ -2,12 +2,43 @@
     <div class="container">
         <div class="row">
             <div class="col-12 py-4">
-                <img [src]="product.image" class="float-left img-fluid mb-4 mr-4">
-                <h2 class="roboto">{{product.name}}</h2>
-                <h5 *ngIf="product.price" class="text-muted">{{product.currency}} {{product.price | currency}}</h5>
-                <h5 *ngIf="!product.price" class="text-muted">Contact For Price</h5>
-                <hr class="ml-4" />
-                <p [innerHtml]="product.description"></p>
+                <div class="row">
+                    <div class="col-12 col-md-3">
+                        <slideshow [autoPlay]="true" [imageUrls]="preview"></slideshow>
+                        <div *ngIf="links.length">
+                            <h5 class="mt-3 mb-0 pl-3">Links</h5>
+                            <mat-list>
+                                <mat-list-item *ngFor="let l of links">
+                                    <a [href]="l.link">{{l.name}}</a>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <h2 class="roboto">{{product.name}}</h2>
+                        <h5 *ngIf="product.price" class="text-muted">{{product.currency}} {{product.price | currency}}</h5>
+                        <h5 *ngIf="!product.price" class="text-muted">Contact For Price</h5>
+                        <mat-divider class="my-3"></mat-divider>
+                        <p [innerHtml]="product.description"></p>
+                        <mat-divider class="my-3"></mat-divider>
+                        <div *ngIf="attachments.length">
+                            <h5 class="ml-3">
+                                <mat-icon style="vertical-align: bottom;">cloud_download</mat-icon> Downloads
+                            </h5>
+                            <mat-list>
+                                <mat-list-item *ngFor="let a of attachments">
+                                    <mat-icon mat-list-icon>insert_drive_file</mat-icon>
+                                    <h6 mat-line>{{a.name}}</h6>
+                                    <div mat-line>
+                                        <a class="mr-2" [href]="a.link" target="_blank">View</a>
+                                        |
+                                        <a class="ml-2" [href]="a.link" download>Download</a>
+                                    </div>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+                    </div>
+                </div>
                 <div class="float-right">
                     <mat-form-field class="mr-1" style="width: 40px">
                         <input #quantity matInput type="number" value="1" min="1">

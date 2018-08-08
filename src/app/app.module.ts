@@ -29,6 +29,7 @@ import {NewComponentComponent} from './formulaManager/newComponent/newComponent.
 import {HttpModule} from '@angular/http';
 import {NewFormulaComponent} from './formulaManager/newFormula/newFormula.component';
 import {AppStore} from './app.store';
+import {SlideshowModule} from 'ng-simple-slideshow';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import {AppStore} from './app.store';
       {path: 'store', component: CategoriesComponent},
       {path: '**', component: HomeComponent}
     ]),
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    SlideshowModule
   ],
   providers: [AppStore],
   entryComponents: [
