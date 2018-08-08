@@ -29,12 +29,13 @@ export class ProductsComponent {
         this.product = data[0];
 
         this.preview = [this.product.originalImage];
-        this.preview = this.preview.concat(
-          this.product.files.filter(row => row.type == 'preview').map(row => row.link)
-        );
-
-        this.links = this.product.files.filter(row => row.type == 'link');
-        this.attachments = this.product.files.filter(row => row.type == 'other');
+        if (this.product.files) {
+          this.preview = this.preview.concat(
+            this.product.files.filter(row => row.type == 'preview').map(row => row.link)
+          );
+          this.links = this.product.files.filter(row => row.type == 'link');
+          this.attachments = this.product.files.filter(row => row.type == 'other');
+        }
       });
     });
   }
