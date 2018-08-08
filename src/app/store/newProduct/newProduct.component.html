@@ -36,7 +36,7 @@
             <span class="mx-3 text-muted">OR</span>
             <mat-form-field color="accent" appearance="outline">
                 <mat-label>Link</mat-label>
-                <input matInput #linkInput>
+                <input matInput placeholder="URL" #linkInput>
                 <button mat-mini-fab matSuffix (click)="addLink(linkInput.value) ? linkInput.value = '' : null">
                     <mat-icon matSuffix>add</mat-icon>
                 </button>
@@ -44,28 +44,38 @@
             </mat-form-field>
         </div>
         <mat-divider *ngIf="files?.length"></mat-divider>
-        <mat-list>
-            <mat-list-item *ngFor="let f of files; let i = index">
-                <mat-icon *ngIf="f.type == 'preview'" mat-list-icon>image</mat-icon>
-                <mat-icon *ngIf="f.type == 'link'" mat-list-icon>link</mat-icon>
-                <mat-icon *ngIf="f.type == 'other'" mat-list-icon>insert_drive_file</mat-icon>
-                <h4 mat-line>{{f.name}}</h4>
-                <p *ngIf="f.type == 'link'" mat-line>
-                    <strong>Link:</strong> {{f.link}}
-                </p>
-                <div mat-line class="pt-2">
-                    <strong>Type:</strong>
-                    <mat-radio-group [(ngModel)]="f.type">
-                        <mat-radio-button class="ml-2" value="preview">Preview</mat-radio-button>
-                        <mat-radio-button class="ml-2" value="link">Link</mat-radio-button>
-                        <mat-radio-button class="ml-2" value="other">Attachment</mat-radio-button>
-                    </mat-radio-group>
+
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let f of files; let i = index">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon *ngIf="f.type == 'preview'" class="mr-3" mat-list-icon>image</mat-icon>
+                        <mat-icon *ngIf="f.type == 'link'" class="mr-3" mat-list-icon>link</mat-icon>
+                        <mat-icon *ngIf="f.type == 'other'" class="mr-3" mat-list-icon>insert_drive_file</mat-icon>
+                        {{f.name}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{f.link}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div>
+                    <mat-form-field>
+                        <input matInput placeholder="Name" [(ngModel)]="f.name">
+                    </mat-form-field>
                 </div>
-                <button mat-mini-fab color="default" (click)="files.splice(i, 1)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </mat-list-item>
-        </mat-list>
+                <strong>Type:</strong>
+                <mat-radio-group [(ngModel)]="f.type">
+                    <mat-radio-button class="ml-2" value="preview">Preview</mat-radio-button>
+                    <mat-radio-button class="ml-2" value="link">Link</mat-radio-button>
+                    <mat-radio-button class="ml-2" value="other">Attachment</mat-radio-button>
+                </mat-radio-group>
+                <mat-action-row>
+                    <button mat-button color="warn" (click)="files.splice(i, 1)">
+                        Delete
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions>
