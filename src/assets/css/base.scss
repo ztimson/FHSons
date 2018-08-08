@@ -81,24 +81,34 @@ mat-form-field#totalCost .mat-form-field-label-wrapper {
   min-height: 100%;
   margin-bottom: -312px;
 }
-.footer, .push {
+.footer,
+.push {
   height: 312px;
 }
 footer {
   background-color: #3c3c3c;
   color: #c7c7c7;
 }
-footer a, footer a:active, footer a:focus {
+footer a,
+footer a:active,
+footer a:focus {
   color: #808080;
   text-decoration: none;
 }
 footer a:hover {
   color: white;
 }
-footer h1, footer h2, footer h3, footer h4, footer h5 {
+footer h1,
+footer h2,
+footer h3,
+footer h4,
+footer h5 {
   color: #507b9c;
 }
 .footer-sub {
   background-color: #292929;
   color: #808080;
+}
+.mat-form-field-indix {
+  padding: 0.5em 0 1em 0;
 }

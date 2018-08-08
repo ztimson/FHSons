@@ -5,9 +5,11 @@ export interface Product {
   category: string;
   currency: 'CAD' | 'USD';
   description: SafeHtml;
+  files: {link: string; type: string}[];
   id: string;
   image: SafeUrl;
   name: string;
   price: number;
   ref: DocumentReference;
+  weight: number;
 }

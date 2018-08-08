@@ -2,36 +2,79 @@
     <h3 mat-dialog-title>
         <span *ngIf="data.product">Update</span>
         <span *ngIf="!data.product">Create</span> Product</h3>
-    <form id="createForm">
-        <mat-form-field class="w-100">
-            <input matInput placeholder="Name" name="name" [(ngModel)]="name">
-        </mat-form-field>
-        <mat-form-field class="w-100">
-            <mat-select placeholder="Category" name="category" [(value)]="category">
-                <mat-option *ngFor="let c of store.categories | async" [value]="c.name">{{c.name}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="w-100">
-            <textarea matInput rows="5" placeholder="Description" name="description" [(ngModel)]="description"></textarea>
-        </mat-form-field>
-        <mat-form-field>
-            <span matPrefix>$&nbsp;</span>
-            <input matInput placeholder="Price" type="number" name="price" [(ngModel)]="price">
-            <mat-hint *ngIf="!price" align="start">0 will display "Contact For Price"</mat-hint>
-        </mat-form-field>
-        <mat-radio-group [(ngModel)]="currency" name="currency">
-            <mat-radio-button value="CAD" class="pl-3">CAD</mat-radio-button>
-            <mat-radio-button value="USD" class="pl-3">USD</mat-radio-button>
-        </mat-radio-group>
-        <input #fileInput type="file" (change)="imageChanged()" hidden>
-    </form>
+    <mat-form-field class="w-100">
+        <input matInput placeholder="Name" name="name" [(ngModel)]="name">
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <mat-select placeholder="Category" name="category" [(value)]="category">
+            <mat-option *ngFor="let c of store.categories | async" [value]="c.name">{{c.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+        <textarea matInput rows="5" placeholder="Description" name="description" [(ngModel)]="description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+        <span matPrefix>$&nbsp;</span>
+        <input matInput placeholder="Price" type="number" name="price" [(ngModel)]="price">
+        <mat-hint *ngIf="!price" align="start">0 will display "Contact For Price"</mat-hint>
+    </mat-form-field>
+    <mat-radio-group [(ngModel)]="currency" name="currency">
+        <mat-radio-button value="CAD" class="pl-3">CAD</mat-radio-button>
+        <mat-radio-button value="USD" class="pl-3">USD</mat-radio-button>
+    </mat-radio-group>
+    <input #fileInput type="file" (change)="imageChanged($event)" hidden>
+    <mat-form-field class="float-right" style="width: 150px">
+        <input matInput type="number" placeholder="Weight For Shipping" [(ngModel)]="weight">
+        <span matSuffix>lb</span>
+    </mat-form-field>
+    <div class="mt-3 p-3 border rounded border-muted">
+        <h5 mat-subheader class="pl-0">Uploads</h5>
+        <mat-progress-bar *ngIf="uploading" mode="indeterminate"></mat-progress-bar>
+        <input #uploadInput type="file" (change)="addFile($event)" hidden>
+        <div>
+            <button mat-stroked-button color="accent" (click)="uploadInput.click()">Upload</button>
+            <span class="mx-3 text-muted">OR</span>
+            <mat-form-field color="accent" appearance="outline">
+                <mat-label>Link</mat-label>
+                <input matInput #linkInput>
+                <button mat-mini-fab matSuffix (click)="addLink(linkInput.value) ? linkInput.value = '' : null">
+                    <mat-icon matSuffix>add</mat-icon>
+                </button>
+                <mat-hint *ngIf="linkError">Is this a valid URL?</mat-hint>
+            </mat-form-field>
+        </div>
+        <mat-divider *ngIf="files?.length"></mat-divider>
+        <mat-list>
+            <mat-list-item *ngFor="let f of files; let i = index">
+                <mat-icon *ngIf="f.type == 'preview'" mat-list-icon>image</mat-icon>
+                <mat-icon *ngIf="f.type == 'link'" mat-list-icon>link</mat-icon>
+                <mat-icon *ngIf="f.type == 'other'" mat-list-icon>insert_drive_file</mat-icon>
+                <h4 mat-line>{{f.name}}</h4>
+                <p *ngIf="f.type == 'link'" mat-line>
+                    <strong>Link:</strong> {{f.link}}
+                </p>
+                <div mat-line class="pt-2">
+                    <strong>Type:</strong>
+                    <mat-radio-group [(ngModel)]="f.type">
+                        <mat-radio-button class="ml-2" value="preview">Preview</mat-radio-button>
+                        <mat-radio-button class="ml-2" value="link">Link</mat-radio-button>
+                        <mat-radio-button class="ml-2" value="other">Attachment</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <button mat-mini-fab color="default" (click)="files.splice(i, 1)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-list-item>
+        </mat-list>
+    </div>
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-raised-button (click)="fileInput.click()">
-        <span *ngIf="!image">Add Image</span>
+        <span *ngIf="!image && data.product">Change Display Image</span>
+        <span *ngIf="!image && !data.product">Add Display Image</span>
         <mat-icon *ngIf="image">check</mat-icon>
     </button>
-    <button mat-raised-button type="submit" form="createForm" color="primary" (click)="submit()">
+    <button mat-raised-button type="submit" color="primary" (click)="submit()">
         <span *ngIf="data.product">Update</span>
         <span *ngIf="!data.product">Create</span>
     </button>
