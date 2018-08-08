@@ -72,7 +72,7 @@ import {SlideshowModule} from 'ng-simple-slideshow';
       {path: 'store', component: CategoriesComponent},
       {path: '**', component: HomeComponent}
     ]),
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: false}),
     SlideshowModule
   ],
   providers: [AppStore],
