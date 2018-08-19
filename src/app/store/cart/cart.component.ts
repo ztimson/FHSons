@@ -15,6 +15,7 @@ export class CartComponent {
   constructor(public app: AppComponent) {}
 
   ngOnInit() {
+    console.log(this.app.cart);
     if (this.app.cartCount()) {
       window['paypal'].Button.render(
         {

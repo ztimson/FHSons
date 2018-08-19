@@ -13,20 +13,52 @@
     <mat-form-field class="w-100">
         <textarea matInput rows="5" placeholder="Description" name="description" [(ngModel)]="description"></textarea>
     </mat-form-field>
-    <mat-form-field>
-        <span matPrefix>$&nbsp;</span>
-        <input matInput placeholder="Price" type="number" name="price" [(ngModel)]="price">
-        <mat-hint *ngIf="!price" align="start">0 will display "Contact For Price"</mat-hint>
-    </mat-form-field>
-    <mat-radio-group [(ngModel)]="currency" name="currency">
-        <mat-radio-button value="CAD" class="pl-3">CAD</mat-radio-button>
-        <mat-radio-button value="USD" class="pl-3">USD</mat-radio-button>
-    </mat-radio-group>
-    <input #fileInput type="file" (change)="imageChanged($event)" hidden>
-    <mat-form-field class="float-right" style="width: 150px">
-        <input matInput type="number" placeholder="Weight For Shipping" [(ngModel)]="weight">
-        <span matSuffix>lb</span>
-    </mat-form-field>
+    <div class="mt-3 p-3 border rounded border-muted">
+        <h5 mat-subheader class="mb-4 pl-0">Buying Options</h5>
+        <button mat-stroked-button class="mb-4" color="accent" (click)="addOption()">Add</button>
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let o of options; let i = index">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{o.name || 'Option'}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{o.currency}} {{o.price | currency}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div class="row">
+                    <div class="col-4">
+                        <mat-form-field>
+                            <input matInput placeholder="Name" [(ngModel)]="o.name">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4 text-center">
+                        <mat-form-field>
+                            <span matPrefix>$&nbsp;</span>
+                            <input matInput placeholder="Price" type="number" name="price" [(ngModel)]="o.price">
+                            <mat-hint *ngIf="!price" align="start">0 will display "Contact For Price"</mat-hint>
+                        </mat-form-field>
+                        <mat-radio-group [(ngModel)]="o.currency" name="currency">
+                            <mat-radio-button value="CAD" class="pl-3">CAD</mat-radio-button>
+                            <mat-radio-button value="USD" class="pl-3">USD</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="col-4">
+                        <mat-form-field class="float-right" style="width: 150px">
+                            <input matInput type="number" placeholder="Weight For Shipping" [(ngModel)]="o.weight">
+                            <span matSuffix>lb</span>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <input #fileInput type="file" (change)="imageChanged($event)" hidden>
+                <mat-action-row>
+                    <button mat-button color="warn" (click)="options.splice(i, 1)">
+                        Delete
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
     <div class="mt-3 p-3 border rounded border-muted">
         <h5 mat-subheader class="pl-0">Uploads</h5>
         <mat-progress-bar *ngIf="uploading" mode="indeterminate"></mat-progress-bar>

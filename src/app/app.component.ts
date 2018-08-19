@@ -6,8 +6,9 @@ import { MatDialog } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { LocalStorage } from 'webstorage-decorators';
 import { AppStore } from './app.store';
-import { AngularFireAuth } from '../../node_modules/angularfire2/auth';
-import { SwUpdate } from '../../node_modules/@angular/service-worker';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { SwUpdate } from '@angular/service-worker';
+import { POption } from './store/products/product';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import { SwUpdate } from '../../node_modules/@angular/service-worker';
 })
 export class AppComponent implements OnInit {
   @LocalStorage({ defaultValue: [], encryptionKey: 'HmRoBFUEVWqW5uvy' })
-  cart: { id: string; item: string; price: number; currency: 'CAD' | 'USD'; quantity: number }[];
+  cart: { id: string; item: string; option: POption, quantity: number}[];
 
   constructor(
     private router: Router,
@@ -30,8 +31,8 @@ export class AppComponent implements OnInit {
     });
   }
 
-  cartAdd(id: string, item: string, price: number, currency: 'CAD' | 'USD', quantity: number) {
-    this.cart = [{ id: id, item: item, price: Number(price), currency: currency, quantity: Number(quantity) }].concat(
+  cartAdd(id: string, name: string, option: POption, quantity: number) {
+    this.cart = [{ id: id, item: name, option: option, quantity: Number(quantity)}].concat(
       this.cart
     );
   }

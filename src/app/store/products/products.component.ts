@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {AppComponent} from '../../app.component';
-import {map} from 'rxjs/operators';
-import {AppStore} from '../../app.store';
-import {Product} from '../product';
-import {SafeUrl, DomSanitizer} from '../../../../node_modules/@angular/platform-browser';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AppComponent } from '../../app.component';
+import { map } from 'rxjs/operators';
+import { AppStore } from '../../app.store';
+import { Product } from '../product';
+import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'products',
@@ -13,15 +13,16 @@ import {SafeUrl, DomSanitizer} from '../../../../node_modules/@angular/platform-
 export class ProductsComponent {
   product: Product;
   preview: SafeUrl[];
-  links: {name: string; link: string; type: string}[];
-  attachments: {name: string; link: string; type: string}[];
+  links: { name: string; link: string; type: string }[];
+  attachments: { name: string; link: string; type: string }[];
+  option;
 
   constructor(
     private store: AppStore,
     private route: ActivatedRoute,
     private domSanitizer: DomSanitizer,
     public app: AppComponent
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
