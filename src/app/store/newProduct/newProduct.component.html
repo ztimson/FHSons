@@ -14,7 +14,7 @@
         <textarea matInput rows="5" placeholder="Description" name="description" [(ngModel)]="description"></textarea>
     </mat-form-field>
     <div class="mt-3 p-3 border rounded border-muted">
-        <h5 mat-subheader class="mb-4 pl-0">Buying Options</h5>
+        <h5 mat-subheader class="mb-4 pl-0">Pricing Options</h5>
         <button mat-stroked-button class="mb-4" color="accent" (click)="addOption()">Add</button>
         <mat-accordion>
             <mat-expansion-panel *ngFor="let o of options; let i = index">
