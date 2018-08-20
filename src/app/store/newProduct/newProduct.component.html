@@ -50,7 +50,6 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <input #fileInput type="file" (change)="imageChanged($event)" hidden>
                 <mat-action-row>
                     <button mat-button color="warn" (click)="options.splice(i, 1)">
                         Delete
@@ -76,7 +75,6 @@
             </mat-form-field>
         </div>
         <mat-divider *ngIf="files?.length"></mat-divider>
-
         <mat-accordion>
             <mat-expansion-panel *ngFor="let f of files; let i = index">
                 <mat-expansion-panel-header>
@@ -111,6 +109,7 @@
     </div>
 </mat-dialog-content>
 <mat-dialog-actions>
+    <input #fileInput type="file" (change)="imageChanged($event)" hidden>
     <button mat-raised-button (click)="fileInput.click()">
         <span *ngIf="!image && data.product">Change Display Image</span>
         <span *ngIf="!image && !data.product">Add Display Image</span>
