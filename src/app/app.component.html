@@ -1,54 +1,52 @@
-<!-- Nav -->
-<div class="wrapper">
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand roboto" [routerLink]="['/']">
-                <span class="fh-fade">fh</span>
-                <span class="rainbow"> & </span>
-                <span class="sons-fade">sons</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" [routerLink]="['/about']">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" [routerLink]="['/store']">Store</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" [routerLink]="['/formulaManager']">Formula Manager</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" target="_blank" href="/assets/Chromatex_MSDS.pdf">MSDS</a>
-                    </li>
-                </ul>
-                <div class="ml-auto">
-                    <button *ngIf="!store.user" mat-stroked-button color="primary" (click)="login()">Login</button>
-                    <div *ngIf="store.user" class="d-inline">
-                        <span class="text-muted mr-3">{{store.user.email}}</span>
-                        <button mat-stroked-button color="accent" (click)="afAuth.auth.signOut()">Logout</button>
-                    </div>
-                    <button *ngIf="cart.length" mat-icon-button class="ml-3" [routerLink]="['/cart']">
-                        <mat-icon style="transform: translateY(6px)" [matBadge]="cartCount()" matBadgeColor="warn">
-                            shopping_cart
-                        </mat-icon>
-                    </button>
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand roboto" [routerLink]="['/']">
+            <span class="fh-fade">fh</span>
+            <span class="rainbow"> & </span>
+            <span class="sons-fade">sons</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" [routerLink]="['/about']">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" [routerLink]="['/store']">Store</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" [routerLink]="['/formulaManager']">Formula Manager</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" target="_blank" href="/assets/Chromatex_MSDS.pdf">MSDS</a>
+                </li>
+            </ul>
+            <div class="ml-auto">
+                <button *ngIf="!store.user" mat-stroked-button color="primary" (click)="login()">Login</button>
+                <div *ngIf="store.user" class="d-inline">
+                    <span class="text-muted mr-3">{{store.user.email}}</span>
+                    <button mat-stroked-button color="accent" (click)="afAuth.auth.signOut()">Logout</button>
                 </div>
+                <button *ngIf="cart.length" mat-icon-button class="ml-3" [routerLink]="['/cart']">
+                    <mat-icon style="transform: translateY(6px)" [matBadge]="cartCount()" matBadgeColor="warn">
+                        shopping_cart
+                    </mat-icon>
+                </button>
             </div>
         </div>
-    </nav>
-
-    <!-- Content -->
-    <div>
-        <div style="height: 56px"></div>
-        <router-outlet></router-outlet>
     </div>
+</nav>
 
-    <div class="push"></div>
+<!-- Push content down from under nav-->
+<div style="height: 56px"></div>
+
+<!-- Content -->
+<div>
+    <router-outlet></router-outlet>
 </div>
 
 <!-- Footer -->

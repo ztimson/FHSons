@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChildren, HostListener} from '@angular/core';
+import {Component} from '@angular/core';
 import {ConvertFromGPipe, ConvertToGPipe} from './units.pipe';
 import {ElectronService} from 'ngx-electron';
 import {LocalStorage} from 'webstorage-decorators';
@@ -8,68 +8,74 @@ import {NewFormulaComponent} from './newFormula/newFormula.component';
 import {AppStore} from '../app.store';
 import {map} from 'rxjs/operators';
 import {DeleteComponent} from '../delete/delete.component';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 @Component({
-  selector: 'formula-manager',
-  templateUrl: './formulaManager.component.html',
-  styles: [
-    `
-      .active {
-        background-color: #f0f0f0;
-      }
-    `
-  ]
+    selector: 'formula-manager',
+    templateUrl: './formulaManager.component.html',
+    styles: [
+            `
+            .active {
+                background-color: #f0f0f0;
+            }
+        `
+    ]
 })
 export class FormulaManagerComponent {
-  formula;
-  formulas;
-  @LocalStorage({defaultValue: 'g'})
-  unit;
+    formula;
+    formulas;
+    @LocalStorage({defaultValue: 'g'})
+    unit;
+    mobile = false;
 
-  _newTotal: number = 0;
-  get newTotal() {
-    return new ConvertFromGPipe().transform(this._newTotal, this.unit);
-  }
-  set newTotal(total) {
-    this._newTotal = new ConvertToGPipe().transform(total, this.unit);
-  }
+    _newTotal: number = 0;
+    get newTotal() {
+        return new ConvertFromGPipe().transform(this._newTotal, this.unit);
+    }
 
-  constructor(public electron: ElectronService, private dialog: MatDialog, public store: AppStore) {
-    this.formulas = this.store.formulas.pipe(map(rows => rows.filter(row => this.store.user || row.approved)));
-  }
+    set newTotal(total) {
+        this._newTotal = new ConvertToGPipe().transform(total, this.unit);
+    }
 
-  approve(formula) {
-    formula.approved = true;
-    formula.ref.update({approved: true});
-  }
+    constructor(public electron: ElectronService, private dialog: MatDialog, private $breakpoint: BreakpointObserver, public store: AppStore) {
+        this.formulas = this.store.formulas.pipe(map(rows => rows.filter(row => this.store.user || row.approved)));
 
-  cost() {
-    let cost = 0;
-    this.formula.components.forEach(
-      row => (cost += (((row.quantity / this.formula.total) * this._newTotal) / 1000) * row.component.cost)
-    );
-    return cost;
-  }
+        // Handle switching between mobile and desktop
+        this.$breakpoint.observe(Breakpoints.Handset).subscribe(e => this.mobile = e.matches);
+    }
 
-  edit(formula) {
-    this.dialog.open(NewFormulaComponent, {data: formula});
-  }
+    approve(formula) {
+        formula.approved = true;
+        formula.ref.update({approved: true});
+    }
 
-  delete(formula) {
-    this.dialog.open(DeleteComponent, {data: formula});
-  }
+    cost() {
+        let cost = 0;
+        this.formula.components.forEach(
+            row => (cost += (((row.quantity / this.formula.total) * this._newTotal) / 1000) * row.component.cost)
+        );
+        return cost;
+    }
 
-  displayFormula(formula) {
-    formula.total = formula.components.reduce((acc, row) => (acc += row.quantity), 0);
-    this.newTotal = new ConvertFromGPipe().transform(formula.total, this.unit);
-    this.formula = formula;
-  }
+    edit(formula) {
+        this.dialog.open(NewFormulaComponent, {data: formula});
+    }
 
-  newFormula() {
-    this.dialog.open(NewFormulaComponent);
-  }
+    delete(formula) {
+        this.dialog.open(DeleteComponent, {data: formula});
+    }
 
-  openComponents() {
-    this.dialog.open(ViewComponents, {height: '500px'});
-  }
+    displayFormula(formula) {
+        formula.total = formula.components.reduce((acc, row) => (acc += row.quantity), 0);
+        this.newTotal = new ConvertFromGPipe().transform(formula.total, this.unit);
+        this.formula = formula;
+    }
+
+    newFormula() {
+        this.dialog.open(NewFormulaComponent);
+    }
+
+    openComponents() {
+        this.dialog.open(ViewComponents, {height: '500px'});
+    }
 }

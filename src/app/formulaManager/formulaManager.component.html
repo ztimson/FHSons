@@ -1,129 +1,115 @@
-<div class="container">
-    <div *ngIf="!electron.isElectronApp" class="row mt-3 d-none d-lg-block">
-        <div class="col-12">
-            <div class="jumbotron text-white" style="
-                        background-color: #000;
-                        background-image: url('../../assets/img/formula.jpg');
-                        background-size: cover;
-                        ">
-                <h1 class="display-4">Standalone</h1>
-                <p class="lead text-white-50">Download Formula Manager 2.0</p>
-                <hr class="my-4">
-                <p>Tired of using your browser? Try downloading Formula Manager 2.0!</p>
-                <a class="btn btn-primary btn-lg mb-3 mr-3" href="#" download>
-                    <i class="fab fa-windows"></i> Windows</a>
-                <a class="btn btn-primary btn-lg mb-3 mr-3" href="#" download>
-                    <i class="fab fa-apple"></i> MacOS</a>
-                <a class="btn btn-primary btn-lg mb-3 mr-3" href="#" download>
-                    <i class="fab fa-linux"></i> Linux</a>
-                <button *ngIf="installPrompt" class="btn btn-primary btn-lg mb-3" (click)="prompt()">
-                    <i class="fas fa-mobile-alt"></i> Mobile</button>
-            </div>
+<mat-drawer-container class="flex-grow-1">
+    <mat-drawer #drawer [mode]="mobile ? 'over' : 'side'" [opened]="!mobile" [disableClose]="!mobile" [autoFocus]="false">
+        <mat-form-field appearance="outline" class="mx-3 mt-3 pb-0">
+            <mat-label>Search</mat-label>
+            <input #search matInput>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <mat-list>
+            <ng-container *ngFor="let f of formulas | async; let i = index">
+                <mat-divider *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1 && i > 0"></mat-divider>
+                <mat-list-item *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1" (click)="displayFormula(f)" [ngClass]="{'active': f.id == formula?.id}">
+                    <mat-icon *ngIf="!f.approved" class="mr-3 text-danger">remove_circle</mat-icon>
+                    {{f.name}}
+                </mat-list-item>
+            </ng-container>
+        </mat-list>
+        <div *ngIf="store.user" class="fixed-bottom w-100">
+            <mat-divider></mat-divider>
+            <button mat-button class="m-1 float-right" (click)="newFormula()">
+                <mat-icon>add</mat-icon> New
+            </button>
         </div>
-    </div>
-    <div *ngIf="store.user" class="row mt-3">
-        <div class="col-12">
-            <div class="float-right">
-                <button mat-raised-button class="mr-3" (click)="openComponents()">
-                    <mat-icon>list</mat-icon> Components
-                </button>
-                <button mat-raised-button (click)="newFormula()">
-                    <mat-icon>add</mat-icon> Formula
-                </button>
-            </div>
+    </mat-drawer>
+    <mat-drawer-content class="p-3 bg-white" style="min-height: 450px; background: url('assets/img/splatter.jpg') center; background-size: cover;">
+        <div>
+            <button *ngIf="mobile" mat-raised-button (click)="drawer.open()">
+                <mat-icon>opacity</mat-icon> Formulas
+            </button>
         </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-12 col-lg-3 mb-5">
-            <mat-form-field class="w-100">
-                <input #search matInput placeholder="Search">
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-            <mat-list style="max-height: 500px; overflow-y: scroll">
-                <ng-container *ngFor="let f of formulas | async; let i = index">
-                    <mat-divider *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1 && i > 0"></mat-divider>
-                    <mat-list-item *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1" (click)="displayFormula(f)" [ngClass]="{'active': f.id == formula?.id}">
-                        <mat-icon *ngIf="!f.approved" class="mr-3 text-danger">remove_circle</mat-icon>
-                        {{f.name}}
-                    </mat-list-item>
-                </ng-container>
-            </mat-list>
+        <div *ngIf="(electron.isElectronApp || mobile) && !formula">
+            <img src="assets/img/starthere.png" class="m-4">
         </div>
-        <div *ngIf="!formula" class="d-none d-lg-block col-lg-9">
-            <div class="w-100">
-                <div class="col-12 p-5">
-                    <mat-card class="mx-auto text-center">
-                        <mat-card-content>
-                            Pick a formula from the left hand side to see its components!
-                        </mat-card-content>
-                    </mat-card>
+        <mat-card *ngIf="!electron.isElectronApp && !mobile && !formula" class="mx-auto" style="max-width: 600px">
+            <mat-card-header>
+                <div class="d-flex align-items-center" style="color: #53709f">
+                    <mat-icon style="transform: scale(2.5)">opacity</mat-icon>
+                    <h1 class="ml-3 display-4">Formula Manager</h1>
                 </div>
-            </div>
-        </div>
-        <div *ngIf="formula" class="col-12 col-lg-9 mb-5">
-            <div>
-                <div class="float-left">
-                    <h3 class="mb-0">{{formula.name}}</h3>
-                    <span class="text-muted">Created: {{formula.created | date}}</span>
-                </div>
-                <div *ngIf="store.user" class="float-right">
-                    <h5>Approved:
+            </mat-card-header>
+            <mat-card-content>
+                <p class="lead text-white-50">Tired of using your browser? Download the standalone version of the Formula Manager.</p>
+                <button mat-button class="button-fix"><i class="fab fa-windows mr-1 mb-1"></i> Windows</button>
+                <button mat-button class="button-fix"><i class="fab fa-apple mr-1 mb-1"></i> MacOS</button>
+                <button mat-button class="button-fix"><i class="fab fa-linux mr-1 mb-1"></i> Linux</button>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="formula" class="my-4 mx-auto" style="max-width: 600px">
+            <mat-card-header>
+                <mat-card-title class="mb-0"><h4>{{formula.name}}</h4></mat-card-title>
+                <mat-card-subtitle>{{formula.created | date}}</mat-card-subtitle>
+                <div *ngIf="store.user" class="ml-auto">
+                    <h4>Approved:
                         <mat-icon *ngIf="formula.approved" class="text-success" style="transform: translateY(20%)">check_circle</mat-icon>
                         <mat-icon *ngIf="!formula.approved" class="text-danger" style="transform: translateY(20%)">remove_circle</mat-icon>
-                    </h5>
+                    </h4>
                 </div>
-            </div>
-            <table class="w-100 mt-4 table">
-                <thead>
+            </mat-card-header>
+            <mat-card-content>
+                <table class="w-100 mt-4 table">
+                    <thead>
                     <tr>
                         <th style="width: 80%">Name</th>
-                        <th style="width: 10%">Quantity</th>
-                        <th style="width: 10%">Cost</th>
+                        <th class="text-right" style="width: 10%">Quantity</th>
+                        <th class="text-right" style="width: 10%">Cost</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr *ngFor="let c of formula.components">
                         <td style="width: 80%">{{c.component?.name}}</td>
-                        <td style="width: 10%">{{c.quantity | scale: formula.total : _newTotal | convertFromG: unit}} {{unit}}</td>
-                        <td style="width: 10%">{{c.quantity | scale: formula.total : _newTotal / 1000 * c.component.cost | currency}}</td>
-                </tbody>
-            </table>
-            <div class="col-12 d-lg-block mb-3" style="height: 4px; background:black; width: 100%;"></div>
-            <div class="d-flex">
-                <div class="d-inline ml-auto">
-                    <div class="d-inline-block mr-3">
-                        <mat-form-field style="width: 75px">
-                            <input matInput type="number" placeholder="Yield" [(ngModel)]="newTotal">
-                        </mat-form-field>
-                        <mat-form-field style="width: 40px">
-                            <mat-select placeholder="Unit" [(ngModel)]="unit">
-                                <mat-option value="g">g</mat-option>
-                                <mat-option value="oz">oz</mat-option>
-                                <mat-option value="kg">kg</mat-option>
-                                <mat-option value="lb">lb</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="d-inline-block">
-                        <mat-form-field id="totalCost" style="width: 100px">
-                            <input matInput placeholder="Total Cost" [value]="cost() | currency" [readonly]="true" style="text-align: right;">
-                        </mat-form-field>
+                        <td class="text-right" style="width: 10%">{{c.quantity | scale: formula.total : _newTotal | convertFromG: unit}} {{unit}}</td>
+                        <td class="text-right" style="width: 10%">{{c.quantity | scale: formula.total : _newTotal / 1000 * c.component.cost | currency}}</td>
+                    </tbody>
+                </table>
+                <div class="col-12 d-lg-block mb-3" style="height: 4px; background:black; width: 100%;"></div>
+                <div class="d-flex">
+                    <div class="d-inline ml-auto">
+                        <div class="d-inline-block mr-3">
+                            <mat-form-field style="width: 75px">
+                                <input matInput type="number" placeholder="Yield" [(ngModel)]="newTotal">
+                            </mat-form-field>
+                            <mat-form-field style="width: 40px">
+                                <mat-select placeholder="Unit" [(ngModel)]="unit">
+                                    <mat-option value="g">g</mat-option>
+                                    <mat-option value="oz">oz</mat-option>
+                                    <mat-option value="kg">kg</mat-option>
+                                    <mat-option value="lb">lb</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="d-inline-block">
+                            <mat-form-field id="totalCost" style="width: 100px">
+                                <input matInput placeholder="Total Cost" [value]="cost() | currency" [readonly]="true" style="text-align: right;">
+                            </mat-form-field>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div *ngIf="store.user" class="w-100 mt-4">
-                <div class="float-right">
-                    <button *ngIf="!formula.approved" mat-raised-button class="mr-3" (click)="approve(formula)">
-                        <mat-icon>check</mat-icon>Approve
-                    </button>
-                    <button mat-raised-button class="mr-3" (click)="edit(formula)">
+            </mat-card-content>
+            <mat-card-actions *ngIf="store.user" style="overflow: hidden">
+                <mat-divider></mat-divider>
+                <button *ngIf="!formula.approved" mat-button class="m-1 mt-2" (click)="approve(formula)">
+                    <mat-icon>check</mat-icon>Approve
+                </button>
+                <div class="float-right m-1 mt-2">
+                    <button mat-button class="mr-3" (click)="edit(formula)">
                         <mat-icon>edit</mat-icon>Edit
                     </button>
-                    <button mat-raised-button (click)="delete(formula)">
+                    <button mat-button (click)="delete(formula)">
                         <mat-icon>delete</mat-icon>Delete
                     </button>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+            </mat-card-actions>
+        </mat-card>
+    </mat-drawer-content>
+</mat-drawer-container>

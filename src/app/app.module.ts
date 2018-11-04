@@ -26,10 +26,10 @@ import { ProductsComponent } from './store/products/products.component';
 import { CartComponent } from './store/cart/cart.component';
 import { ViewComponents } from './formulaManager/viewComponents/viewComponents.component';
 import { NewComponentComponent } from './formulaManager/newComponent/newComponent.component';
-import { HttpModule } from '@angular/http';
 import { NewFormulaComponent } from './formulaManager/newFormula/newFormula.component';
 import { AppStore } from './app.store';
 import { SlideshowModule } from 'ng-simple-slideshow';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,7 @@ import { SlideshowModule } from 'ng-simple-slideshow';
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     NgxElectronModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
