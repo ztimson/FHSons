@@ -30,6 +30,7 @@ import { NewFormulaComponent } from './formulaManager/newFormula/newFormula.comp
 import { AppStore } from './app.store';
 import { SlideshowModule } from 'ng-simple-slideshow';
 import {HttpClientModule} from '@angular/common/http';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import {HttpClientModule} from '@angular/common/http';
       { path: 'store', component: CategoriesComponent },
       { path: '**', component: HomeComponent }
     ]),
+    ScrollingModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     SlideshowModule
   ],

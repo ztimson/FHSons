@@ -1,10 +1,12 @@
 <mat-drawer-container class="flex-grow-1">
     <mat-drawer #drawer [mode]="mobile ? 'over' : 'side'" [opened]="!mobile" [disableClose]="!mobile" [autoFocus]="false">
-        <mat-form-field appearance="outline" class="mx-3 mt-3 pb-0">
-            <mat-label>Search</mat-label>
-            <input #search matInput>
-            <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
+        <div class="sticky-top bg-white">
+            <mat-form-field appearance="outline" class="mx-3 mt-3 pb-0">
+                <mat-label>Search</mat-label>
+                <input #search matInput>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
         <mat-divider></mat-divider>
         <mat-list>
             <ng-container *ngFor="let f of formulas | async; let i = index">
@@ -15,17 +17,14 @@
                 </mat-list-item>
             </ng-container>
         </mat-list>
-        <div *ngIf="store.user" class="fixed-bottom w-100">
-            <mat-divider></mat-divider>
-            <button mat-button class="m-1 float-right" (click)="newFormula()">
-                <mat-icon>add</mat-icon> New
-            </button>
-        </div>
     </mat-drawer>
     <mat-drawer-content class="p-3 bg-white" style="min-height: 450px; background: url('assets/img/splatter.jpg') center; background-size: cover;">
         <div>
             <button *ngIf="mobile" mat-raised-button (click)="drawer.open()">
                 <mat-icon>opacity</mat-icon> Formulas
+            </button>
+            <button *ngIf="store.user" mat-raised-button class="ml-3" (click)="newFormula()">
+                <mat-icon>add</mat-icon> Create
             </button>
         </div>
         <div *ngIf="(electron.isElectronApp || mobile) && !formula">
