@@ -23,7 +23,7 @@
             <button *ngIf="mobile" mat-raised-button (click)="drawer.open()">
                 <mat-icon>opacity</mat-icon> Formulas
             </button>
-            <button *ngIf="store.user" mat-raised-button class="ml-3" (click)="newFormula()">
+            <button *ngIf="store.user" mat-raised-button class="float-md-right mx-3" (click)="newFormula()">
                 <mat-icon>add</mat-icon> Create
             </button>
         </div>
@@ -32,13 +32,12 @@
         </div>
         <mat-card *ngIf="!electron.isElectronApp && !mobile && !formula" class="mx-auto" style="max-width: 600px">
             <mat-card-header>
-                <div class="d-flex align-items-center" style="color: #53709f">
-                    <mat-icon style="transform: scale(2.5)">opacity</mat-icon>
-                    <h1 class="ml-3 display-4">Formula Manager</h1>
-                </div>
+                <mat-card-title>
+                    <h1 class="display-4" style="color: #53709f">Formula Manager</h1>
+                </mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <p class="lead text-white-50">Tired of using your browser? Download the standalone version of the Formula Manager.</p>
+                <p class="ml-3 lead text-white-50">Tired of using your browser? Download the standalone version of the Formula Manager.</p>
                 <button mat-button class="button-fix"><i class="fab fa-windows mr-1 mb-1"></i> Windows</button>
                 <button mat-button class="button-fix"><i class="fab fa-apple mr-1 mb-1"></i> MacOS</button>
                 <button mat-button class="button-fix"><i class="fab fa-linux mr-1 mb-1"></i> Linux</button>
