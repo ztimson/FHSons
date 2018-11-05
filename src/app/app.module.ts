@@ -31,6 +31,7 @@ import { AppStore } from './app.store';
 import { SlideshowModule } from 'ng-simple-slideshow';
 import {HttpClientModule} from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MSDSComponent} from './msds/msds.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     FormulaManagerComponent,
     HomeComponent,
     LoginComponent,
+    MSDSComponent,
     NewCategoryComponent,
     NewComponentComponent,
     NewFormulaComponent,
@@ -68,6 +70,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
       { path: 'about', component: AboutComponent },
       { path: 'cart', component: CartComponent },
       { path: 'formulaManager', component: FormulaManagerComponent },
+      { path: 'msds', component: MSDSComponent },
       { path: 'products/:product', component: ProductsComponent },
       { path: 'store/:category', component: CategoriesComponent },
       { path: 'store', component: CategoriesComponent },

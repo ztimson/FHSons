@@ -1,0 +1,15 @@
+<div class="bg-white" style="min-height: 450px">
+  <div class="container py-3">
+    <div style="overflow: auto">
+      <h4 class="ml-3 d-inline">MSDS</h4>
+      <button *ngIf="store.user" mat-button class="float-right" (click)="file.click()">
+        <mat-icon>add</mat-icon> Add
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-list>
+      <mat-list-item *ngFor="let l of links" (click)="open(l)">{{l.name}}</mat-list-item>
+    </mat-list>
+    <input #file type="file" accept="application/pdf" (change)="upload($event.target)" hidden>
+  </div>
+</div>
