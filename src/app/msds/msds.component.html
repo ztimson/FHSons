@@ -1,4 +1,5 @@
-<div class="bg-white" style="min-height: 450px">
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<div class="bg-white pt-4" style="min-height: 450px">
   <div class="container py-3">
     <div style="overflow: auto">
       <h4 class="ml-3 d-inline">MSDS</h4>
@@ -7,9 +8,25 @@
       </button>
     </div>
     <mat-divider></mat-divider>
-    <mat-list>
-      <mat-list-item *ngFor="let l of links" (click)="open(l)">{{l.name}}</mat-list-item>
-    </mat-list>
+    <table class="table">
+      <thead>
+        <tr>
+          <td>File Name</td>
+          <td>Size</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let l of links">
+          <td>{{l.name}}</td>
+          <td>{{l.size / 1024 | size}}</td>
+          <td class="text-right">
+            <button mat-raised-button (click)="open(l)">Download</button>
+            <button *ngIf="store.user" mat-raised-button class="ml-2" color="warn" (click)="delete(l)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
     <input #file type="file" accept="application/pdf" (change)="upload($event.target)" hidden>
   </div>
 </div>

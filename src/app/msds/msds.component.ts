@@ -9,11 +9,24 @@ import {AppStore} from '../app.store';
 export class MSDSComponent implements OnInit {
     firestore;
     links = [];
+    loading = false;
     storage;
 
     constructor(public store: AppStore) {
         this.firestore = firebase.firestore();
         this.storage = firebase.storage();
+    }
+
+    async delete(link) {
+        this.loading = true;
+        let wait = [
+            this.storage.ref(`MSDS/${link.name}`).delete(),
+            this.firestore.collection('msds').doc(link.name).delete()
+        ];
+
+        await Promise.all(wait);
+        this.links.splice(this.links.indexOf(link), 1);
+        this.loading = false;
     }
 
     async ngOnInit() {
@@ -26,16 +39,17 @@ export class MSDSComponent implements OnInit {
     }
 
     upload(e) {
+        this.loading = true;
         this.storage.ref(`MSDS/${e.files[0].name}`).put(e.files[0]).then(async e => {
             let data = {
                 name: e.metadata.name,
+                size: e.metadata.size,
                 src: await this.storage.ref(e.metadata.fullPath).getDownloadURL()
             };
 
-            console.log(data);
-
-            this.links.concat([data]).sort();
-            this.firestore.collection('msds').doc(e.metadata.name).set(data);
+            await this.firestore.collection('msds').doc(e.metadata.name).set(data);
+            this.links = this.links.concat([data]).sort();
+            this.loading = false;
         });
     }
 }
