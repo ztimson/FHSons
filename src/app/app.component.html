@@ -51,41 +51,37 @@
 
 <!-- Footer -->
 <footer>
-    <div class="container-fluid">
-        <div class="container">
-            <div class="py-3 text-center">
-                <div class="d-none d-md-inline-block align-top mr-5 text-left">
-                    <h5>MAIN MENU</h5>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li>
-                            <a [routerLink]="['/about']">About</a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['/store']">Store</a>
-                        </li>
-                        <li>
-                            <a [routerLink]="['/formulaManager']">Formula Manager</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="d-none d-md-inline-block align-top mr-5 text-left">
-                    <h5>PRODUCTS</h5>
-                    <ul style="list-style-type: none; padding-left: 0; columns: 3;">
-                        <li *ngFor="let c of store.categories | async">
-                            <a [routerLink]="['/store', c.name]">{{c.name}}</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="align-top d-inline-block text-left">
-                    <h5>CONTACT</h5>
-                    <p>
-                        <i class="fas fa-phone mr-2"></i> 416-744-2723
-                        <br />
-                        <i class="fas fa-fax mr-2"></i> 416-744-4078
-                        <br />Toll Free: 1-888-422-7737
-                    </p>
-                </div>
-            </div>
+    <div class="d-flex py-4 justify-content-center">
+        <div class="d-none d-md-inline ml-5 text-left">
+            <h5>MAIN MENU</h5>
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li>
+                    <a [routerLink]="['/about']">About</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/store']">Store</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/formulaManager']">Formula Manager</a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-none d-md-inline mx-5 text-left">
+            <h5 class="text-center">PRODUCTS</h5>
+            <ul style="list-style-type: none; padding-left: 0; columns: 3;">
+                <li *ngFor="let c of store.categories | async">
+                    <a [routerLink]="['/store', c.name]">{{c.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="text-left">
+            <h5>CONTACT</h5>
+            <p>
+                <i class="fas fa-phone mr-2"></i> 416-744-2723
+                <br />
+                <i class="fas fa-fax mr-2"></i> 416-744-4078
+                <br />Toll Free: 1-888-422-7737
+            </p>
         </div>
     </div>
     <div class="container-fluid footer-sub">
