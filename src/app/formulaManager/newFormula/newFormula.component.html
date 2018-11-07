@@ -20,7 +20,7 @@
             </mat-select>
         </mat-form-field>
         <mat-form-field style="width: 75px">
-            <input matInput type="number" placeholder="Amount" [(ngModel)]="amount">
+            <input matInput type="number" placeholder="Amount" min="1" [(ngModel)]="amount">
         </mat-form-field>
         <mat-form-field style="width: 40px">
             <mat-select placeholder="Unit" [(ngModel)]="unit">
@@ -58,9 +58,7 @@
 </mat-dialog-content>
 <mat-divider></mat-divider>
 <mat-dialog-actions class="justify-content-end">
-    <button mat-raised-button type="submit" form="createForm" (click)="submit()" [disabled]="components.length < 1 || !name">
-        <mat-icon *ngIf="data" class="mr-1">edit</mat-icon>
-        <mat-icon *ngIf="!data" class="mr-1">add</mat-icon>
+    <button mat-button type="submit" form="createForm" (click)="submit()" [disabled]="components.length < 1 || !name">
         <span *ngIf="data">Update</span>
         <span *ngIf="!data">Create</span>
     </button>

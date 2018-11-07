@@ -1,32 +1,37 @@
-<button mat-raised-button class="float-right mb-3" (click)="createComponent()">
-    <mat-icon>add</mat-icon> Create</button>
-<table class="table">
+<div class="bg-white text-right p-2" style="overflow: auto">
+    <button mat-raised-button class="float-right mb-3" (click)="createComponent()">
+        <mat-icon>add</mat-icon> Create
+    </button>
+</div>
+<div class="px-2">
+    <table class="table">
     <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Created</th>
-            <th>Cost Per Kg</th>
-            <th></th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Created</th>
+        <th>Cost Per Kg</th>
+        <th></th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let c of store.components | async">
-            <td>{{c.name}}</td>
-            <td>{{c.description}}</td>
-            <td>{{c.created | date}}</td>
-            <td class="text-center">{{c.cost | currency}}</td>
-            <td>
-                <button mat-icon-button (click)="createComponent(c)">
-                    <mat-icon class="curs-pointer">edit</mat-icon>
-                </button>
-            </td>
-            <td>
-                <button mat-icon-button (click)="delete(c)">
-                    <mat-icon class="curs-pointer">delete</mat-icon>
-                </button>
-            </td>
-        </tr>
+    <tr *ngFor="let c of store.components | async">
+        <td>{{c.name}}</td>
+        <td>{{c.description}}</td>
+        <td>{{c.created | date}}</td>
+        <td class="text-center">{{c.cost | currency}}</td>
+        <td>
+            <button mat-icon-button (click)="createComponent(c)">
+                <mat-icon class="curs-pointer">edit</mat-icon>
+            </button>
+        </td>
+        <td>
+            <button mat-icon-button (click)="delete(c)">
+                <mat-icon class="curs-pointer">delete</mat-icon>
+            </button>
+        </td>
+    </tr>
     </tbody>
-</table>
+    </table>
+</div>

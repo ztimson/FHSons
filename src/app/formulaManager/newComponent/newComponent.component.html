@@ -15,8 +15,9 @@
         </mat-form-field>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-raised-button type="submit" form="createForm" color="primary" (click)="submit()">
+<mat-divider></mat-divider>
+<mat-dialog-actions class="justify-content-end">
+    <button mat-button type="submit" form="createForm" (click)="submit()" [disabled]="!name || !cost">
         <span *ngIf="data">Update</span>
         <span *ngIf="!data">Create</span>
     </button>
