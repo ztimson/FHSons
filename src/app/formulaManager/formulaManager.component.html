@@ -19,18 +19,23 @@
         </mat-list>
     </mat-drawer>
     <mat-drawer-content class="p-3 bg-white" style="min-height: 450px; background: url('assets/img/splatter.jpg') center; background-size: cover;">
-        <div>
-            <button *ngIf="mobile" mat-raised-button (click)="drawer.open()">
+        <div class="d-block" style="overflow: auto">
+            <button *ngIf="mobile" class="mr-2" mat-raised-button (click)="drawer.open()">
                 <mat-icon>opacity</mat-icon> Formulas
             </button>
-            <button *ngIf="store.user" mat-raised-button class="float-md-right mx-3" (click)="newFormula()">
-                <mat-icon>add</mat-icon> Create
-            </button>
+            <span *ngIf="store.user" class="float-md-right">
+                <button mat-raised-button class="mr-2" (click)="newFormula()">
+                    <mat-icon>add</mat-icon> Create
+                </button>
+                <button mat-raised-button (click)="openComponents()">
+                    <mat-icon>list_alt</mat-icon> Components
+                </button>
+            </span>
         </div>
         <div *ngIf="(electron.isElectronApp || mobile) && !formula">
             <img src="assets/img/starthere.png" class="m-4">
         </div>
-        <mat-card *ngIf="!electron.isElectronApp && !mobile && !formula" class="mx-auto" style="max-width: 600px">
+        <mat-card *ngIf="!electron.isElectronApp && !mobile && !formula" class="mx-auto mt-4" style="max-width: 600px">
             <mat-card-header>
                 <mat-card-title>
                     <h1 class="display-4" style="color: #53709f">Formula Manager</h1>
@@ -38,9 +43,9 @@
             </mat-card-header>
             <mat-card-content>
                 <p class="ml-3 lead text-white-50">Tired of using your browser? Download the standalone version of the Formula Manager.</p>
-                <button mat-button class="button-fix"><i class="fab fa-windows mr-1 mb-1"></i> Windows</button>
-                <button mat-button class="button-fix"><i class="fab fa-apple mr-1 mb-1"></i> MacOS</button>
-                <button mat-button class="button-fix"><i class="fab fa-linux mr-1 mb-1"></i> Linux</button>
+                <button mat-raised-button class="button-fix ml-3"><i class="fab fa-windows mr-1 mb-1"></i> Windows</button>
+                <button mat-raised-button class="button-fix ml-2"><i class="fab fa-apple mr-1 mb-1"></i> MacOS</button>
+                <button mat-raised-button class="button-fix ml-2"><i class="fab fa-linux mr-1 mb-1"></i> Linux</button>
             </mat-card-content>
         </mat-card>
         <mat-card *ngIf="formula" class="my-4 mx-auto" style="max-width: 600px">
@@ -96,15 +101,14 @@
             </mat-card-content>
             <mat-card-actions *ngIf="store.user" style="overflow: hidden">
                 <mat-divider></mat-divider>
-                <button *ngIf="!formula.approved" mat-button class="m-1 mt-2" (click)="approve(formula)">
-                    <mat-icon>check</mat-icon>Approve
+                <button *ngIf="!formula.approved" mat-raised-button class="m-1 mt-3" (click)="approve(formula)">
+                    <mat-icon>check</mat-icon> Approve
                 </button>
-                <div class="float-right m-1 mt-2">
-                    <button mat-button class="mr-3" (click)="edit(formula)">
-                        <mat-icon>edit</mat-icon>Edit
-                    </button>
-                    <button mat-button (click)="delete(formula)">
-                        <mat-icon>delete</mat-icon>Delete
+                <div class="float-right m-1 mt-3">
+                    <button mat-raised-button (click)="edit(formula)">
+                        <mat-icon>edit</mat-icon> Edit</button>
+                    <button mat-raised-button class="ml-2" color="warn" (click)="delete(formula)">
+                        <mat-icon>delete</mat-icon> Delete
                     </button>
                 </div>
             </mat-card-actions>

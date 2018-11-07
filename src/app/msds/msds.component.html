@@ -1,32 +1,36 @@
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <div class="bg-white pt-4" style="min-height: 450px">
-  <div class="container py-3">
-    <div style="overflow: auto">
-      <h4 class="ml-3 d-inline">MSDS</h4>
-      <button *ngIf="store.user" mat-button class="float-right" (click)="file.click()">
-        <mat-icon>add</mat-icon> Add
-      </button>
+    <div class="container py-3">
+        <div style="overflow: auto">
+            <h4 class="ml-3 d-inline">MSDS</h4>
+            <button *ngIf="store.user" mat-button class="float-right mb-2" (click)="file.click()">
+                <mat-icon>add</mat-icon> Add
+            </button>
+        </div>
+        <mat-divider></mat-divider>
+        <table class="table">
+            <thead>
+            <tr>
+                <td>File Name</td>
+                <td>Size</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let l of links">
+                <td>{{l.name}}</td>
+                <td>{{l.size / 1024 | size}}</td>
+                <td class="text-right">
+                    <button mat-raised-button (click)="open(l)">
+                        <mat-icon>arrow_downward</mat-icon> Download
+                    </button>
+                    <button *ngIf="store.user" mat-raised-button class="ml-2" color="warn" (click)="delete(l)">
+                        <mat-icon>delete</mat-icon> Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <input #file type="file" accept="application/pdf" (change)="upload($event.target)" hidden>
     </div>
-    <mat-divider></mat-divider>
-    <table class="table">
-      <thead>
-        <tr>
-          <td>File Name</td>
-          <td>Size</td>
-          <td></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let l of links">
-          <td>{{l.name}}</td>
-          <td>{{l.size / 1024 | size}}</td>
-          <td class="text-right">
-            <button mat-raised-button (click)="open(l)">Download</button>
-            <button *ngIf="store.user" mat-raised-button class="ml-2" color="warn" (click)="delete(l)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <input #file type="file" accept="application/pdf" (change)="upload($event.target)" hidden>
-  </div>
 </div>

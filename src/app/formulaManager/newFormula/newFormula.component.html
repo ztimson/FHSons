@@ -1,36 +1,43 @@
 <mat-dialog-content>
     <h3 mat-dialog-title>
         <span *ngIf="data">Update</span>
-        <span *ngIf="!data">Create</span> Formula</h3>
-    <mat-form-field class="w-100">
-        <input matInput placeholder="Name" name="name" [(ngModel)]="name">
-    </mat-form-field>
-    <mat-checkbox class="float-right" [(ngModel)]="approved">Approved</mat-checkbox>
-    <mat-form-field>
-        <mat-select placeholder="Component" [(ngModel)]="component">
-            <mat-option *ngFor="let c of componentsList" [value]="c.name">
-                {{c.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field style="width: 75px">
-        <input matInput type="number" placeholder="Amount" [(ngModel)]="amount">
-    </mat-form-field>
-    <mat-form-field style="width: 40px">
-        <mat-select placeholder="Unit" [(ngModel)]="unit">
-            <mat-option value="g">g</mat-option>
-            <mat-option value="oz">oz</mat-option>
-            <mat-option value="kg">kg</mat-option>
-            <mat-option value="lb">lb</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <button mat-raised-button class="ml-3" (click)="add()">Add</button>
+        <span *ngIf="!data">Create</span> Formula
+    </h3>
+    <div class="mb-4">
+        <mat-form-field class="w-100">
+            <input matInput placeholder="Name" name="name" [(ngModel)]="name">
+        </mat-form-field>
+        <div class="text-right">
+            <mat-checkbox [(ngModel)]="approved">Approved</mat-checkbox>
+        </div>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-select placeholder="Component" [(ngModel)]="component">
+                <mat-option *ngFor="let c of componentsList" [value]="c.name">
+                    {{c.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field style="width: 75px">
+            <input matInput type="number" placeholder="Amount" [(ngModel)]="amount">
+        </mat-form-field>
+        <mat-form-field style="width: 40px">
+            <mat-select placeholder="Unit" [(ngModel)]="unit">
+                <mat-option value="g">g</mat-option>
+                <mat-option value="oz">oz</mat-option>
+                <mat-option value="kg">kg</mat-option>
+                <mat-option value="lb">lb</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button class="ml-3" (click)="add()">Add</button>
+    </div>
     <table class="w-100 table">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Quantity</th>
-                <th></th>
+                <th style="width: 50px"></th>
             </tr>
         </thead>
         <tbody>
@@ -45,12 +52,15 @@
             </tr>
         </tbody>
     </table>
-    <div class="float-right">
+    <div class="text-right mb-3">
         <strong>Yield: </strong>{{total() | convertFromG: unit}} {{unit}}
     </div>
 </mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-raised-button type="submit" form="createForm" color="primary" (click)="submit()" [disabled]="components.length < 1 || !name">
+<mat-divider></mat-divider>
+<mat-dialog-actions class="justify-content-end">
+    <button mat-raised-button type="submit" form="createForm" (click)="submit()" [disabled]="components.length < 1 || !name">
+        <mat-icon *ngIf="data" class="mr-1">edit</mat-icon>
+        <mat-icon *ngIf="!data" class="mr-1">add</mat-icon>
         <span *ngIf="data">Update</span>
         <span *ngIf="!data">Create</span>
     </button>
