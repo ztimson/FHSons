@@ -1,0 +1,17 @@
+[
+  {"name": "CT YELLOW", "description": "BASIC COLOUR", "price": 4.50, "createdOn": "Wed Mar 02 09:19:55 EST 2016"},
+  {"name": "CT FL-BLUE", "description": "FLUORESCENT COLOUR", "price": 3.50, "createdOn": "Wed Mar 02 10:43:03 EST 2016"},
+  {"name": "CT FL-YELLOW", "description": "FLUORESCENT COLOUR", "price": 5.00, "createdOn": "Wed Mar 02 10:42:06 EST 2016"},
+  {"name": "CT FL-PURPLE", "description": "FLUORESCENT COLOUR", "price": 6.50, "createdOn": "Wed Mar 02 10:42:33 EST 2016"},
+  {"name": "CT MARINE", "description": "BASIC COLOUR", "price": 4.00, "createdOn": "Wed Mar 02 10:40:21 EST 2016"},
+  {"name": "CT RED", "description": "BASIC COLOUR", "price": 4.00, "createdOn": "Wed Mar 02 10:36:12 EST 2016"},
+  {"name": "CT BLACK", "description": "BASIC COLOUR", "price": 3.00, "createdOn": "Wed Mar 02 10:29:36 EST 2016"},
+  {"name": "CT GREEN", "description": "BASIC COLOUR", "price": 3.50, "createdOn": "Wed Mar 02 10:30:17 EST 2016"},
+  {"name": "CT FL-RED", "description": "FLUORESCENT COLOUR", "price": 6.00, "createdOn": "Wed Mar 02 10:40:51 EST 2016"},
+  {"name": "CT BLUE", "description": "BASIC COLOUR", "price": 3.50, "createdOn": "Wed Mar 02 10:29:57 EST 2016"},
+  {"name": "CT VIOLET", "description": "BASIC COLOUR", "price": 6.00, "createdOn": "Wed Mar 02 09:57:09 EST 2016"},
+  {"name": "CT FL-PINK", "description": "FLUORESCENT COLOUR", "price": 6.00, "createdOn": "Wed Mar 02 10:41:16 EST 2016"},
+  {"name": "CT ORANGE", "description": "BASIC COLOUR", "price": 4.50, "createdOn": "Wed Mar 02 10:30:43 EST 2016"},
+  {"name": "CT WHITE", "description": "BASIC COLOUR", "price": 3.50, "createdOn": "Wed Mar 02 09:19:21 EST 2016"},
+  {"name": "CT MAGENTA", "description": "BASIC COLOUR", "price": 6.00, "createdOn": "Wed Mar 02 10:39:37 EST 2016"}
+]
