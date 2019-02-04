@@ -1,8 +1,8 @@
 import {DocumentReference} from 'angularfire2/firestore';
 
 export interface Component {
-  cost: number;
-  created: Date;
+  price: number;
+  createdOn: Date;
   description: string;
   id: string;
   name: string;
