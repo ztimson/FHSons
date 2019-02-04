@@ -42,7 +42,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let c of components; let i = index">
-                <td>{{c.name}}</td>
+                <td>{{c.component.name}}</td>
                 <td>{{c.quantity | convertFromG: unit}} {{unit}}</td>
                 <td>
                     <button mat-icon-button (click)="remove(i)">

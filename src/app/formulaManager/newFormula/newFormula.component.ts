@@ -14,7 +14,7 @@ export class NewFormulaComponent {
 	amount: number;
 	approved: boolean = false;
 	component: string;
-	components: { component: string; name: string; quantity: number }[] = [];
+	components: { component: Component; quantity: number }[] = [];
 	componentsList = [];
 	@LocalStorage({ defaultValue: 'kg', fieldName: 'newFormulaUnit' })
 	unit;
@@ -30,17 +30,14 @@ export class NewFormulaComponent {
 		if (this.data) {
 			this.name = this.data.name;
 			this.approved = this.data.approved;
-			this.components = this.data.components.map(row => {
-				return { component: row.component.id, name: row.component.name, quantity: row.quantity };
-			});
+			this.components = this.data.components;
 		}
 	}
 
 	add() {
-		let id = this.componentsList.filter(row => row.name == this.component)[0].id;
-		console.log(id);
+		let component = this.componentsList.find(row => row.name == this.component);
 		let amount = new ConvertToGPipe().transform(Number(this.amount), this.unit);
-		this.components.push({ component: id, name: this.component, quantity: amount });
+		this.components.push({ component: component, quantity: amount });
 		this.component = null;
 	    this.amount = null;
 	}
@@ -53,19 +50,14 @@ export class NewFormulaComponent {
 		let newFormula = {
 			name: this.name,
 			approved: this.approved,
-			components: this.components.map((row: any) => {
-				return { component: this.db.collection('components').doc(row.component).ref, quantity: row.quantity };
-			})
+			components: this.components.map((row: any) => ({component: row.component.id, quantity: row.quantity})),
+			createdOn: new Date()
 		};
 
 		if (!this.data) {
-			newFormula['created'] = new Date();
-			this.db
-				.collection('formulas')
-				.add(newFormula)
-				.then(data => this.dialogRef.close());
+			this.db.collection('formulas').doc(this.name).set(newFormula).then(ignore => this.dialogRef.close());
 		} else {
-			this.data.ref.update(newFormula).then(data => this.dialogRef.close());
+			this.data.ref.update(newFormula).then(ignore => this.dialogRef.close());
 		}
 	}
 

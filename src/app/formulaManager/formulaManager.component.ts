@@ -52,7 +52,7 @@ export class FormulaManagerComponent {
     cost() {
         let cost = 0;
         this.formula.components.forEach(
-            row => (cost += (((row.quantity / this.formula.total) * this._newTotal) / 1000) * row.component.cost)
+            row => (cost += (((row.quantity / this.formula.total) * this._newTotal) / 1000) * row.component.price)
         );
         return cost;
     }

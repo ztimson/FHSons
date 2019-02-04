@@ -51,7 +51,7 @@
         <mat-card *ngIf="formula" class="my-4 mx-auto" style="max-width: 600px">
             <mat-card-header>
                 <mat-card-title class="mb-0"><h4>{{formula.name}}</h4></mat-card-title>
-                <mat-card-subtitle>{{formula.created | date}}</mat-card-subtitle>
+                <mat-card-subtitle>{{formula.createdOn.seconds * 1000 | date}}</mat-card-subtitle>
                 <div *ngIf="store.user" class="ml-auto">
                     <h4>Approved:
                         <mat-icon *ngIf="formula.approved" class="text-success" style="transform: translateY(20%)">check_circle</mat-icon>
@@ -72,7 +72,7 @@
                     <tr *ngFor="let c of formula.components">
                         <td style="width: 80%">{{c.component?.name}}</td>
                         <td class="text-right" style="width: 10%">{{c.quantity | scale: formula.total : _newTotal | convertFromG: unit}} {{unit}}</td>
-                        <td class="text-right" style="width: 10%">{{c.quantity | scale: formula.total : _newTotal / 1000 * c.component.cost | currency}}</td>
+                        <td class="text-right" style="width: 10%">{{c.quantity | scale: formula.total : _newTotal / 1000 * c.component.price | currency}}</td>
                     </tbody>
                 </table>
                 <div class="col-12 d-lg-block mb-3" style="height: 4px; background:black; width: 100%;"></div>

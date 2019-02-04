@@ -39,7 +39,6 @@ export class AppStore {
         map(rows =>
           rows.map((row: any) => {
             let temp = Object.assign({ id: row.payload.doc.id, ref: row.payload.doc.ref }, row.payload.doc.data());
-            temp.created = temp.created.toDate();
             return <Component>temp;
           })
         ),
@@ -53,13 +52,7 @@ export class AppStore {
       map(data =>
         data[0].map(row => {
           let temp = <any>Object.assign({ id: row.payload.doc.id, ref: row.payload.doc.ref }, row.payload.doc.data());
-          temp.created = temp.created.toDate();
-
-          temp.components = temp.components.map(row => {
-            let component = data[1].filter(c => c.id == row.component.id)[0];
-            return { component: component, quantity: row.quantity };
-          });
-
+          temp.components = temp.components.map(row => ({component: data[1].find(c => c.id == row.component), quantity: row.quantity}));
           return <Formula>temp;
         })
       ),
