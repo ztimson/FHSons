@@ -63,7 +63,7 @@ export class FormulaManagerComponent {
     }
 
     delete(formula) {
-        this.dialog.open(DeleteComponent, {data: formula});
+        this.dialog.open(DeleteComponent, {data: formula}).afterClosed().subscribe(() => this.formula = null);
     }
 
     displayFormula(formula) {
