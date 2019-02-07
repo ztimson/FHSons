@@ -16,6 +16,7 @@ export class NewFormulaComponent {
 	component: string;
 	components: { component: Component; quantity: number }[] = [];
 	componentsList = [];
+	exists: boolean = false;
 	@LocalStorage({ defaultValue: 'kg', fieldName: 'newFormulaUnit' })
 	unit;
 
@@ -40,6 +41,12 @@ export class NewFormulaComponent {
 		this.components.push({ component: component, quantity: amount });
 		this.component = null;
 	    this.amount = null;
+	}
+
+	checkExists(name) {
+		this.store.formulas.subscribe(formulas => {
+			this.exists = !!formulas.find(f => f.id == name)
+		});
 	}
 
 	remove(i) {
