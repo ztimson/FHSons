@@ -130,3 +130,17 @@ footer h5 {
 .mat-form-field-indix {
   padding: 0.5em 0 1em 0;
 }
+
+@media print {
+  .ml-print-0 {
+    margin-left: 0 !important;
+  }
+
+  .formula-card {
+    max-width: none !important;
+  }
+}
+
+.formula-card {
+  max-width: 600px;
+}

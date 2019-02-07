@@ -1,5 +1,5 @@
 <mat-drawer-container class="flex-grow-1">
-    <mat-drawer #drawer [mode]="mobile ? 'over' : 'side'" [opened]="!mobile" [disableClose]="!mobile" [autoFocus]="false">
+    <mat-drawer #drawer class="d-print-none" [mode]="mobile ? 'over' : 'side'" [opened]="!mobile" [disableClose]="!mobile" [autoFocus]="false">
         <div class="sticky-top bg-white">
             <mat-form-field appearance="outline" class="mx-3 mt-3 pb-0">
                 <mat-label>Search</mat-label>
@@ -18,8 +18,8 @@
             </ng-container>
         </mat-list>
     </mat-drawer>
-    <mat-drawer-content class="p-3 bg-white" style="min-height: 450px; background: url('assets/img/splatter.jpg') center; background-size: cover;">
-        <div class="d-block" style="overflow: auto">
+    <mat-drawer-content class="p-3 bg-white ml-print-0" style="min-height: 450px; background: url('assets/img/splatter.jpg') center; background-size: cover;">
+        <div class="d-block d-print-none" style="overflow: auto">
             <button *ngIf="mobile" class="mr-2" mat-raised-button (click)="drawer.open()">
                 <mat-icon>opacity</mat-icon> Formulas
             </button>
@@ -48,15 +48,17 @@
                 <button mat-button class="button-fix ml-2"><i class="fab fa-linux mr-1 mb-1"></i> Linux</button>
             </mat-card-content>
         </mat-card>
-        <mat-card *ngIf="formula" class="my-4 mx-auto" style="max-width: 600px">
+        <mat-card *ngIf="formula" class="my-4 mx-auto formula-card">
+            <div class="d-none d-print-block mb-5 pb-5">
+                <h1 class="mb-0">FH & Sons: Formula Manager</h1>
+                <small>All rights reserved</small>
+            </div>
             <mat-card-header>
                 <mat-card-title class="mb-0"><h4>{{formula.name}}</h4></mat-card-title>
                 <mat-card-subtitle>{{formula.createdOn.seconds * 1000 | date}}</mat-card-subtitle>
                 <div *ngIf="store.user" class="ml-auto">
-                    <h4>Approved:
-                        <mat-icon *ngIf="formula.approved" class="text-success" style="transform: translateY(20%)">check_circle</mat-icon>
-                        <mat-icon *ngIf="!formula.approved" class="text-danger" style="transform: translateY(20%)">remove_circle</mat-icon>
-                    </h4>
+                    <h5 *ngIf="formula.approved">Approved<span *ngIf="formula.approvedOn">: {{formula.approvedOn.seconds * 1000 | date}}</span></h5>
+                    <button mat-raised-button color="primary" *ngIf="!formula.approved" (click)="approve(formula)">Approve</button>
                 </div>
             </mat-card-header>
             <mat-card-content>
@@ -99,9 +101,9 @@
                     </div>
                 </div>
             </mat-card-content>
-            <mat-card-actions *ngIf="store.user" style="overflow: hidden">
+            <mat-card-actions *ngIf="store.user" class="d-print-none" style="overflow: hidden">
                 <mat-divider></mat-divider>
-                <button *ngIf="!formula.approved" mat-button class="m-1 mt-3" (click)="approve(formula)">Approve</button>
+                <button mat-button class="m-1 mt-3" onclick="window.print()">Print</button>
                 <div class="float-right m-1 mt-3">
                     <button mat-button (click)="edit(formula)">Edit</button>
                     <button mat-button class="ml-2" color="warn" (click)="delete(formula)">Delete</button>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import {ConvertFromGPipe, ConvertToGPipe} from './units.pipe';
 import {ElectronService} from 'ngx-electron';
 import {LocalStorage} from 'webstorage-decorators';
@@ -9,6 +9,7 @@ import {AppStore} from '../app.store';
 import {map} from 'rxjs/operators';
 import {DeleteComponent} from '../delete/delete.component';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import * as firebase from 'firebase';
 
 @Component({
     selector: 'formula-manager',
@@ -37,16 +38,18 @@ export class FormulaManagerComponent {
         this._newTotal = new ConvertToGPipe().transform(total, this.unit);
     }
 
-    constructor(public electron: ElectronService, private dialog: MatDialog, private $breakpoint: BreakpointObserver, public store: AppStore) {
+    constructor(public electron: ElectronService, private dialog: MatDialog, private $breakpoint: BreakpointObserver, private ngZone: NgZone, public store: AppStore) {
         this.formulas = this.store.formulas.pipe(map(rows => rows.filter(row => this.store.user || row.approved)));
 
         // Handle switching between mobile and desktop
         this.$breakpoint.observe(Breakpoints.Handset).subscribe(e => this.mobile = e.matches);
     }
 
-    approve(formula) {
+    async approve(formula) {
         formula.approved = true;
-        formula.ref.update({approved: true});
+        await formula.ref.update({approved: true, approvedOn: firebase.firestore.FieldValue.serverTimestamp()});
+        await this.store.formulas.toPromise();
+        this.ngZone.runTask(() => this.displayFormula(formula));
     }
 
     cost() {
