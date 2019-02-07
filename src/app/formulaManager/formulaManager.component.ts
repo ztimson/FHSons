@@ -45,11 +45,9 @@ export class FormulaManagerComponent {
         this.$breakpoint.observe(Breakpoints.Handset).subscribe(e => this.mobile = e.matches);
     }
 
-    async approve(formula) {
+    approve(formula) {
         formula.approved = true;
-        await formula.ref.update({approved: true, approvedOn: firebase.firestore.FieldValue.serverTimestamp()});
-        await this.store.formulas.toPromise();
-        this.ngZone.runTask(() => this.displayFormula(formula));
+        formula.ref.update({approved: true, approvedOn: firebase.firestore.FieldValue.serverTimestamp()});
     }
 
     cost() {
