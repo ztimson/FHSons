@@ -10,6 +10,7 @@ import {AppStore} from '../app.store';
 import {Category} from './category';
 import {Observable} from 'rxjs';
 import {Product} from './product';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'store',
@@ -24,7 +25,8 @@ export class CategoriesComponent {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     public app: AppComponent,
-    public store: AppStore
+    public store: AppStore,
+    private sanatize: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -48,4 +50,6 @@ export class CategoriesComponent {
   delete(obj) {
     this.dialog.open(DeleteComponent, {data: obj});
   }
+
+  trust(url) { return this.sanatize.bypassSecurityTrustResourceUrl(url); }
 }
