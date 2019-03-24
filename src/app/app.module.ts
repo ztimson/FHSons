@@ -33,6 +33,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MSDSComponent} from './msds/msds.component';
 import {SizePipe} from './size.pipe';
+import {CatalogComponent} from "./catalog/catalog.component";
 
 @NgModule({
     declarations: [
@@ -40,6 +41,7 @@ import {SizePipe} from './size.pipe';
         AppComponent,
         CategoriesComponent,
         CartComponent,
+        CatalogComponent,
         ConvertFromGPipe,
         ConvertToGPipe,
         DeleteComponent,
@@ -71,6 +73,7 @@ import {SizePipe} from './size.pipe';
         RouterModule.forRoot([
             {path: 'about', component: AboutComponent},
             {path: 'cart', component: CartComponent},
+            {path: 'catalog', component: CatalogComponent},
             {path: 'formulaManager', component: FormulaManagerComponent},
             {path: 'msds', component: MSDSComponent},
             {path: 'products/:product', component: ProductsComponent},

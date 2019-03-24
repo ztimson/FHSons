@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material';
@@ -10,13 +10,12 @@ import {AppStore} from '../app.store';
 import {Category} from './category';
 import {Observable} from 'rxjs';
 import {Product} from './product';
-import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'store',
   templateUrl: 'categories.component.html'
 })
-export class CategoriesComponent {
+export class CategoriesComponent implements OnInit{
   category: string;
   categories: Observable<Category[]>;
   products: Observable<Product[]>;
@@ -26,7 +25,6 @@ export class CategoriesComponent {
     private dialog: MatDialog,
     public app: AppComponent,
     public store: AppStore,
-    private sanatize: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -50,6 +48,4 @@ export class CategoriesComponent {
   delete(obj) {
     this.dialog.open(DeleteComponent, {data: obj});
   }
-
-  trust(url) { return this.sanatize.bypassSecurityTrustResourceUrl(url); }
 }
