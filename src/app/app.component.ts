@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   cart: { id: string; item: string; option: POption, quantity: number}[];
 
   set lock(lock: boolean) {
+    if(lock) window.scrollTo(0, 0);
     document.getElementsByTagName('body')[0].classList[lock ? 'add' : 'remove']('lock');
   }
 
