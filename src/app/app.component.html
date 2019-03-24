@@ -1,95 +1,96 @@
+<div [ngClass]="{lock: lock, unlock: !lock}">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand roboto" [routerLink]="['/']">
+                <span class="fh-fade">fh</span>
+                <span class="rainbow"> & </span>
+                <span class="sons-fade">sons</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-    <div class="container">
-        <a class="navbar-brand roboto" [routerLink]="['/']">
-            <span class="fh-fade">fh</span>
-            <span class="rainbow"> & </span>
-            <span class="sons-fade">sons</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbar">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link text-dark" [routerLink]="['/about']">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" [routerLink]="['/catalog']">Catalog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" [routerLink]="['/formulaManager']">Formula Manager</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" [routerLink]="['/msds']">MSDS</a>
-                </li>
-            </ul>
-            <div class="ml-auto">
-                <button *ngIf="!store.user" mat-stroked-button color="primary" (click)="login()">Login</button>
-                <div *ngIf="store.user" class="d-inline">
-                    <span class="text-muted mr-3">{{store.user.email}}</span>
-                    <button mat-stroked-button color="accent" (click)="afAuth.auth.signOut()">Logout</button>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" [routerLink]="['/about']">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" [routerLink]="['/catalog']">Catalog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" [routerLink]="['/formulaManager']">Formula Manager</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" [routerLink]="['/msds']">MSDS</a>
+                    </li>
+                </ul>
+                <div class="ml-auto">
+                    <button *ngIf="!store.user" mat-stroked-button color="primary" (click)="login()">Login</button>
+                    <div *ngIf="store.user" class="d-inline">
+                        <span class="text-muted mr-3">{{store.user.email}}</span>
+                        <button mat-stroked-button color="accent" (click)="afAuth.auth.signOut()">Logout</button>
+                    </div>
+                    <button *ngIf="cart.length" mat-icon-button class="ml-3" [routerLink]="['/cart']">
+                        <mat-icon style="transform: translateY(6px)" [matBadge]="cartCount()" matBadgeColor="warn">
+                            shopping_cart
+                        </mat-icon>
+                    </button>
                 </div>
-                <button *ngIf="cart.length" mat-icon-button class="ml-3" [routerLink]="['/cart']">
-                    <mat-icon style="transform: translateY(6px)" [matBadge]="cartCount()" matBadgeColor="warn">
-                        shopping_cart
-                    </mat-icon>
-                </button>
             </div>
         </div>
+    </nav>
+
+    <!-- Push content down from under nav-->
+    <div style="height: 56px"></div>
+
+    <!-- Content -->
+    <div>
+        <router-outlet></router-outlet>
     </div>
-</nav>
 
-<!-- Push content down from under nav-->
-<div style="height: 56px"></div>
-
-<!-- Content -->
-<div>
-    <router-outlet></router-outlet>
+    <!-- Footer -->
+    <footer class="d-print-none">
+        <div class="d-flex py-4 justify-content-center">
+            <div class="d-none d-md-inline ml-5 text-left">
+                <h5>MAIN MENU</h5>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li>
+                        <a [routerLink]="['/about']">About</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/store']">Store</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/formulaManager']">Formula Manager</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-none d-md-inline mx-5 text-left">
+                <h5 class="text-center">PRODUCTS</h5>
+                <ul style="list-style-type: none; padding-left: 0; columns: 3;">
+                    <li *ngFor="let c of store.categories | async">
+                        <a [routerLink]="['/store', c.name]">{{c.name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="text-left">
+                <h5>CONTACT</h5>
+                <p>
+                    <i class="fas fa-phone mr-2"></i> 416-744-2723
+                    <br />
+                    <i class="fas fa-fax mr-2"></i> 416-744-4078
+                    <br />Toll Free: 1-888-422-7737
+                </p>
+            </div>
+        </div>
+        <div class="container-fluid footer-sub">
+            <div class="container text-center">
+                <p class="mb-0 p-2">© 2018 FH &amp; SONS
+                    <br />Designed and developed by:
+                    <a href="http://zakscode.com">Zak Timson</a>
+                </p>
+            </div>
+        </div>
+    </footer>
 </div>
-
-<!-- Footer -->
-<footer class="d-print-none">
-    <div class="d-flex py-4 justify-content-center">
-        <div class="d-none d-md-inline ml-5 text-left">
-            <h5>MAIN MENU</h5>
-            <ul style="list-style-type: none; padding-left: 0;">
-                <li>
-                    <a [routerLink]="['/about']">About</a>
-                </li>
-                <li>
-                    <a [routerLink]="['/store']">Store</a>
-                </li>
-                <li>
-                    <a [routerLink]="['/formulaManager']">Formula Manager</a>
-                </li>
-            </ul>
-        </div>
-        <div class="d-none d-md-inline mx-5 text-left">
-            <h5 class="text-center">PRODUCTS</h5>
-            <ul style="list-style-type: none; padding-left: 0; columns: 3;">
-                <li *ngFor="let c of store.categories | async">
-                    <a [routerLink]="['/store', c.name]">{{c.name}}</a>
-                </li>
-            </ul>
-        </div>
-        <div class="text-left">
-            <h5>CONTACT</h5>
-            <p>
-                <i class="fas fa-phone mr-2"></i> 416-744-2723
-                <br />
-                <i class="fas fa-fax mr-2"></i> 416-744-4078
-                <br />Toll Free: 1-888-422-7737
-            </p>
-        </div>
-    </div>
-    <div class="container-fluid footer-sub">
-        <div class="container text-center">
-            <p class="mb-0 p-2">© 2018 FH &amp; SONS
-                <br />Designed and developed by:
-                <a href="http://zakscode.com">Zak Timson</a>
-            </p>
-        </div>
-    </div>
-</footer>

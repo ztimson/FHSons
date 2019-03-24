@@ -18,6 +18,10 @@ export class AppComponent implements OnInit {
   @LocalStorage({ defaultValue: [], encryptionKey: 'HmRoBFUEVWqW5uvy' })
   cart: { id: string; item: string; option: POption, quantity: number}[];
 
+  set lock(lock: boolean) {
+    document.getElementsByTagName('body')[0].classList[lock ? 'add' : 'remove']('lock');
+  }
+
   constructor(
     private router: Router,
     private dialog: MatDialog,
