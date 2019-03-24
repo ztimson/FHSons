@@ -43,9 +43,15 @@
             </mat-card-header>
             <mat-card-content>
                 <p class="ml-3 lead text-white-50">Tired of using your browser? Download the standalone version of the Formula Manager.</p>
-                <button mat-button class="button-fix"><i class="fab fa-windows mr-1 mb-1"></i> Windows</button>
-                <button mat-button class="button-fix ml-2"><i class="fab fa-apple mr-1 mb-1"></i> MacOS</button>
-                <button mat-button class="button-fix ml-2"><i class="fab fa-linux mr-1 mb-1"></i> Linux</button>
+                <a href="/assets/releases/FormulaManager-win32-ia32.zip" download>
+                    <button mat-button class="button-fix"><i class="fab fa-windows mr-1 mb-1"></i> Windows</button>
+                </a>
+                <a href="/assets/releases/FormulaManager-darwin-x64.zip" download>
+                    <button mat-button class="button-fix ml-2"><i class="fab fa-apple mr-1 mb-1"></i> MacOS</button>
+                </a>
+                <a href="/assets/releases/FormulaManager-linux-x64.zip" download>
+                    <button mat-button class="button-fix ml-2"><i class="fab fa-linux mr-1 mb-1"></i> Linux</button>
+                </a>
             </mat-card-content>
         </mat-card>
         <mat-card *ngIf="formula" class="my-4 mx-auto formula-card">

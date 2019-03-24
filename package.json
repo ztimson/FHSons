@@ -1,12 +1,15 @@
 {
   "name": "fhsons",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "electron.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0",
     "build": "ng build --configuration=production",
     "run-electron": "ng build --base-href=\"./\" && electron ./public/index.html",
+    "build-win": "electron-packager public/ FormulaManager --overwrite --asar --platform=win32 --arch=ia32 --icon=src/assets/icons/win/icon.ico --prune=true --out=src/assets/releases",
+    "build-mac": "electron-packager public/ FormulaManager --overwrite --asar --platform=darwin --arch=x64 --icon=src/assets/icons/mac/icon.icns --prune=true --out=src/assets/releases",
+    "build-linux": "electron-packager public/ FormulaManager --overwrite --asar --platform=linux --arch=x64 --icon=src/assets/icons/png/1024x1024.png --prune=true --out=src/assets/releases",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -33,6 +36,7 @@
     "electron-packager": "^12.1.0",
     "firebase": "^5.1.0",
     "firebase-tools": "^6.0.1",
+    "fork": "^1.3.1",
     "hammerjs": "^2.0.8",
     "ng-simple-slideshow": "^1.2.3",
     "ngx-electron": "^1.0.4",
