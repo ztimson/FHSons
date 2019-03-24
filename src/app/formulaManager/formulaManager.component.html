@@ -11,14 +11,14 @@
         <mat-list>
             <ng-container *ngFor="let f of formulas | async; let i = index">
                 <mat-divider *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1 && i > 0"></mat-divider>
-                <mat-list-item *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1" (click)="displayFormula(f)" [ngClass]="{'active': f.id == formula?.id}">
+                <mat-list-item *ngIf="f.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1" (click)="displayFormula(f); mobile ? drawer.close() : null" [ngClass]="{'active': f.id == formula?.id}">
                     <mat-icon *ngIf="!f.approved" class="mr-3 text-danger">remove_circle</mat-icon>
                     {{f.name}}
                 </mat-list-item>
             </ng-container>
         </mat-list>
     </mat-drawer>
-    <mat-drawer-content class="p-3 bg-white ml-print-0" style="min-height: 450px; background: url('assets/img/splatter.jpg') center; background-size: cover;">
+    <mat-drawer-content class="p-3 bg-white ml-print-0" style="min-height: calc(100vh - 56px); background: url('assets/img/splatter.jpg') center; background-size: cover;">
         <div class="d-block d-print-none" style="overflow: auto">
             <button *ngIf="mobile" class="mr-2" mat-raised-button (click)="drawer.open()">
                 <mat-icon>opacity</mat-icon> Formulas
@@ -32,7 +32,7 @@
                 </button>
             </span>
         </div>
-        <div *ngIf="(electron.isElectronApp || mobile) && !formula">
+        <div *ngIf="mobile && !formula">
             <img src="assets/img/starthere.png" class="m-4">
         </div>
         <mat-card *ngIf="!electron.isElectronApp && !mobile && !formula" class="mx-auto mt-4" style="max-width: 600px">
