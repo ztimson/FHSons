@@ -20,6 +20,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/assets",
+              "src/electron.js",
               "src/manifest.json"
             ],
             "styles": [
@@ -78,6 +79,7 @@
             "scripts": [],
             "assets": [
               "src/assets",
+              "src/electron.js",
               "src/manifest.json"
             ]
           }

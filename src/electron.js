@@ -14,13 +14,7 @@ function createWindow() {
   });
 
   Menu.setApplicationMenu(null);
-
-  // load the dist folder from Angular
-  win.loadURL('https://fhsons.zakscode.com/formulaManager');
-
-  // Open the DevTools optionally:
-  win.webContents.openDevTools();
-
+  win.loadFile('index.html');
   win.on('closed', () => (win = null));
 }
 
